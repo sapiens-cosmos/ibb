@@ -24,13 +24,13 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type User struct {
-	Creator      string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Id           uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
-	Collateral   bool   `protobuf:"varint,3,opt,name=collateral,proto3" json:"collateral,omitempty"`
-	TotalDeposit int32  `protobuf:"varint,4,opt,name=totalDeposit,proto3" json:"totalDeposit,omitempty"`
-	TotalBorrow  int32  `protobuf:"varint,5,opt,name=totalBorrow,proto3" json:"totalBorrow,omitempty"`
-	Deposit      int32  `protobuf:"varint,6,opt,name=deposit,proto3" json:"deposit,omitempty"`
-	Borrow       string `protobuf:"bytes,7,opt,name=borrow,proto3" json:"borrow,omitempty"`
+	Creator      string     `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Id           uint64     `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+	Collateral   []bool     `protobuf:"varint,3,rep,packed,name=collateral,proto3" json:"collateral,omitempty"`
+	TotalDeposit int32      `protobuf:"varint,4,opt,name=totalDeposit,proto3" json:"totalDeposit,omitempty"`
+	TotalBorrow  int32      `protobuf:"varint,5,opt,name=totalBorrow,proto3" json:"totalBorrow,omitempty"`
+	Deposit      []*Deposit `protobuf:"bytes,6,rep,name=deposit,proto3" json:"deposit,omitempty"`
+	Borrow       []*Borrow  `protobuf:"bytes,7,rep,name=borrow,proto3" json:"borrow,omitempty"`
 }
 
 func (m *User) Reset()         { *m = User{} }
@@ -80,11 +80,11 @@ func (m *User) GetId() uint64 {
 	return 0
 }
 
-func (m *User) GetCollateral() bool {
+func (m *User) GetCollateral() []bool {
 	if m != nil {
 		return m.Collateral
 	}
-	return false
+	return nil
 }
 
 func (m *User) GetTotalDeposit() int32 {
@@ -101,18 +101,18 @@ func (m *User) GetTotalBorrow() int32 {
 	return 0
 }
 
-func (m *User) GetDeposit() int32 {
+func (m *User) GetDeposit() []*Deposit {
 	if m != nil {
 		return m.Deposit
 	}
-	return 0
+	return nil
 }
 
-func (m *User) GetBorrow() string {
+func (m *User) GetBorrow() []*Borrow {
 	if m != nil {
 		return m.Borrow
 	}
-	return ""
+	return nil
 }
 
 func init() {
@@ -122,24 +122,26 @@ func init() {
 func init() { proto.RegisterFile("ibb/user.proto", fileDescriptor_cc30c3e3fcf9ee8e) }
 
 var fileDescriptor_cc30c3e3fcf9ee8e = []byte{
-	// 262 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x54, 0x90, 0x31, 0x4e, 0xc3, 0x30,
-	0x14, 0x86, 0xe3, 0x90, 0xa6, 0xf0, 0x40, 0x1d, 0x2c, 0x40, 0x16, 0x83, 0x65, 0x75, 0x0a, 0x03,
-	0xc9, 0xc0, 0x0d, 0x0a, 0x27, 0x88, 0xc4, 0xc2, 0x66, 0x27, 0x56, 0xb0, 0x94, 0xf2, 0x22, 0xdb,
-	0x15, 0x70, 0x0b, 0x8e, 0xd5, 0xb1, 0x23, 0x23, 0x4a, 0x2e, 0x82, 0xe2, 0xa4, 0x52, 0x19, 0x6c,
-	0xf9, 0xfb, 0xfd, 0xdb, 0x7a, 0xfa, 0x60, 0x65, 0x94, 0x2a, 0x76, 0x4e, 0xdb, 0xbc, 0xb3, 0xe8,
-	0x91, 0xde, 0x38, 0xd9, 0x19, 0xfd, 0xee, 0x2a, 0x74, 0x5b, 0x74, 0xb9, 0x51, 0x6a, 0x5c, 0x77,
-	0xd7, 0x0d, 0x36, 0x18, 0x1a, 0xc5, 0x78, 0x9a, 0xca, 0xeb, 0x3d, 0x81, 0xe4, 0xc5, 0x69, 0x4b,
-	0x19, 0x2c, 0x2b, 0xab, 0xa5, 0x47, 0xcb, 0x88, 0x20, 0xd9, 0x45, 0x79, 0x44, 0xba, 0x82, 0xd8,
-	0xd4, 0x2c, 0x16, 0x24, 0x4b, 0xca, 0xd8, 0xd4, 0x94, 0x03, 0x54, 0xd8, 0xb6, 0xd2, 0x6b, 0x2b,
-	0x5b, 0x76, 0x26, 0x48, 0x76, 0x5e, 0x9e, 0x24, 0x74, 0x0d, 0x57, 0x1e, 0xbd, 0x6c, 0x9f, 0x75,
-	0x87, 0xce, 0x78, 0x96, 0x08, 0x92, 0x2d, 0xca, 0x7f, 0x19, 0x15, 0x70, 0x19, 0x78, 0x83, 0xd6,
-	0xe2, 0x07, 0x5b, 0x84, 0xca, 0x69, 0x34, 0xce, 0x53, 0xcf, 0x1f, 0xa4, 0xe1, 0xf6, 0x88, 0xf4,
-	0x16, 0x52, 0x35, 0x3d, 0x5b, 0x86, 0x41, 0x67, 0xda, 0x3c, 0xed, 0x7b, 0x4e, 0x0e, 0x3d, 0x27,
-	0xbf, 0x3d, 0x27, 0xdf, 0x03, 0x8f, 0x0e, 0x03, 0x8f, 0x7e, 0x06, 0x1e, 0xbd, 0xde, 0x37, 0xc6,
-	0xbf, 0xed, 0x54, 0x5e, 0xe1, 0xb6, 0x98, 0xe5, 0x3c, 0x4c, 0x76, 0x8a, 0xd1, 0xdd, 0x67, 0xd8,
-	0xfd, 0x57, 0xa7, 0x9d, 0x4a, 0x83, 0x96, 0xc7, 0xbf, 0x00, 0x00, 0x00, 0xff, 0xff, 0xe1, 0xb7,
-	0x5a, 0x4f, 0x55, 0x01, 0x00, 0x00,
+	// 297 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x90, 0xcd, 0x4a, 0xc4, 0x30,
+	0x14, 0x85, 0x27, 0x9d, 0x3f, 0xcd, 0xc8, 0xa0, 0x41, 0x21, 0x0c, 0x18, 0xc2, 0xac, 0xea, 0xc2,
+	0x16, 0x14, 0xc1, 0xf5, 0xe8, 0x13, 0x04, 0xdc, 0xb8, 0x6b, 0xda, 0x50, 0x03, 0x1d, 0x6f, 0x49,
+	0x32, 0xa8, 0x4f, 0xe0, 0xd6, 0xc7, 0x72, 0x39, 0x4b, 0x97, 0xd2, 0xbe, 0x88, 0x34, 0xe9, 0xc0,
+	0x08, 0xba, 0x68, 0xc9, 0xfd, 0x38, 0xe7, 0xdc, 0x1f, 0x3c, 0xd7, 0x52, 0xa6, 0x1b, 0xab, 0x4c,
+	0x52, 0x1b, 0x70, 0x40, 0xce, 0x6c, 0x56, 0x6b, 0xf5, 0x6c, 0x73, 0xb0, 0x6b, 0xb0, 0x89, 0x96,
+	0xb2, 0xfb, 0x16, 0xa7, 0x25, 0x94, 0xe0, 0x15, 0x69, 0xf7, 0x0a, 0xe2, 0xc5, 0x49, 0x67, 0x2e,
+	0x54, 0x0d, 0x56, 0xbb, 0x1e, 0x1d, 0x77, 0x48, 0x82, 0x31, 0xf0, 0x12, 0xc8, 0xf2, 0x3d, 0xc2,
+	0xa3, 0x07, 0xab, 0x0c, 0xa1, 0x78, 0x9a, 0x1b, 0x95, 0x39, 0x30, 0x14, 0x71, 0x14, 0x1f, 0x8a,
+	0x5d, 0x49, 0xe6, 0x38, 0xd2, 0x05, 0x8d, 0x38, 0x8a, 0x47, 0x22, 0xd2, 0x05, 0x61, 0x18, 0xe7,
+	0x50, 0x55, 0x99, 0x53, 0x26, 0xab, 0xe8, 0x90, 0x0f, 0xe3, 0x03, 0xb1, 0x47, 0xc8, 0x12, 0x1f,
+	0x39, 0x70, 0x59, 0x75, 0x1f, 0x5a, 0xd3, 0x11, 0x47, 0xf1, 0x58, 0xfc, 0x62, 0x84, 0xe3, 0x99,
+	0xaf, 0x57, 0x7e, 0x16, 0x3a, 0xf6, 0x92, 0x7d, 0x44, 0x6e, 0xf1, 0xb4, 0x9f, 0x9d, 0x4e, 0xf8,
+	0x30, 0x9e, 0x5d, 0xb1, 0xe4, 0xcf, 0xe5, 0x93, 0x3e, 0x52, 0xec, 0xe4, 0xe4, 0x06, 0x4f, 0xc2,
+	0x8a, 0x74, 0xea, 0x8d, 0xe7, 0xff, 0x18, 0x43, 0x23, 0xd1, 0x8b, 0x57, 0x77, 0x9f, 0x0d, 0x43,
+	0xdb, 0x86, 0xa1, 0xef, 0x86, 0xa1, 0x8f, 0x96, 0x0d, 0xb6, 0x2d, 0x1b, 0x7c, 0xb5, 0x6c, 0xf0,
+	0x78, 0x51, 0x6a, 0xf7, 0xb4, 0x91, 0x49, 0x0e, 0xeb, 0xb4, 0x8f, 0xba, 0x0c, 0x59, 0x69, 0x77,
+	0xcf, 0x57, 0xff, 0x77, 0x6f, 0xb5, 0xb2, 0x72, 0xe2, 0xaf, 0x7a, 0xfd, 0x13, 0x00, 0x00, 0xff,
+	0xff, 0xd7, 0x6d, 0x5a, 0xac, 0xb9, 0x01, 0x00, 0x00,
 }
 
 func (m *User) Marshal() (dAtA []byte, err error) {
@@ -163,16 +165,32 @@ func (m *User) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	var l int
 	_ = l
 	if len(m.Borrow) > 0 {
-		i -= len(m.Borrow)
-		copy(dAtA[i:], m.Borrow)
-		i = encodeVarintUser(dAtA, i, uint64(len(m.Borrow)))
-		i--
-		dAtA[i] = 0x3a
+		for iNdEx := len(m.Borrow) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Borrow[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintUser(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x3a
+		}
 	}
-	if m.Deposit != 0 {
-		i = encodeVarintUser(dAtA, i, uint64(m.Deposit))
-		i--
-		dAtA[i] = 0x30
+	if len(m.Deposit) > 0 {
+		for iNdEx := len(m.Deposit) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Deposit[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintUser(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x32
+		}
 	}
 	if m.TotalBorrow != 0 {
 		i = encodeVarintUser(dAtA, i, uint64(m.TotalBorrow))
@@ -184,15 +202,18 @@ func (m *User) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x20
 	}
-	if m.Collateral {
-		i--
-		if m.Collateral {
-			dAtA[i] = 1
-		} else {
-			dAtA[i] = 0
+	if len(m.Collateral) > 0 {
+		for iNdEx := len(m.Collateral) - 1; iNdEx >= 0; iNdEx-- {
+			i--
+			if m.Collateral[iNdEx] {
+				dAtA[i] = 1
+			} else {
+				dAtA[i] = 0
+			}
 		}
+		i = encodeVarintUser(dAtA, i, uint64(len(m.Collateral)))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x1a
 	}
 	if m.Id != 0 {
 		i = encodeVarintUser(dAtA, i, uint64(m.Id))
@@ -233,8 +254,8 @@ func (m *User) Size() (n int) {
 	if m.Id != 0 {
 		n += 1 + sovUser(uint64(m.Id))
 	}
-	if m.Collateral {
-		n += 2
+	if len(m.Collateral) > 0 {
+		n += 1 + sovUser(uint64(len(m.Collateral))) + len(m.Collateral)*1
 	}
 	if m.TotalDeposit != 0 {
 		n += 1 + sovUser(uint64(m.TotalDeposit))
@@ -242,12 +263,17 @@ func (m *User) Size() (n int) {
 	if m.TotalBorrow != 0 {
 		n += 1 + sovUser(uint64(m.TotalBorrow))
 	}
-	if m.Deposit != 0 {
-		n += 1 + sovUser(uint64(m.Deposit))
+	if len(m.Deposit) > 0 {
+		for _, e := range m.Deposit {
+			l = e.Size()
+			n += 1 + l + sovUser(uint64(l))
+		}
 	}
-	l = len(m.Borrow)
-	if l > 0 {
-		n += 1 + l + sovUser(uint64(l))
+	if len(m.Borrow) > 0 {
+		for _, e := range m.Borrow {
+			l = e.Size()
+			n += 1 + l + sovUser(uint64(l))
+		}
 	}
 	return n
 }
@@ -339,25 +365,75 @@ func (m *User) Unmarshal(dAtA []byte) error {
 				}
 			}
 		case 3:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Collateral", wireType)
-			}
-			var v int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowUser
+			if wireType == 0 {
+				var v int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowUser
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					v |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
 				}
-				if iNdEx >= l {
+				m.Collateral = append(m.Collateral, bool(v != 0))
+			} else if wireType == 2 {
+				var packedLen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowUser
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					packedLen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if packedLen < 0 {
+					return ErrInvalidLengthUser
+				}
+				postIndex := iNdEx + packedLen
+				if postIndex < 0 {
+					return ErrInvalidLengthUser
+				}
+				if postIndex > l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				v |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
+				var elementCount int
+				elementCount = packedLen
+				if elementCount != 0 && len(m.Collateral) == 0 {
+					m.Collateral = make([]bool, 0, elementCount)
 				}
+				for iNdEx < postIndex {
+					var v int
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowUser
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						v |= int(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					m.Collateral = append(m.Collateral, bool(v != 0))
+				}
+			} else {
+				return fmt.Errorf("proto: wrong wireType = %d for field Collateral", wireType)
 			}
-			m.Collateral = bool(v != 0)
 		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field TotalDeposit", wireType)
@@ -397,10 +473,10 @@ func (m *User) Unmarshal(dAtA []byte) error {
 				}
 			}
 		case 6:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Deposit", wireType)
 			}
-			m.Deposit = 0
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowUser
@@ -410,42 +486,59 @@ func (m *User) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Deposit |= int32(b&0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-		case 7:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Borrow", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowUser
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if msglen < 0 {
 				return ErrInvalidLengthUser
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + msglen
 			if postIndex < 0 {
 				return ErrInvalidLengthUser
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Borrow = string(dAtA[iNdEx:postIndex])
+			m.Deposit = append(m.Deposit, &Deposit{})
+			if err := m.Deposit[len(m.Deposit)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Borrow", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowUser
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthUser
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthUser
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Borrow = append(m.Borrow, &Borrow{})
+			if err := m.Borrow[len(m.Borrow)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

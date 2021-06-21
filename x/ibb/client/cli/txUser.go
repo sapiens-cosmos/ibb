@@ -19,10 +19,8 @@ func CmdCreateUser() *cobra.Command {
 		Short: "Create a new user",
 		Args:  cobra.ExactArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			argsCollateral, err := cast.ToBoolE(args[0])
-			if err != nil {
-				return err
-			}
+			argsCollateral := []bool{}
+
 			argsTotalDeposit, err := cast.ToInt32E(args[1])
 			if err != nil {
 				return err
@@ -31,14 +29,9 @@ func CmdCreateUser() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argsDeposit, err := cast.ToInt32E(args[3])
-			if err != nil {
-				return err
-			}
-			argsBorrow, err := cast.ToStringE(args[4])
-			if err != nil {
-				return err
-			}
+			argsDeposit := []*types.Deposit{}
+
+			argsBorrow := []*types.Borrow{}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -69,10 +62,7 @@ func CmdUpdateUser() *cobra.Command {
 				return err
 			}
 
-			argsCollateral, err := cast.ToBoolE(args[1])
-			if err != nil {
-				return err
-			}
+			argsCollateral := []bool{}
 
 			argsTotalDeposit, err := cast.ToInt32E(args[2])
 			if err != nil {
@@ -84,15 +74,9 @@ func CmdUpdateUser() *cobra.Command {
 				return err
 			}
 
-			argsDeposit, err := cast.ToInt32E(args[4])
-			if err != nil {
-				return err
-			}
+			argsDeposit := []*types.Deposit{}
 
-			argsBorrow, err := cast.ToStringE(args[5])
-			if err != nil {
-				return err
-			}
+			argsBorrow := []*types.Borrow{}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

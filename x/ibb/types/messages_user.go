@@ -7,7 +7,7 @@ import (
 
 var _ sdk.Msg = &MsgCreateUser{}
 
-func NewMsgCreateUser(creator string, collateral bool, totalDeposit int32, totalBorrow int32, deposit int32, borrow string) *MsgCreateUser {
+func NewMsgCreateUser(creator string, collateral []bool, totalDeposit int32, totalBorrow int32, deposit []*Deposit, borrow []*Borrow) *MsgCreateUser {
 	return &MsgCreateUser{
 		Creator:      creator,
 		Collateral:   collateral,
@@ -49,7 +49,7 @@ func (msg *MsgCreateUser) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateUser{}
 
-func NewMsgUpdateUser(creator string, id uint64, collateral bool, totalDeposit int32, totalBorrow int32, deposit int32, borrow string) *MsgUpdateUser {
+func NewMsgUpdateUser(creator string, id uint64, collateral []bool, totalDeposit int32, totalBorrow int32, deposit []*Deposit, borrow []*Borrow) *MsgUpdateUser {
 	return &MsgUpdateUser{
 		Id:           id,
 		Creator:      creator,

@@ -29,11 +29,11 @@ service Msg {
 // this line is used by starport scaffolding # proto/tx/message
 message MsgCreateUser {
   string creator = 1;
-  bool collateral = 2;
+  repeated bool collateral = 2;
   int32 totalDeposit = 3;
   int32 totalBorrow = 4;
-  int32 deposit = 5;
-  string borrow = 6;
+  repeated Deposit deposit = 5;
+  repeated Borrow borrow = 6;
 }
 
 message MsgCreateUserResponse {
@@ -43,11 +43,11 @@ message MsgCreateUserResponse {
 message MsgUpdateUser {
   string creator = 1;
   uint64 id = 2;
-  bool collateral = 3;
+  repeated bool collateral = 3;
   int32 totalDeposit = 4;
   int32 totalBorrow = 5;
-  int32 deposit = 6;
-  string borrow = 7;
+  repeated Deposit deposit = 6;
+  repeated Borrow borrow = 7;
 }
 
 message MsgUpdateUserResponse { }
