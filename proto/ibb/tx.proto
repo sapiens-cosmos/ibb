@@ -2,12 +2,49 @@ syntax = "proto3";
 package sapienscosmos.ibb.ibb;
 
 // this line is used by starport scaffolding # proto/tx/import
+import "ibb/pool.proto";
 
 option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreatePool(MsgCreatePool) returns (MsgCreatePoolResponse);
+  rpc UpdatePool(MsgUpdatePool) returns (MsgUpdatePoolResponse);
+  rpc DeletePool(MsgDeletePool) returns (MsgDeletePoolResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreatePool {
+  string creator = 1;
+  string asset = 2;
+  string denom = 3;
+  int32 collatoralFactor = 4;
+  int32 depth = 5;
+  string APR = 6;
+  string users = 7;
+}
+
+message MsgCreatePoolResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdatePool {
+  string creator = 1;
+  uint64 id = 2;
+  string asset = 3;
+  string denom = 4;
+  int32 collatoralFactor = 5;
+  int32 depth = 6;
+  string APR = 7;
+  string users = 8;
+}
+
+message MsgUpdatePoolResponse { }
+
+message MsgDeletePool {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeletePoolResponse { }

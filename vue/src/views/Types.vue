@@ -2,6 +2,7 @@
 	<div>
 		<div class="container">
 			<!-- this line is used by starport scaffolding # 4 -->
+		<SpType modulePath="sapiens-cosmos.ibb.ibb" moduleType="Pool"  />
 		</div>
 	</div>
 </template>

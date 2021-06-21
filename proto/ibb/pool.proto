@@ -1,0 +1,17 @@
+syntax = "proto3";
+package sapienscosmos.ibb.ibb;
+
+option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
+
+import "gogoproto/gogo.proto";
+
+message Pool {
+  string creator = 1;
+  uint64 id = 2;
+  string asset = 3; 
+  string denom = 4; 
+  int32 collatoralFactor = 5; 
+  int32 depth = 6; 
+  string APR = 7; 
+  string users = 8; 
+}

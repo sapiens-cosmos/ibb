@@ -2,11 +2,14 @@ syntax = "proto3";
 package sapienscosmos.ibb.ibb;
 
 // this line is used by starport scaffolding # genesis/proto/import
+import "ibb/pool.proto";
 
 option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 
 // GenesisState defines the ibb module's genesis state.
 message GenesisState {
     // this line is used by starport scaffolding # genesis/proto/state
+		repeated Pool poolList = 1; // this line is used by starport scaffolding # genesis/proto/stateField
+		uint64 poolCount = 2; // this line is used by starport scaffolding # genesis/proto/stateField
     // this line is used by starport scaffolding # ibc/genesis/proto
 }
