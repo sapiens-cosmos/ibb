@@ -39,3 +39,8 @@ const (
 	BorrowKey      = "Borrow-value-"
 	BorrowCountKey = "Borrow-count-"
 )
+
+const (
+	UserKey      = "User-value-"
+	UserCountKey = "User-count-"
+)
