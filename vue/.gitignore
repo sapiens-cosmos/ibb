@@ -2,6 +2,7 @@
 node_modules
 dist
 lib
+src/store/generated/*
 
 # local env files
 .env.local
