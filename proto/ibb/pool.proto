@@ -4,6 +4,8 @@ package sapienscosmos.ibb.ibb;
 option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 
 import "gogoproto/gogo.proto";
+import "ibb/interfaceApr.proto";
+import "ibb/user.proto";
 
 message Pool {
   string creator = 1;
@@ -12,6 +14,6 @@ message Pool {
   string denom = 4; 
   int32 collatoralFactor = 5; 
   int32 depth = 6; 
-  string APR = 7; 
-  string users = 8; 
+  repeated InterfaceApr APR = 7; 
+  repeated User users = 8;
 }

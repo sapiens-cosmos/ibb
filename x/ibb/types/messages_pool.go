@@ -7,7 +7,7 @@ import (
 
 var _ sdk.Msg = &MsgCreatePool{}
 
-func NewMsgCreatePool(creator string, asset string, denom string, collatoralFactor int32, depth int32, APR string, users string) *MsgCreatePool {
+func NewMsgCreatePool(creator string, asset string, denom string, collatoralFactor int32, depth int32, APR []*InterfaceApr, users []*User) *MsgCreatePool {
 	return &MsgCreatePool{
 		Creator:          creator,
 		Asset:            asset,
@@ -50,7 +50,7 @@ func (msg *MsgCreatePool) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdatePool{}
 
-func NewMsgUpdatePool(creator string, id uint64, asset string, denom string, collatoralFactor int32, depth int32, APR string, users string) *MsgUpdatePool {
+func NewMsgUpdatePool(creator string, id uint64, asset string, denom string, collatoralFactor int32, depth int32, APR []*InterfaceApr, users []*User) *MsgUpdatePool {
 	return &MsgUpdatePool{
 		Id:               id,
 		Creator:          creator,

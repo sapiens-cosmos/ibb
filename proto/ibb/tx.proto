@@ -155,8 +155,8 @@ message MsgCreatePool {
   string denom = 3;
   int32 collatoralFactor = 4;
   int32 depth = 5;
-  string APR = 6;
-  string users = 7;
+  repeated InterfaceApr APR = 6;
+  repeated User users = 7;
 }
 
 message MsgCreatePoolResponse {
@@ -170,8 +170,8 @@ message MsgUpdatePool {
   string denom = 4;
   int32 collatoralFactor = 5;
   int32 depth = 6;
-  string APR = 7;
-  string users = 8;
+  repeated InterfaceApr APR = 7;
+  repeated User users = 8;
 }
 
 message MsgUpdatePoolResponse { }

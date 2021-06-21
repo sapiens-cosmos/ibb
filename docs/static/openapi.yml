@@ -19841,9 +19841,80 @@ paths:
                       type: integer
                       format: int32
                     APR:
-                      type: string
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          creator:
+                            type: string
+                          id:
+                            type: string
+                            format: uint64
+                          blockTime:
+                            type: string
+                          timeApr:
+                            type: integer
+                            format: int32
                     users:
-                      type: string
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          creator:
+                            type: string
+                          id:
+                            type: string
+                            format: uint64
+                          collateral:
+                            type: array
+                            items:
+                              type: boolean
+                          totalDeposit:
+                            type: integer
+                            format: int32
+                          totalBorrow:
+                            type: integer
+                            format: int32
+                          deposit:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                creator:
+                                  type: string
+                                id:
+                                  type: string
+                                  format: uint64
+                                blockHeight:
+                                  type: integer
+                                  format: int32
+                                asset:
+                                  type: string
+                                amount:
+                                  type: integer
+                                  format: int32
+                                denom:
+                                  type: string
+                          borrow:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                creator:
+                                  type: string
+                                id:
+                                  type: string
+                                  format: uint64
+                                blockHeight:
+                                  type: integer
+                                  format: int32
+                                asset:
+                                  type: string
+                                amount:
+                                  type: integer
+                                  format: int32
+                                denom:
+                                  type: string
               pagination:
                 type: object
                 properties:
@@ -19969,9 +20040,80 @@ paths:
                     type: integer
                     format: int32
                   APR:
-                    type: string
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        creator:
+                          type: string
+                        id:
+                          type: string
+                          format: uint64
+                        blockTime:
+                          type: string
+                        timeApr:
+                          type: integer
+                          format: int32
                   users:
-                    type: string
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        creator:
+                          type: string
+                        id:
+                          type: string
+                          format: uint64
+                        collateral:
+                          type: array
+                          items:
+                            type: boolean
+                        totalDeposit:
+                          type: integer
+                          format: int32
+                        totalBorrow:
+                          type: integer
+                          format: int32
+                        deposit:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              creator:
+                                type: string
+                              id:
+                                type: string
+                                format: uint64
+                              blockHeight:
+                                type: integer
+                                format: int32
+                              asset:
+                                type: string
+                              amount:
+                                type: integer
+                                format: int32
+                              denom:
+                                type: string
+                        borrow:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              creator:
+                                type: string
+                              id:
+                                type: string
+                                format: uint64
+                              blockHeight:
+                                type: integer
+                                format: int32
+                              asset:
+                                type: string
+                              amount:
+                                type: integer
+                                format: int32
+                              denom:
+                                type: string
         default:
           description: An unexpected error response.
           schema:
@@ -30594,9 +30736,80 @@ definitions:
         type: integer
         format: int32
       APR:
-        type: string
+        type: array
+        items:
+          type: object
+          properties:
+            creator:
+              type: string
+            id:
+              type: string
+              format: uint64
+            blockTime:
+              type: string
+            timeApr:
+              type: integer
+              format: int32
       users:
-        type: string
+        type: array
+        items:
+          type: object
+          properties:
+            creator:
+              type: string
+            id:
+              type: string
+              format: uint64
+            collateral:
+              type: array
+              items:
+                type: boolean
+            totalDeposit:
+              type: integer
+              format: int32
+            totalBorrow:
+              type: integer
+              format: int32
+            deposit:
+              type: array
+              items:
+                type: object
+                properties:
+                  creator:
+                    type: string
+                  id:
+                    type: string
+                    format: uint64
+                  blockHeight:
+                    type: integer
+                    format: int32
+                  asset:
+                    type: string
+                  amount:
+                    type: integer
+                    format: int32
+                  denom:
+                    type: string
+            borrow:
+              type: array
+              items:
+                type: object
+                properties:
+                  creator:
+                    type: string
+                  id:
+                    type: string
+                    format: uint64
+                  blockHeight:
+                    type: integer
+                    format: int32
+                  asset:
+                    type: string
+                  amount:
+                    type: integer
+                    format: int32
+                  denom:
+                    type: string
   sapienscosmos.ibb.ibb.QueryAllBorrowResponse:
     type: object
     properties:
@@ -30760,9 +30973,80 @@ definitions:
               type: integer
               format: int32
             APR:
-              type: string
+              type: array
+              items:
+                type: object
+                properties:
+                  creator:
+                    type: string
+                  id:
+                    type: string
+                    format: uint64
+                  blockTime:
+                    type: string
+                  timeApr:
+                    type: integer
+                    format: int32
             users:
-              type: string
+              type: array
+              items:
+                type: object
+                properties:
+                  creator:
+                    type: string
+                  id:
+                    type: string
+                    format: uint64
+                  collateral:
+                    type: array
+                    items:
+                      type: boolean
+                  totalDeposit:
+                    type: integer
+                    format: int32
+                  totalBorrow:
+                    type: integer
+                    format: int32
+                  deposit:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        creator:
+                          type: string
+                        id:
+                          type: string
+                          format: uint64
+                        blockHeight:
+                          type: integer
+                          format: int32
+                        asset:
+                          type: string
+                        amount:
+                          type: integer
+                          format: int32
+                        denom:
+                          type: string
+                  borrow:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        creator:
+                          type: string
+                        id:
+                          type: string
+                          format: uint64
+                        blockHeight:
+                          type: integer
+                          format: int32
+                        asset:
+                          type: string
+                        amount:
+                          type: integer
+                          format: int32
+                        denom:
+                          type: string
       pagination:
         type: object
         properties:
@@ -30956,9 +31240,80 @@ definitions:
             type: integer
             format: int32
           APR:
-            type: string
+            type: array
+            items:
+              type: object
+              properties:
+                creator:
+                  type: string
+                id:
+                  type: string
+                  format: uint64
+                blockTime:
+                  type: string
+                timeApr:
+                  type: integer
+                  format: int32
           users:
-            type: string
+            type: array
+            items:
+              type: object
+              properties:
+                creator:
+                  type: string
+                id:
+                  type: string
+                  format: uint64
+                collateral:
+                  type: array
+                  items:
+                    type: boolean
+                totalDeposit:
+                  type: integer
+                  format: int32
+                totalBorrow:
+                  type: integer
+                  format: int32
+                deposit:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      creator:
+                        type: string
+                      id:
+                        type: string
+                        format: uint64
+                      blockHeight:
+                        type: integer
+                        format: int32
+                      asset:
+                        type: string
+                      amount:
+                        type: integer
+                        format: int32
+                      denom:
+                        type: string
+                borrow:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      creator:
+                        type: string
+                      id:
+                        type: string
+                        format: uint64
+                      blockHeight:
+                        type: integer
+                        format: int32
+                      asset:
+                        type: string
+                      amount:
+                        type: integer
+                        format: int32
+                      denom:
+                        type: string
   sapienscosmos.ibb.ibb.QueryGetUserResponse:
     type: object
     properties:
