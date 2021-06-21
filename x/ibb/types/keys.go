@@ -44,3 +44,8 @@ const (
 	UserKey      = "User-value-"
 	UserCountKey = "User-count-"
 )
+
+const (
+	InterfaceAprKey      = "InterfaceApr-value-"
+	InterfaceAprCountKey = "InterfaceApr-count-"
+)
