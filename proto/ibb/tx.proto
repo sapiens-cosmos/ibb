@@ -2,6 +2,7 @@ syntax = "proto3";
 package sapienscosmos.ibb.ibb;
 
 // this line is used by starport scaffolding # proto/tx/import
+import "ibb/deposit.proto";
 import "ibb/pool.proto";
 
 option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
@@ -9,12 +10,45 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateDeposit(MsgCreateDeposit) returns (MsgCreateDepositResponse);
+  rpc UpdateDeposit(MsgUpdateDeposit) returns (MsgUpdateDepositResponse);
+  rpc DeleteDeposit(MsgDeleteDeposit) returns (MsgDeleteDepositResponse);
   rpc CreatePool(MsgCreatePool) returns (MsgCreatePoolResponse);
   rpc UpdatePool(MsgUpdatePool) returns (MsgUpdatePoolResponse);
   rpc DeletePool(MsgDeletePool) returns (MsgDeletePoolResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateDeposit {
+  string creator = 1;
+  int32 blockHeight = 2;
+  string asset = 3;
+  int32 amount = 4;
+  string denom = 5;
+}
+
+message MsgCreateDepositResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateDeposit {
+  string creator = 1;
+  uint64 id = 2;
+  int32 blockHeight = 3;
+  string asset = 4;
+  int32 amount = 5;
+  string denom = 6;
+}
+
+message MsgUpdateDepositResponse { }
+
+message MsgDeleteDeposit {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteDepositResponse { }
+
 message MsgCreatePool {
   string creator = 1;
   string asset = 2;

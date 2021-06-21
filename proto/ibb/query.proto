@@ -4,6 +4,7 @@ package sapienscosmos.ibb.ibb;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "ibb/deposit.proto";
 import "ibb/pool.proto";
 
 option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
@@ -11,6 +12,17 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a deposit by id.
+	rpc Deposit(QueryGetDepositRequest) returns (QueryGetDepositResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/deposit/{id}";
+	}
+
+	// Queries a list of deposit items.
+	rpc DepositAll(QueryAllDepositRequest) returns (QueryAllDepositResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/deposit";
+	}
+
 
 	// Queries a pool by id.
 	rpc Pool(QueryGetPoolRequest) returns (QueryGetPoolResponse) {
@@ -25,6 +37,22 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetDepositRequest {
+	uint64 id = 1;
+}
+
+message QueryGetDepositResponse {
+	Deposit Deposit = 1;
+}
+
+message QueryAllDepositRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllDepositResponse {
+	repeated Deposit Deposit = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
 message QueryGetPoolRequest {
 	uint64 id = 1;
 }

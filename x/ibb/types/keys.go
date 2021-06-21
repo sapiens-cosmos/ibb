@@ -29,3 +29,8 @@ const (
 	PoolKey      = "Pool-value-"
 	PoolCountKey = "Pool-count-"
 )
+
+const (
+	DepositKey      = "Deposit-value-"
+	DepositCountKey = "Deposit-count-"
+)
