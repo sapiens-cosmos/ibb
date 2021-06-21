@@ -51,51 +51,6 @@ func CmdCreateUser() *cobra.Command {
 	return cmd
 }
 
-func CmdUpdateUser() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "update-user [id] [collateral] [totalDeposit] [totalBorrow] [deposit] [borrow]",
-		Short: "Update a user",
-		Args:  cobra.ExactArgs(6),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			id, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
-
-			argsCollateral := []bool{}
-
-			argsTotalDeposit, err := cast.ToInt32E(args[2])
-			if err != nil {
-				return err
-			}
-
-			argsTotalBorrow, err := cast.ToInt32E(args[3])
-			if err != nil {
-				return err
-			}
-
-			argsDeposit := []*types.Deposit{}
-
-			argsBorrow := []*types.Borrow{}
-
-			clientCtx, err := client.GetClientTxContext(cmd)
-			if err != nil {
-				return err
-			}
-
-			msg := types.NewMsgUpdateUser(clientCtx.GetFromAddress().String(), id, argsCollateral, argsTotalDeposit, argsTotalBorrow, argsDeposit, argsBorrow)
-			if err := msg.ValidateBasic(); err != nil {
-				return err
-			}
-			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
-		},
-	}
-
-	flags.AddTxFlagsToCmd(cmd)
-
-	return cmd
-}
-
 func CmdDeleteUser() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "delete-user [id]",
