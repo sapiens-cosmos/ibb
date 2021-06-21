@@ -34,3 +34,8 @@ const (
 	DepositKey      = "Deposit-value-"
 	DepositCountKey = "Deposit-count-"
 )
+
+const (
+	BorrowKey      = "Borrow-value-"
+	BorrowCountKey = "Borrow-count-"
+)

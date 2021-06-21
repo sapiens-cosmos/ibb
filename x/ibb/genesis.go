@@ -10,6 +10,14 @@ import (
 // state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
 	// this line is used by starport scaffolding # genesis/module/init
+	// Set all the borrow
+	for _, elem := range genState.BorrowList {
+		k.SetBorrow(ctx, *elem)
+	}
+
+	// Set borrow count
+	k.SetBorrowCount(ctx, genState.BorrowCount)
+
 	// Set all the deposit
 	for _, elem := range genState.DepositList {
 		k.SetDeposit(ctx, *elem)
@@ -34,6 +42,16 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 
 	// this line is used by starport scaffolding # genesis/module/export
+	// Get all borrow
+	borrowList := k.GetAllBorrow(ctx)
+	for _, elem := range borrowList {
+		elem := elem
+		genesis.BorrowList = append(genesis.BorrowList, &elem)
+	}
+
+	// Set the current count
+	genesis.BorrowCount = k.GetBorrowCount(ctx)
+
 	// Get all deposit
 	depositList := k.GetAllDeposit(ctx)
 	for _, elem := range depositList {
