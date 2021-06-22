@@ -15,9 +15,9 @@ import (
 
 func CmdCreatePool() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-pool [asset] [denom] [collatoralFactor] [depth] [APR] [users]",
+		Use:   "create-pool [asset] [denom] [collatoralFactor] [depth]",
 		Short: "Create a new pool",
-		Args:  cobra.ExactArgs(6),
+		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsAsset, err := cast.ToStringE(args[0])
 			if err != nil {
