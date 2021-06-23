@@ -18,17 +18,16 @@ func CmdCreateUser() *cobra.Command {
 		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsCollateral := []bool{}
-
 			argsDeposit := []*types.Deposit{}
-
 			argsBorrow := []*types.Borrow{}
+			argsAssetBalances := []int32{2000, 1000, 1000, 1000, 1000, 1000, 1000, 1000}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgCreateUser(clientCtx.GetFromAddress().String(), argsCollateral, argsDeposit, argsBorrow)
+			msg := types.NewMsgCreateUser(clientCtx.GetFromAddress().String(), argsCollateral, argsDeposit, argsBorrow, argsAssetBalances)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

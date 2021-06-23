@@ -2,10 +2,11 @@ package keeper
 
 import (
 	"encoding/binary"
+	"strconv"
+
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/sapiens-cosmos/ibb/x/ibb/types"
-	"strconv"
 )
 
 // GetUserCount get the total number of user

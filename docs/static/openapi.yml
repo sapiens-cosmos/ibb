@@ -19909,6 +19909,11 @@ paths:
                                   format: int32
                                 denom:
                                   type: string
+                          assetBalances:
+                            type: array
+                            items:
+                              type: integer
+                              format: int32
               pagination:
                 type: object
                 properties:
@@ -20102,6 +20107,11 @@ paths:
                                 format: int32
                               denom:
                                 type: string
+                        assetBalances:
+                          type: array
+                          items:
+                            type: integer
+                            format: int32
         default:
           description: An unexpected error response.
           schema:
@@ -20194,6 +20204,11 @@ paths:
                             format: int32
                           denom:
                             type: string
+                    assetBalances:
+                      type: array
+                      items:
+                        type: integer
+                        format: int32
               pagination:
                 type: object
                 properties:
@@ -20352,6 +20367,11 @@ paths:
                           format: int32
                         denom:
                           type: string
+                  assetBalances:
+                    type: array
+                    items:
+                      type: integer
+                      format: int32
         default:
           description: An unexpected error response.
           schema:
@@ -30780,6 +30800,11 @@ definitions:
                     format: int32
                   denom:
                     type: string
+            assetBalances:
+              type: array
+              items:
+                type: integer
+                format: int32
   sapienscosmos.ibb.ibb.QueryAllBorrowResponse:
     type: object
     properties:
@@ -31011,6 +31036,11 @@ definitions:
                           format: int32
                         denom:
                           type: string
+                  assetBalances:
+                    type: array
+                    items:
+                      type: integer
+                      format: int32
       pagination:
         type: object
         properties:
@@ -31093,6 +31123,11 @@ definitions:
                     format: int32
                   denom:
                     type: string
+            assetBalances:
+              type: array
+              items:
+                type: integer
+                format: int32
       pagination:
         type: object
         properties:
@@ -31266,6 +31301,11 @@ definitions:
                         format: int32
                       denom:
                         type: string
+                assetBalances:
+                  type: array
+                  items:
+                    type: integer
+                    format: int32
   sapienscosmos.ibb.ibb.QueryGetUserResponse:
     type: object
     properties:
@@ -31321,6 +31361,11 @@ definitions:
                   format: int32
                 denom:
                   type: string
+          assetBalances:
+            type: array
+            items:
+              type: integer
+              format: int32
   sapienscosmos.ibb.ibb.User:
     type: object
     properties:
@@ -31373,3 +31418,8 @@ definitions:
               format: int32
             denom:
               type: string
+      assetBalances:
+        type: array
+        items:
+          type: integer
+          format: int32

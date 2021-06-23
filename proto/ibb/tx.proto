@@ -62,6 +62,7 @@ message MsgCreateUser {
   repeated bool collateral = 2;
   repeated Deposit deposit = 3;
   repeated Borrow borrow = 4;
+  repeated int32 assetBalances = 5;
 }
 
 message MsgCreateUserResponse {
@@ -74,6 +75,7 @@ message MsgUpdateUser {
   repeated bool collateral = 3;
   repeated Deposit deposit = 4;
   repeated Borrow borrow = 5;
+  repeated int32 assetBalances = 6;
 }
 
 message MsgUpdateUserResponse { }
