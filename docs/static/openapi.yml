@@ -19869,12 +19869,6 @@ paths:
                             type: array
                             items:
                               type: boolean
-                          totalDeposit:
-                            type: integer
-                            format: int32
-                          totalBorrow:
-                            type: integer
-                            format: int32
                           deposit:
                             type: array
                             items:
@@ -20068,12 +20062,6 @@ paths:
                           type: array
                           items:
                             type: boolean
-                        totalDeposit:
-                          type: integer
-                          format: int32
-                        totalBorrow:
-                          type: integer
-                          format: int32
                         deposit:
                           type: array
                           items:
@@ -20166,12 +20154,6 @@ paths:
                       type: array
                       items:
                         type: boolean
-                    totalDeposit:
-                      type: integer
-                      format: int32
-                    totalBorrow:
-                      type: integer
-                      format: int32
                     deposit:
                       type: array
                       items:
@@ -20330,12 +20312,6 @@ paths:
                     type: array
                     items:
                       type: boolean
-                  totalDeposit:
-                    type: integer
-                    format: int32
-                  totalBorrow:
-                    type: integer
-                    format: int32
                   deposit:
                     type: array
                     items:
@@ -30764,12 +30740,6 @@ definitions:
               type: array
               items:
                 type: boolean
-            totalDeposit:
-              type: integer
-              format: int32
-            totalBorrow:
-              type: integer
-              format: int32
             deposit:
               type: array
               items:
@@ -31001,12 +30971,6 @@ definitions:
                     type: array
                     items:
                       type: boolean
-                  totalDeposit:
-                    type: integer
-                    format: int32
-                  totalBorrow:
-                    type: integer
-                    format: int32
                   deposit:
                     type: array
                     items:
@@ -31089,12 +31053,6 @@ definitions:
               type: array
               items:
                 type: boolean
-            totalDeposit:
-              type: integer
-              format: int32
-            totalBorrow:
-              type: integer
-              format: int32
             deposit:
               type: array
               items:
@@ -31268,12 +31226,6 @@ definitions:
                   type: array
                   items:
                     type: boolean
-                totalDeposit:
-                  type: integer
-                  format: int32
-                totalBorrow:
-                  type: integer
-                  format: int32
                 deposit:
                   type: array
                   items:
@@ -31329,12 +31281,6 @@ definitions:
             type: array
             items:
               type: boolean
-          totalDeposit:
-            type: integer
-            format: int32
-          totalBorrow:
-            type: integer
-            format: int32
           deposit:
             type: array
             items:
@@ -31387,12 +31333,6 @@ definitions:
         type: array
         items:
           type: boolean
-      totalDeposit:
-        type: integer
-        format: int32
-      totalBorrow:
-        type: integer
-        format: int32
       deposit:
         type: array
         items:

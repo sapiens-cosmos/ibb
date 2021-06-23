@@ -60,10 +60,8 @@ message MsgDeleteInterfaceAprResponse { }
 message MsgCreateUser {
   string creator = 1;
   repeated bool collateral = 2;
-  int32 totalDeposit = 3;
-  int32 totalBorrow = 4;
-  repeated Deposit deposit = 5;
-  repeated Borrow borrow = 6;
+  repeated Deposit deposit = 3;
+  repeated Borrow borrow = 4;
 }
 
 message MsgCreateUserResponse {
@@ -74,10 +72,8 @@ message MsgUpdateUser {
   string creator = 1;
   uint64 id = 2;
   repeated bool collateral = 3;
-  int32 totalDeposit = 4;
-  int32 totalBorrow = 5;
-  repeated Deposit deposit = 6;
-  repeated Borrow borrow = 7;
+  repeated Deposit deposit = 4;
+  repeated Borrow borrow = 5;
 }
 
 message MsgUpdateUserResponse { }
