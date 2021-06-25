@@ -5,8 +5,6 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/spf13/cast"
-
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
@@ -15,30 +13,21 @@ import (
 
 func CmdCreateUser() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-user [collateral] [totalDeposit] [totalBorrow] [deposit] [borrow]",
+		Use:   "create-user",
 		Short: "Create a new user",
-		Args:  cobra.ExactArgs(5),
+		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsCollateral := []bool{}
-
-			argsTotalDeposit, err := cast.ToInt32E(args[1])
-			if err != nil {
-				return err
-			}
-			argsTotalBorrow, err := cast.ToInt32E(args[2])
-			if err != nil {
-				return err
-			}
 			argsDeposit := []*types.Deposit{}
-
 			argsBorrow := []*types.Borrow{}
+			argsAssetBalances := []int32{2000, 1000, 1000, 1000, 1000, 1000, 1000, 1000}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgCreateUser(clientCtx.GetFromAddress().String(), argsCollateral, argsTotalDeposit, argsTotalBorrow, argsDeposit, argsBorrow)
+			msg := types.NewMsgCreateUser(clientCtx.GetFromAddress().String(), argsCollateral, argsDeposit, argsBorrow, argsAssetBalances)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

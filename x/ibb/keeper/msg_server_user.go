@@ -13,12 +13,11 @@ func (k msgServer) CreateUser(goCtx context.Context, msg *types.MsgCreateUser) (
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var user = types.User{
-		Creator:      msg.Creator,
-		Collateral:   msg.Collateral,
-		TotalDeposit: msg.TotalDeposit,
-		TotalBorrow:  msg.TotalBorrow,
-		Deposit:      msg.Deposit,
-		Borrow:       msg.Borrow,
+		Creator:       msg.Creator,
+		Collateral:    msg.Collateral,
+		Deposit:       msg.Deposit,
+		Borrow:        msg.Borrow,
+		AssetBalances: msg.AssetBalances,
 	}
 
 	id := k.AppendUser(
@@ -35,13 +34,12 @@ func (k msgServer) UpdateUser(goCtx context.Context, msg *types.MsgUpdateUser) (
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var user = types.User{
-		Creator:      msg.Creator,
-		Id:           msg.Id,
-		Collateral:   msg.Collateral,
-		TotalDeposit: msg.TotalDeposit,
-		TotalBorrow:  msg.TotalBorrow,
-		Deposit:      msg.Deposit,
-		Borrow:       msg.Borrow,
+		Creator:       msg.Creator,
+		Id:            msg.Id,
+		Collateral:    msg.Collateral,
+		Deposit:       msg.Deposit,
+		Borrow:        msg.Borrow,
+		AssetBalances: msg.AssetBalances,
 	}
 
 	// Checks that the element exists

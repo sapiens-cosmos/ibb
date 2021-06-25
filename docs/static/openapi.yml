@@ -19869,12 +19869,6 @@ paths:
                             type: array
                             items:
                               type: boolean
-                          totalDeposit:
-                            type: integer
-                            format: int32
-                          totalBorrow:
-                            type: integer
-                            format: int32
                           deposit:
                             type: array
                             items:
@@ -19915,6 +19909,11 @@ paths:
                                   format: int32
                                 denom:
                                   type: string
+                          assetBalances:
+                            type: array
+                            items:
+                              type: integer
+                              format: int32
               pagination:
                 type: object
                 properties:
@@ -20068,12 +20067,6 @@ paths:
                           type: array
                           items:
                             type: boolean
-                        totalDeposit:
-                          type: integer
-                          format: int32
-                        totalBorrow:
-                          type: integer
-                          format: int32
                         deposit:
                           type: array
                           items:
@@ -20114,6 +20107,11 @@ paths:
                                 format: int32
                               denom:
                                 type: string
+                        assetBalances:
+                          type: array
+                          items:
+                            type: integer
+                            format: int32
         default:
           description: An unexpected error response.
           schema:
@@ -20166,12 +20164,6 @@ paths:
                       type: array
                       items:
                         type: boolean
-                    totalDeposit:
-                      type: integer
-                      format: int32
-                    totalBorrow:
-                      type: integer
-                      format: int32
                     deposit:
                       type: array
                       items:
@@ -20212,6 +20204,11 @@ paths:
                             format: int32
                           denom:
                             type: string
+                    assetBalances:
+                      type: array
+                      items:
+                        type: integer
+                        format: int32
               pagination:
                 type: object
                 properties:
@@ -20330,12 +20327,6 @@ paths:
                     type: array
                     items:
                       type: boolean
-                  totalDeposit:
-                    type: integer
-                    format: int32
-                  totalBorrow:
-                    type: integer
-                    format: int32
                   deposit:
                     type: array
                     items:
@@ -20376,6 +20367,11 @@ paths:
                           format: int32
                         denom:
                           type: string
+                  assetBalances:
+                    type: array
+                    items:
+                      type: integer
+                      format: int32
         default:
           description: An unexpected error response.
           schema:
@@ -30764,12 +30760,6 @@ definitions:
               type: array
               items:
                 type: boolean
-            totalDeposit:
-              type: integer
-              format: int32
-            totalBorrow:
-              type: integer
-              format: int32
             deposit:
               type: array
               items:
@@ -30810,6 +30800,11 @@ definitions:
                     format: int32
                   denom:
                     type: string
+            assetBalances:
+              type: array
+              items:
+                type: integer
+                format: int32
   sapienscosmos.ibb.ibb.QueryAllBorrowResponse:
     type: object
     properties:
@@ -31001,12 +30996,6 @@ definitions:
                     type: array
                     items:
                       type: boolean
-                  totalDeposit:
-                    type: integer
-                    format: int32
-                  totalBorrow:
-                    type: integer
-                    format: int32
                   deposit:
                     type: array
                     items:
@@ -31047,6 +31036,11 @@ definitions:
                           format: int32
                         denom:
                           type: string
+                  assetBalances:
+                    type: array
+                    items:
+                      type: integer
+                      format: int32
       pagination:
         type: object
         properties:
@@ -31089,12 +31083,6 @@ definitions:
               type: array
               items:
                 type: boolean
-            totalDeposit:
-              type: integer
-              format: int32
-            totalBorrow:
-              type: integer
-              format: int32
             deposit:
               type: array
               items:
@@ -31135,6 +31123,11 @@ definitions:
                     format: int32
                   denom:
                     type: string
+            assetBalances:
+              type: array
+              items:
+                type: integer
+                format: int32
       pagination:
         type: object
         properties:
@@ -31268,12 +31261,6 @@ definitions:
                   type: array
                   items:
                     type: boolean
-                totalDeposit:
-                  type: integer
-                  format: int32
-                totalBorrow:
-                  type: integer
-                  format: int32
                 deposit:
                   type: array
                   items:
@@ -31314,6 +31301,11 @@ definitions:
                         format: int32
                       denom:
                         type: string
+                assetBalances:
+                  type: array
+                  items:
+                    type: integer
+                    format: int32
   sapienscosmos.ibb.ibb.QueryGetUserResponse:
     type: object
     properties:
@@ -31329,12 +31321,6 @@ definitions:
             type: array
             items:
               type: boolean
-          totalDeposit:
-            type: integer
-            format: int32
-          totalBorrow:
-            type: integer
-            format: int32
           deposit:
             type: array
             items:
@@ -31375,6 +31361,11 @@ definitions:
                   format: int32
                 denom:
                   type: string
+          assetBalances:
+            type: array
+            items:
+              type: integer
+              format: int32
   sapienscosmos.ibb.ibb.User:
     type: object
     properties:
@@ -31387,12 +31378,6 @@ definitions:
         type: array
         items:
           type: boolean
-      totalDeposit:
-        type: integer
-        format: int32
-      totalBorrow:
-        type: integer
-        format: int32
       deposit:
         type: array
         items:
@@ -31433,3 +31418,8 @@ definitions:
               format: int32
             denom:
               type: string
+      assetBalances:
+        type: array
+        items:
+          type: integer
+          format: int32
