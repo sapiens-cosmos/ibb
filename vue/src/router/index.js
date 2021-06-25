@@ -8,9 +8,7 @@ const routes = [
 	{
 		path: '/',
 		component: Index
-	},
-	{ path: '/types', component: Types },
-	{ path: '/relayers', component: Relayers }
+	}
 ]
 
 const router = createRouter({
