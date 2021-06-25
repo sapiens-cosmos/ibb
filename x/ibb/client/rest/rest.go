@@ -27,8 +27,8 @@ func registerQueryRoutes(clientCtx client.Context, r *mux.Router) {
 	// r.HandleFunc("/voter/votes/{id}", getVoteHandler(clientCtx)).Methods("GET")
 	// r.HandleFunc("/voter/votes", listVoteHandler(clientCtx)).Methods("GET")
 
-	r.HandleFunc("/voter/pools/{id}", getPoolHandler(clientCtx)).Methods("GET")
-	r.HandleFunc("/voter/pools", listPoolHandler(clientCtx)).Methods("GET")
+	r.HandleFunc("/ibb/pools/{id}", getPoolHandler(clientCtx)).Methods("GET")
+	r.HandleFunc("/ibb/pools", listPoolHandler(clientCtx)).Methods("GET")
 
 }
 
