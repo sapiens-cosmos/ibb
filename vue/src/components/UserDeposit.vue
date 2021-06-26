@@ -12,17 +12,17 @@
 		</div>
 		<div class="asset-table">
 			<div class="table-header">
-				<div class="table-cell">Asset</div>
-				<div class="table-cell">APY</div>
-				<div class="table-cell">Balance</div>
-				<div class="table-cell">Collateral</div>
-				<div class="table-cell">Interest</div>
+				<div class="table-cell"><span>Asset</span></div>
+				<div class="table-cell"><span>APY</span></div>
+				<div class="table-cell"><span>Balance</span></div>
+				<div class="table-cell"><span>Collateral</span></div>
+				<div class="table-cell"><span>Interest</span></div>
 			</div>
 			<div class="table-rows">
-				<div class="table-row">
-					<div class="table-cell">ATOM</div>
-					<div class="table-cell">32.59%</div>
-					<div class="table-cell">34.55</div>
+				<div class="table-row" @click="clickAsset">
+					<div class="table-cell"><span>ATOM</span></div>
+					<div class="table-cell"><span>32.59%</span></div>
+					<div class="table-cell"><span>34.55</span></div>
 					<div class="table-cell"><input type="checkbox" /></div>
 					<div class="table-cell"><button>Claim</button></div>
 				</div>
@@ -53,38 +53,55 @@
 
 .asset-table {
 	margin-top: 20px;
-	padding: 20px;
+	padding: 12px;
 	border: 1px solid white;
 	border-radius: 10px;
 }
 
 .table-header {
 	display: flex;
+	padding: 8px 12px;
 	color: rgba(255, 255, 255, 0.7);
 }
 
 .table-rows {
-	margin-top: 16px;
 	font-weight: bold;
 }
 
 .table-row {
 	display: flex;
+	padding: 10px 14px;
+	border-radius: 5px;
+}
+
+.table-row:hover {
+	cursor: pointer;
+	background: rgba(0, 0, 0, 0.5);
 }
 
 .table-cell {
 	width: 100%;
 	min-width: 40px;
-	text-align: right;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
 }
 
 .table-cell:first-child {
-	text-align: left;
+	justify-content: flex-start;
 }
 </style>
 
 <script>
 export default {
-	name: 'UserDeposit'
+	name: 'UserDeposit',
+	methods: {
+		clickAsset() {
+			this.$emit('click-asset')
+		}
+	},
+	props: {
+		toggleModal: Function
+	}
 }
 </script>

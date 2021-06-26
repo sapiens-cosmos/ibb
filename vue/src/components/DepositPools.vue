@@ -12,8 +12,8 @@
 				<div class="table-cell">Balance</div>
 			</div>
 			<div class="table-rows">
-				<div class="table-row">
-					<div class="table-cell">ATOM</div>
+				<div v-for="pool in pools" v-bind:key="pool.asset" class="table-row">
+					<div class="table-cell">{{ pool.asset }}</div>
 					<div class="table-cell">32.59%</div>
 					<div class="table-cell">34.55</div>
 				</div>

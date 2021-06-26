@@ -1,5 +1,5 @@
 <template>
-	<div class="modal-wrapper">
+	<div class="modal-wrapper" @click="checkClickOutside">
 		<div class="modal">
 			<div class="asset">
 				<img class="asset-icon" src="@/assets/images/icons/atom.png" />
@@ -83,7 +83,6 @@
 <style scoped>
 .modal-wrapper {
 	width: 100vw;
-	height: 100vh;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -96,6 +95,7 @@
 .modal {
 	position: relative;
 	margin-top: 60px;
+	margin-bottom: 60px;
 	background: rgba(0, 0, 0, 0.8);
 	border: 1px solid white;
 	border-radius: 10px;
@@ -259,6 +259,13 @@
 
 <script>
 export default {
-	name: 'Modal'
+	name: 'Modal',
+	methods: {
+		checkClickOutside(e) {
+			if (e.target === e.currentTarget) {
+				this.$emit('click-outside')
+			}
+		}
+	}
 }
 </script>
