@@ -2,7 +2,6 @@ syntax = "proto3";
 package sapienscosmos.ibb.ibb;
 
 // this line is used by starport scaffolding # proto/tx/import
-import "ibb/interfaceApr.proto";
 import "ibb/user.proto";
 import "ibb/borrow.proto";
 import "ibb/deposit.proto";
@@ -13,9 +12,6 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
-  rpc CreateInterfaceApr(MsgCreateInterfaceApr) returns (MsgCreateInterfaceAprResponse);
-  rpc UpdateInterfaceApr(MsgUpdateInterfaceApr) returns (MsgUpdateInterfaceAprResponse);
-  rpc DeleteInterfaceApr(MsgDeleteInterfaceApr) returns (MsgDeleteInterfaceAprResponse);
   rpc CreateUser(MsgCreateUser) returns (MsgCreateUserResponse);
   rpc UpdateUser(MsgUpdateUser) returns (MsgUpdateUserResponse);
   rpc DeleteUser(MsgDeleteUser) returns (MsgDeleteUserResponse);
@@ -31,32 +27,6 @@ service Msg {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
-message MsgCreateInterfaceApr {
-  string creator = 1;
-  string blockTime = 2;
-  int32 timeApr = 3;
-}
-
-message MsgCreateInterfaceAprResponse {
-  uint64 id = 1;
-}
-
-message MsgUpdateInterfaceApr {
-  string creator = 1;
-  uint64 id = 2;
-  string blockTime = 3;
-  int32 timeApr = 4;
-}
-
-message MsgUpdateInterfaceAprResponse { }
-
-message MsgDeleteInterfaceApr {
-  string creator = 1;
-  uint64 id = 2;
-}
-
-message MsgDeleteInterfaceAprResponse { }
-
 message MsgCreateUser {
   string creator = 1;
   repeated bool collateral = 2;
@@ -154,7 +124,6 @@ message MsgCreatePool {
   int32 collatoralFactor = 4;
   int32 depositBalance = 5;
   int32 borrowBalance = 6;
-  repeated InterfaceApr APR = 7;
   repeated User users = 8;
 }
 
@@ -170,7 +139,6 @@ message MsgUpdatePool {
   int32 collatoralFactor = 5;
   int32 depositBalance = 6;
   int32 borrowBalance = 7;
-  repeated InterfaceApr APR = 8;
   repeated User users = 9;
 }
 

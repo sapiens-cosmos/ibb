@@ -4,7 +4,6 @@ package sapienscosmos.ibb.ibb;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
-import "ibb/interfaceApr.proto";
 import "ibb/user.proto";
 import "ibb/borrow.proto";
 import "ibb/deposit.proto";
@@ -15,17 +14,6 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
-
-	// Queries a interfaceApr by id.
-	rpc InterfaceApr(QueryGetInterfaceAprRequest) returns (QueryGetInterfaceAprResponse) {
-		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/interfaceApr/{id}";
-	}
-
-	// Queries a list of interfaceApr items.
-	rpc InterfaceAprAll(QueryAllInterfaceAprRequest) returns (QueryAllInterfaceAprResponse) {
-		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/interfaceApr";
-	}
-
 
 	// Queries a user by id.
 	rpc User(QueryGetUserRequest) returns (QueryGetUserResponse) {
@@ -73,22 +61,6 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
-message QueryGetInterfaceAprRequest {
-	uint64 id = 1;
-}
-
-message QueryGetInterfaceAprResponse {
-	InterfaceApr InterfaceApr = 1;
-}
-
-message QueryAllInterfaceAprRequest {
-	cosmos.base.query.v1beta1.PageRequest pagination = 1;
-}
-
-message QueryAllInterfaceAprResponse {
-	repeated InterfaceApr InterfaceApr = 1;
-	cosmos.base.query.v1beta1.PageResponse pagination = 2;
-}
 message QueryGetUserRequest {
 	uint64 id = 1;
 }
