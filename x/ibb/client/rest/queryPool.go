@@ -37,3 +37,17 @@ func getPoolHandler(clientCtx client.Context) http.HandlerFunc {
 		rest.PostProcessResponse(w, clientCtx, res)
 	}
 }
+
+func loadPoolHandler(clientCtx client.Context) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+
+		res, _, err := clientCtx.QueryWithData(fmt.Sprintf("custom/%s/load-pool", types.QuerierRoute), nil)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
+			return
+		}
+		// testing without using specific block height
+		// clientCtx = clientCtx.WithHeight(height)
+		rest.PostProcessResponse(w, clientCtx, res)
+	}
+}
