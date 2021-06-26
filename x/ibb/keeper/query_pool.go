@@ -47,7 +47,8 @@ func loadPool(ctx sdk.Context, keeper Keeper, legacyQuerierCdc *codec.LegacyAmin
 	for _, msg := range msgs {
 		loadPool.Asset = msg.Asset
 		loadPool.CollatoralFactor = msg.CollatoralFactor
-		loadPool.Liquidity = msg.Depth
+		//TODO: Change logic in accordance with API Endpoint
+		loadPool.Liquidity = msg.DepositBalance
 
 		loadPoolList = append(loadPoolList, loadPool)
 	}

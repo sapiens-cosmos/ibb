@@ -19837,7 +19837,10 @@ paths:
                     collatoralFactor:
                       type: integer
                       format: int32
-                    depth:
+                    depositBalance:
+                      type: integer
+                      format: int32
+                    borrowBalance:
                       type: integer
                       format: int32
                     APR:
@@ -20035,7 +20038,10 @@ paths:
                   collatoralFactor:
                     type: integer
                     format: int32
-                  depth:
+                  depositBalance:
+                    type: integer
+                    format: int32
+                  borrowBalance:
                     type: integer
                     format: int32
                   APR:
@@ -30728,7 +30734,10 @@ definitions:
       collatoralFactor:
         type: integer
         format: int32
-      depth:
+      depositBalance:
+        type: integer
+        format: int32
+      borrowBalance:
         type: integer
         format: int32
       APR:
@@ -30964,7 +30973,10 @@ definitions:
             collatoralFactor:
               type: integer
               format: int32
-            depth:
+            depositBalance:
+              type: integer
+              format: int32
+            borrowBalance:
               type: integer
               format: int32
             APR:
@@ -31229,7 +31241,10 @@ definitions:
           collatoralFactor:
             type: integer
             format: int32
-          depth:
+          depositBalance:
+            type: integer
+            format: int32
+          borrowBalance:
             type: integer
             format: int32
           APR:

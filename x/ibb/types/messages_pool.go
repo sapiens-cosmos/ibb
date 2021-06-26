@@ -7,13 +7,14 @@ import (
 
 var _ sdk.Msg = &MsgCreatePool{}
 
-func NewMsgCreatePool(creator string, asset string, denom string, collatoralFactor int32, depth int32, APR []*InterfaceApr, users []*User) *MsgCreatePool {
+func NewMsgCreatePool(creator string, asset string, denom string, collatoralFactor int32, depositBalance int32, borrowBalance int32, APR []*InterfaceApr, users []*User) *MsgCreatePool {
 	return &MsgCreatePool{
 		Creator:          creator,
 		Asset:            asset,
 		Denom:            denom,
 		CollatoralFactor: collatoralFactor,
-		Depth:            depth,
+		DepositBalance:   depositBalance,
+		BorrowBalance:    borrowBalance,
 		APR:              APR,
 		Users:            users,
 	}
@@ -50,14 +51,15 @@ func (msg *MsgCreatePool) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdatePool{}
 
-func NewMsgUpdatePool(creator string, id uint64, asset string, denom string, collatoralFactor int32, depth int32, APR []*InterfaceApr, users []*User) *MsgUpdatePool {
+func NewMsgUpdatePool(creator string, id uint64, asset string, denom string, collatoralFactor int32, borrowBalance int32, depositBalance int32, APR []*InterfaceApr, users []*User) *MsgUpdatePool {
 	return &MsgUpdatePool{
 		Id:               id,
 		Creator:          creator,
 		Asset:            asset,
 		Denom:            denom,
 		CollatoralFactor: collatoralFactor,
-		Depth:            depth,
+		BorrowBalance:    borrowBalance,
+		DepositBalance:   depositBalance,
 		APR:              APR,
 		Users:            users,
 	}
