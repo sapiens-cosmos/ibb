@@ -84,6 +84,7 @@ import (
 	"github.com/sapiens-cosmos/ibb/docs"
 	tmjson "github.com/tendermint/tendermint/libs/json"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 	"github.com/sapiens-cosmos/ibb/x/ibb"
 	ibbkeeper "github.com/sapiens-cosmos/ibb/x/ibb/keeper"
@@ -329,6 +330,7 @@ func New(
 		appCodec,
 		keys[ibbtypes.StoreKey],
 		keys[ibbtypes.MemStoreKey],
+		app.BankKeeper,
 	)
 	ibbModule := ibb.NewAppModule(appCodec, app.IbbKeeper)
 
