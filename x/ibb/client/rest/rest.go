@@ -31,7 +31,7 @@ func registerQueryRoutes(clientCtx client.Context, r *mux.Router) {
 	r.HandleFunc("/ibb/pools", listPoolHandler(clientCtx)).Methods("GET")
 	r.HandleFunc("/ibb/loadPools", loadPoolHandler(clientCtx)).Methods("GET")
 
-	r.HandleFunc("/ibb/loadUser/{id}", loadUserHandler(clientCtx)).Methods("GET")
+	// r.HandleFunc("/ibb/loadUser/{id}", loadUserHandler(clientCtx)).Methods("GET")
 
 }
 
@@ -45,5 +45,5 @@ func registerTxHandlers(clientCtx client.Context, r *mux.Router) {
 	// r.HandleFunc("/voter/polls/{id}", updatePollHandler(clientCtx)).Methods("POST")
 	// r.HandleFunc("/voter/polls/{id}", deletePollHandler(clientCtx)).Methods("POST")
 	r.HandleFunc("/ibb/createDeposit", createDepositHandler(clientCtx)).Methods(("POST"))
-
+	r.HandleFunc("/ibb/loadUser/{id}", loadUserHandler(clientCtx)).Methods(("POST"))
 }
