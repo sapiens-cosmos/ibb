@@ -17,8 +17,8 @@ func (k msgServer) CreatePool(goCtx context.Context, msg *types.MsgCreatePool) (
 		Asset:            msg.Asset,
 		Denom:            msg.Denom,
 		CollatoralFactor: msg.CollatoralFactor,
-		Depth:            msg.Depth,
-		APR:              msg.APR,
+		DepositBalance:   msg.DepositBalance,
+		BorrowBalance:    msg.BorrowBalance,
 		Users:            msg.Users,
 	}
 
@@ -41,8 +41,8 @@ func (k msgServer) UpdatePool(goCtx context.Context, msg *types.MsgUpdatePool) (
 		Asset:            msg.Asset,
 		Denom:            msg.Denom,
 		CollatoralFactor: msg.CollatoralFactor,
-		Depth:            msg.Depth,
-		APR:              msg.APR,
+		DepositBalance:   msg.DepositBalance,
+		BorrowBalance:    msg.BorrowBalance,
 		Users:            msg.Users,
 	}
 

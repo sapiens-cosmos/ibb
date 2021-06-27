@@ -26,6 +26,9 @@ func NewQuerier(k Keeper, legacyQuerierCdc *codec.LegacyAmino) sdk.Querier {
 		case types.QueryGetPool:
 			return getPool(ctx, path[1], k, legacyQuerierCdc)
 
+		case types.QueryLoadPool:
+			return loadPool(ctx, k, legacyQuerierCdc)
+
 		default:
 			err = sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "unknown %s query endpoint: %s", types.ModuleName, path[0])
 		}

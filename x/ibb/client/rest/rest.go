@@ -29,6 +29,7 @@ func registerQueryRoutes(clientCtx client.Context, r *mux.Router) {
 
 	r.HandleFunc("/ibb/pools/{id}", getPoolHandler(clientCtx)).Methods("GET")
 	r.HandleFunc("/ibb/pools", listPoolHandler(clientCtx)).Methods("GET")
+	r.HandleFunc("/ibb/loadPools", loadPoolHandler(clientCtx)).Methods("GET")
 
 }
 
