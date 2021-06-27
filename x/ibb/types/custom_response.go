@@ -14,5 +14,6 @@ type LoadUserRestResponse struct {
 	AssetBalance int64
 	AssetDeposit int32
 	AssetBorrow  int32
+	AssetPrice   int32
 	Collateral   bool
 }

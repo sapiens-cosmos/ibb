@@ -1,8 +1,8 @@
 accounts:
   - name: alice
-    coins: ["2000000000uatom", "1000000000uiris", "1000000000uosmo", "1000000000uregen", "1000000000dvpn", "1000000000uxprt", "1000000000ucro", "1000000000uakt", "200000000stake"]
+    coins: ["2000000000uatom", "1000000000uiris", "1000000000udvpn", "1000000000uxprt", "1000000000ucro", "1000000000uakt", "200000000stake"]
   - name: bob
-    coins: ["2000uatom", "1000uiris", "1000uosmo", "1000uregen", "1000udvpn", "1000uxprt", "1000ucro", "1000uakt", "200000000stake"]
+    coins: ["2000uatom", "1000uiris", "1000udvpn", "1000uxprt", "1000ucro", "1000uakt", "200000000stake"]
 validator:
   name: alice
   staked: "100000000stake"

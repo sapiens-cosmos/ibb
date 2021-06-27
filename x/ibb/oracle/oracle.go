@@ -7,12 +7,12 @@ import (
 
 func GetAllPrices() [6]float64 {
 	return [6]float64{
-		GetAtomPrice(),
-		GetIrisPrice(),
-		GetDvpnPrice(),
-		GetXprtPrice(),
-		GetCroPrice(),
 		GetAktPrice(),
+		GetAtomPrice(),
+		GetCroPrice(),
+		GetDvpnPrice(),
+		GetIrisPrice(),
+		GetXprtPrice(),
 	}
 }
 
