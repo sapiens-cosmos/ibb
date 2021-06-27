@@ -8,6 +8,7 @@ import "ibb/user.proto";
 import "ibb/borrow.proto";
 import "ibb/deposit.proto";
 import "ibb/pool.proto";
+import "ibb/response.proto";
 
 option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 
@@ -58,6 +59,9 @@ service Query {
 		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/pool";
 	}
 
+	rpc PoolLoad(QueryLoadPoolRequest) returns (QueryLoadPoolResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/loadPools";
+	}
 }
 
 // this line is used by starport scaffolding # 3
@@ -123,5 +127,14 @@ message QueryAllPoolRequest {
 
 message QueryAllPoolResponse {
 	repeated Pool Pool = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryLoadPoolRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryLoadPoolResponse {
+	repeated LoadPoolResponse LoadPoolResponse = 1;
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

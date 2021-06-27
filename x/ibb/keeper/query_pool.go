@@ -42,10 +42,10 @@ func getPool(ctx sdk.Context, key string, keeper Keeper, legacyQuerierCdc *codec
 }
 
 func loadPool(ctx sdk.Context, keeper Keeper, legacyQuerierCdc *codec.LegacyAmino) ([]byte, error) {
-	msgs := keeper.GetAllPool(ctx)
-	var loadPoolList []types.LoadPoolResponse
-	var loadPool types.LoadPoolResponse
-	for _, msg := range msgs {
+	poolList := keeper.GetAllPool(ctx)
+	var loadPoolList []types.LoadPoolRestResponse
+	var loadPool types.LoadPoolRestResponse
+	for _, msg := range poolList {
 		currentTargetBorrowRatio := float64(msg.BorrowBalance) / float64(msg.DepositBalance)
 		currentDepositApy := types.DepositInterest + types.DepositInterest*math.Abs(currentTargetBorrowRatio-float64(types.TargetBorrowRatio)*0.01)*types.InterestFactor
 		loadPool.Asset = msg.Asset
