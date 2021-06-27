@@ -5,3 +5,7 @@ const (
 	QueryListPool = "list-pool"
 	QueryLoadPool = "load-pool"
 )
+
+const (
+	QueryLoadUser = "load-user"
+)

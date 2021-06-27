@@ -20,6 +20,7 @@ func NewQuerier(k Keeper, legacyQuerierCdc *codec.LegacyAmino) sdk.Querier {
 
 		switch path[0] {
 		// this line is used by starport scaffolding # 2
+		//query Pool
 		case types.QueryListPool:
 			return listPool(ctx, k, legacyQuerierCdc)
 
@@ -29,6 +30,9 @@ func NewQuerier(k Keeper, legacyQuerierCdc *codec.LegacyAmino) sdk.Querier {
 		case types.QueryLoadPool:
 			return loadPool(ctx, k, legacyQuerierCdc)
 
+		//query User
+		case types.QueryLoadUser:
+			return loadUser(ctx, path[1], k, legacyQuerierCdc)
 		default:
 			err = sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "unknown %s query endpoint: %s", types.ModuleName, path[0])
 		}
