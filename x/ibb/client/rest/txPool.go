@@ -4,8 +4,10 @@ import (
 	"net/http"
 
 	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/tx"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/rest"
+	"github.com/sapiens-cosmos/ibb/x/ibb/types"
 )
 
 type createPoolRequest struct {
@@ -45,6 +47,44 @@ func createPoolHandler(clientCtx client.Context) http.HandlerFunc {
 		// )
 
 		// tx.WriteGeneratedTxResponse(clientCtx, w, req.BaseReq, msg)
+	}
+}
+
+type createDepositRequest struct {
+	BaseReq rest.BaseReq `json:"base_req"`
+	Creator string       `json:"creator"`
+	Asset   string       `json:"asset"`
+	Amount  int32        `json:"amount"`
+	Denom   string       `json:"denom"`
+}
+
+func createDepositHandler(clientCtx client.Context) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req createDepositRequest
+		if !rest.ReadRESTReq(w, r, clientCtx.LegacyAmino, &req) {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
+			return
+		}
+
+		baseReq := req.BaseReq.Sanitize()
+		if !baseReq.ValidateBasic(w) {
+			return
+		}
+
+		parsedCreator := req.Creator
+		parsedAsset := req.Asset
+		parsedAmount := req.Amount
+		parsedDenom := req.Denom
+
+		msg := types.NewMsgCreateDeposit(
+			parsedCreator,
+			int32(clientCtx.Height),
+			parsedAsset,
+			parsedAmount,
+			parsedDenom,
+		)
+
+		tx.WriteGeneratedTxResponse(clientCtx, w, req.BaseReq, msg)
 	}
 }
 
