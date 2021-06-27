@@ -5,8 +5,8 @@
 			<UserBorrow @click-asset="openModal" />
 		</div>
 		<div class="pools">
-			<DepositPools @click-asset="openModal" :pools="pools" />
-			<BorrowPools @click-asset="openModal" :pools="pools" />
+			<DepositPools @click-asset="openModal" />
+			<BorrowPools @click-asset="openModal" />
 		</div>
 		<Modal v-if="isModalOpen" @click-outside="closeModal" />
 	</div>
@@ -46,13 +46,6 @@ export default {
 	computed: {
 		address() {
 			return this.$store.getters['common/wallet/address']
-		},
-		pools() {
-			return (
-				this.$store.getters['sapienscosmos.ibb.ibb/getPoolAll']({
-					params: {}
-				})?.Pool ?? []
-			)
 		}
 	},
 	methods: {

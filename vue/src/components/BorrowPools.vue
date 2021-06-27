@@ -11,11 +11,18 @@
 				<div class="table-cell">APY</div>
 				<div class="table-cell">Liquidity</div>
 			</div>
-			<div class="table-rows">
+			<div v-if="Array.isArray(pools)" class="table-rows">
+				<div v-for="pool in pools" v-bind:key="pool.id" class="table-row" @click="clickAsset">
+					<div class="table-cell">{{ pool.asset }}</div>
+					<div class="table-cell">32.59%</div>
+					<div class="table-cell">34.55</div>
+				</div>
+			</div>
+			<div v-else class="table-rows">
 				<div class="table-row">
-					<div class="table-cell">ATOM</div>
-					<div class="table-cell">64.59%</div>
-					<div class="table-cell">343K</div>
+					<div class="table-cell">NONE</div>
+					<div class="table-cell">NONE</div>
+					<div class="table-cell">NONE</div>
 				</div>
 			</div>
 		</div>
@@ -44,38 +51,58 @@
 
 .asset-table {
 	margin-top: 20px;
-	padding: 20px;
+	padding: 12px;
 	border: 1px solid white;
 	border-radius: 10px;
 }
 
 .table-header {
 	display: flex;
+	padding: 8px 12px;
 	color: rgba(255, 255, 255, 0.7);
-}
-
-.table-rows {
-	margin-top: 16px;
-	font-weight: bold;
+	font-size: 14px;
 }
 
 .table-row {
 	display: flex;
+	padding: 8px 12px 7px;
+	border-radius: 5px;
+}
+
+.table-row:hover {
+	cursor: pointer;
+	background: rgba(0, 0, 0, 0.5);
 }
 
 .table-cell {
 	width: 100%;
 	min-width: 40px;
-	text-align: right;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
 }
 
 .table-cell:first-child {
-	text-align: left;
+	justify-content: flex-start;
 }
 </style>
 
 <script>
 export default {
-	name: 'Userborrow'
+	name: 'BorrowPools',
+	methods: {
+		clickAsset() {
+			this.$emit('click-asset')
+		}
+	},
+	computed: {
+		pools() {
+			return (
+				this.$store.getters['sapienscosmos.ibb.ibb/getPoolAll']({
+					params: {}
+				})?.Pool ?? []
+			)
+		}
+	}
 }
 </script>

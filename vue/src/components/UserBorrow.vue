@@ -18,7 +18,7 @@
 				<div class="table-cell">Borrow Limit</div>
 			</div>
 			<div class="table-rows">
-				<div class="table-row">
+				<div class="table-row" @click="clickAsset">
 					<div class="table-cell">ATOM</div>
 					<div class="table-cell">64.59%</div>
 					<div class="table-cell">26.75</div>
@@ -83,6 +83,11 @@
 
 <script>
 export default {
-	name: 'Userborrow'
+	name: 'Userborrow',
+	methods: {
+		clickAsset() {
+			this.$emit('click-asset')
+		}
+	}
 }
 </script>

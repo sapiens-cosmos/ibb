@@ -62,6 +62,7 @@
 	display: flex;
 	padding: 8px 12px;
 	color: rgba(255, 255, 255, 0.7);
+	font-size: 14px;
 }
 
 .table-rows {
@@ -70,7 +71,7 @@
 
 .table-row {
 	display: flex;
-	padding: 10px 14px;
+	padding: 8px 12px 7px;
 	border-radius: 5px;
 }
 
@@ -89,6 +90,10 @@
 
 .table-cell:first-child {
 	justify-content: flex-start;
+}
+
+.table-cell > span {
+	line-height: 14px;
 }
 </style>
 
