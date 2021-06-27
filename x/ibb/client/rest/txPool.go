@@ -71,17 +71,18 @@ func createDepositHandler(clientCtx client.Context) http.HandlerFunc {
 			return
 		}
 
-		parsedCreator := req.Creator
-		parsedAsset := req.Asset
-		parsedAmount := req.Amount
-		parsedDenom := req.Denom
+		_, err := sdk.AccAddressFromBech32(req.Creator)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
 
 		msg := types.NewMsgCreateDeposit(
-			parsedCreator,
+			req.Creator,
 			int32(clientCtx.Height),
-			parsedAsset,
-			parsedAmount,
-			parsedDenom,
+			req.Asset,
+			req.Amount,
+			req.Denom,
 		)
 
 		tx.WriteGeneratedTxResponse(clientCtx, w, req.BaseReq, msg)
