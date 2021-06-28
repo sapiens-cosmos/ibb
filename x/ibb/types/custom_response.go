@@ -8,10 +8,12 @@ type LoadPoolRestResponse struct {
 	BorrowApy        int32
 }
 
-type LoadUserResponse struct {
+type LoadUserRestResponse struct {
 	AssetApy     int32
-	AssetBalance int32
+	AssetDenom   string
+	AssetBalance int64
 	AssetDeposit int32
 	AssetBorrow  int32
+	AssetPrice   int32
 	Collateral   bool
 }
