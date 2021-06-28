@@ -29,7 +29,9 @@ service Query {
 	rpc UserLoad(QueryLoadUserRequest) returns (QueryLoadUserResponse) {
 		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/loadUser/{id}";
 	}
-
+	rpc UserBalance(QueryBalanceUserRequest) returns (QueryBalanceUserResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/userBalance/{id}";
+	}
 
 	// Queries a borrow by id.
 	rpc Borrow(QueryGetBorrowRequest) returns (QueryGetBorrowResponse) {
@@ -92,6 +94,14 @@ message QueryLoadUserRequest {
 
 message QueryLoadUserResponse {
 	repeated LoadUserResponse LoadUserResponse = 1;
+}
+
+message QueryBalanceUserRequest {
+	string id = 1;
+}
+
+message QueryBalanceUserResponse {
+	UserAssetBalances UserAssetBalances = 1;
 }
 
 message QueryGetBorrowRequest {

@@ -97,8 +97,32 @@ func (k Keeper) UserLoad(c context.Context, req *types.QueryLoadUserRequest) (*t
 
 		userAssetList = append(userAssetList, &userAsset)
 	}
-	// store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.UserKey))
-	// k.cdc.MustUnmarshalBinaryBare(store.Get(GetUserIDBytes(req.Id)), &user)
 
 	return &types.QueryLoadUserResponse{LoadUserResponse: userAssetList}, nil
+}
+
+func (k Keeper) UserBalance(c context.Context, req *types.QueryBalanceUserRequest) (*types.QueryBalanceUserResponse, error) {
+	if req == nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid request")
+	}
+
+	ctx := sdk.UnwrapSDKContext(c)
+
+	//TODO: omit keynotfound error when user has not been found
+	userAddress, err := sdk.AccAddressFromBech32(req.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	assetBalances := k.bankKeeper.GetAllBalances(ctx, userAddress)[1:]
+
+	var userBalance types.UserAssetBalances
+	userBalance.Uakt = assetBalances[0].Amount.Int64()
+	userBalance.Uatom = assetBalances[1].Amount.Int64()
+	userBalance.Ucro = assetBalances[2].Amount.Int64()
+	userBalance.Udvpn = assetBalances[3].Amount.Int64()
+	userBalance.Uiris = assetBalances[4].Amount.Int64()
+	userBalance.Uxprt = assetBalances[5].Amount.Int64()
+
+	return &types.QueryBalanceUserResponse{UserAssetBalances: &userBalance}, nil
 }

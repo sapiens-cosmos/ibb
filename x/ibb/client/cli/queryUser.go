@@ -109,3 +109,36 @@ func CmdLoadUser() *cobra.Command {
 
 	return cmd
 }
+
+func CmdUserBalance() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "user-balance [id]",
+		Short: "loads assets for specific user",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx := client.GetClientContextFromCmd(cmd)
+
+			queryClient := types.NewQueryClient(clientCtx)
+
+			walletAddress, err := cast.ToStringE(args[0])
+			if err != nil {
+				return err
+			}
+
+			params := &types.QueryBalanceUserRequest{
+				Id: walletAddress,
+			}
+
+			res, err := queryClient.UserBalance(context.Background(), params)
+			if err != nil {
+				return err
+			}
+
+			return clientCtx.PrintProto(res)
+		},
+	}
+
+	flags.AddQueryFlagsToCmd(cmd)
+
+	return cmd
+}

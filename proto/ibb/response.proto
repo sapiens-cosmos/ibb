@@ -23,3 +23,12 @@ message LoadUserResponse {
 	int32 AssetPrice = 6;
 	bool Collateral =7;
 }
+
+message UserAssetBalances {
+  int64 Uakt = 1;
+  int64 Uatom = 2;
+  int64 Ucro = 3;
+  int64 Udvpn = 4;
+  int64 Uiris = 5;
+  int64 Uxprt = 6;
+}
