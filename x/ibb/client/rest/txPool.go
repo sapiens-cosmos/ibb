@@ -89,6 +89,45 @@ func createDepositHandler(clientCtx client.Context) http.HandlerFunc {
 	}
 }
 
+type createBorrowRequest struct {
+	BaseReq rest.BaseReq `json:"base_req"`
+	Creator string       `json:"creator"`
+	Asset   string       `json:"asset"`
+	Amount  int32        `json:"amount"`
+	Denom   string       `json:"denom"`
+}
+
+func createBorrowHandler(clientCtx client.Context) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var req createDepositRequest
+		if !rest.ReadRESTReq(w, r, clientCtx.LegacyAmino, &req) {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
+			return
+		}
+
+		baseReq := req.BaseReq.Sanitize()
+		if !baseReq.ValidateBasic(w) {
+			return
+		}
+
+		_, err := sdk.AccAddressFromBech32(req.Creator)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		msg := types.NewMsgCreateBorrow(
+			req.Creator,
+			int32(clientCtx.Height),
+			req.Asset,
+			req.Amount,
+			req.Denom,
+		)
+
+		tx.WriteGeneratedTxResponse(clientCtx, w, req.BaseReq, msg)
+	}
+}
+
 //TODO: implement update Pool Request, delete Pool request logic
 // type updatePollRequest struct {
 // 	BaseReq rest.BaseReq `json:"base_req"`

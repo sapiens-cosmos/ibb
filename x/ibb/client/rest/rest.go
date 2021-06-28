@@ -44,6 +44,6 @@ func registerTxHandlers(clientCtx client.Context, r *mux.Router) {
 	// r.HandleFunc("/voter/polls", createPollHandler(clientCtx)).Methods("POST")
 	// r.HandleFunc("/voter/polls/{id}", updatePollHandler(clientCtx)).Methods("POST")
 	// r.HandleFunc("/voter/polls/{id}", deletePollHandler(clientCtx)).Methods("POST")
-	r.HandleFunc("/ibb/createDeposit", createDepositHandler(clientCtx)).Methods(("POST"))
-	// r.HandleFunc("/ibb/loadUser/{id}", loadUserHandler(clientCtx)).Methods(("POST"))
+	r.HandleFunc("/ibb/createDeposit", createDepositHandler(clientCtx)).Methods("POST")
+	r.HandleFunc("/ibb/createBorrow", createBorrowHandler(clientCtx)).Methods("POST")
 }
