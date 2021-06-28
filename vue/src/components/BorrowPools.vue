@@ -14,8 +14,8 @@
 			<div v-if="Array.isArray(pools)" class="table-rows">
 				<div v-for="pool in pools" v-bind:key="pool.id" class="table-row" @click="clickAsset">
 					<div class="table-cell">{{ pool.asset }}</div>
-					<div class="table-cell">32.59%</div>
-					<div class="table-cell">34.55</div>
+					<div class="table-cell">{{ pool.borrowApy }}</div>
+					<div class="table-cell">{{ `${pool.liquidity} ${pool.asset}` }}</div>
 				</div>
 			</div>
 			<div v-else class="table-rows">
@@ -97,8 +97,13 @@ export default {
 	},
 	computed: {
 		pools() {
+			console.log(
+				this.$store.getters['sapienscosmos.ibb.ibb/getPoolLoad']({
+					params: {}
+				})?.Pool ?? []
+			)
 			return (
-				this.$store.getters['sapienscosmos.ibb.ibb/getPoolAll']({
+				this.$store.getters['sapienscosmos.ibb.ibb/getPoolLoad']({
 					params: {}
 				})?.Pool ?? []
 			)

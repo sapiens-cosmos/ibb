@@ -38,7 +38,7 @@ export default {
 		}
 	},
 	async created() {
-		await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryPoolAll', {
+		await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryPoolLoad', {
 			options: { subscribe: true, all: true },
 			params: {}
 		})
