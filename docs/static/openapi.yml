@@ -19762,6 +19762,66 @@ paths:
           type: boolean
       tags:
         - Query
+  '/sapiens-cosmos/ibb/ibb/loadUser/{id}':
+    get:
+      operationId: SapienscosmosIbbIbbUserLoad
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              LoadUserResponse:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    AssetApy:
+                      type: integer
+                      format: int32
+                    AssetDenom:
+                      type: string
+                    AssetBalance:
+                      type: string
+                      format: int64
+                    AssetDeposit:
+                      type: integer
+                      format: int32
+                    AssetBorrow:
+                      type: integer
+                      format: int32
+                    AssetPrice:
+                      type: integer
+                      format: int32
+                    Collateral:
+                      type: boolean
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /sapiens-cosmos/ibb/ibb/pool:
     get:
       summary: Queries a list of pool items.
@@ -30595,6 +30655,28 @@ definitions:
       BorrowApy:
         type: integer
         format: int32
+  sapienscosmos.ibb.ibb.LoadUserResponse:
+    type: object
+    properties:
+      AssetApy:
+        type: integer
+        format: int32
+      AssetDenom:
+        type: string
+      AssetBalance:
+        type: string
+        format: int64
+      AssetDeposit:
+        type: integer
+        format: int32
+      AssetBorrow:
+        type: integer
+        format: int32
+      AssetPrice:
+        type: integer
+        format: int32
+      Collateral:
+        type: boolean
   sapienscosmos.ibb.ibb.MsgCreateBorrowResponse:
     type: object
     properties:
@@ -31240,6 +31322,33 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
+  sapienscosmos.ibb.ibb.QueryLoadUserResponse:
+    type: object
+    properties:
+      LoadUserResponse:
+        type: array
+        items:
+          type: object
+          properties:
+            AssetApy:
+              type: integer
+              format: int32
+            AssetDenom:
+              type: string
+            AssetBalance:
+              type: string
+              format: int64
+            AssetDeposit:
+              type: integer
+              format: int32
+            AssetBorrow:
+              type: integer
+              format: int32
+            AssetPrice:
+              type: integer
+              format: int32
+            Collateral:
+              type: boolean
   sapienscosmos.ibb.ibb.User:
     type: object
     properties:

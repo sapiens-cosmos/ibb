@@ -7,6 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/sapiens-cosmos/ibb/x/ibb/types"
+	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )
 
@@ -63,6 +64,39 @@ func CmdShowUser() *cobra.Command {
 			}
 
 			res, err := queryClient.User(context.Background(), params)
+			if err != nil {
+				return err
+			}
+
+			return clientCtx.PrintProto(res)
+		},
+	}
+
+	flags.AddQueryFlagsToCmd(cmd)
+
+	return cmd
+}
+
+func CmdLoadUser() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "load-user [id]",
+		Short: "loads assets for specific user",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx := client.GetClientContextFromCmd(cmd)
+
+			queryClient := types.NewQueryClient(clientCtx)
+
+			walletAddress, err := cast.ToStringE(args[0])
+			if err != nil {
+				return err
+			}
+
+			params := &types.QueryLoadUserRequest{
+				Id: walletAddress,
+			}
+
+			res, err := queryClient.UserLoad(context.Background(), params)
 			if err != nil {
 				return err
 			}

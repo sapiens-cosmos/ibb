@@ -13,3 +13,13 @@ message LoadPoolResponse {
   int32 DepositApy = 4; 
   int32 BorrowApy = 5; 
 }
+
+message LoadUserResponse {
+  int32 AssetApy = 1;
+	string AssetDenom = 2;
+	int64 AssetBalance = 3;
+	int32 AssetDeposit = 4;
+	int32 AssetBorrow = 5;
+	int32 AssetPrice = 6;
+	bool Collateral =7;
+}

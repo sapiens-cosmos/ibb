@@ -2,7 +2,6 @@ package cli
 
 import (
 	"context"
-	"fmt"
 	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -77,10 +76,10 @@ func CmdShowPool() *cobra.Command {
 	return cmd
 }
 
-func CmdLoadPool() *cobra.Command {
+func CmdLoadPoolRest() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "load-pool",
-		Short: "load pools",
+		Use:   "load-pool-rest",
+		Short: "load pools using rest",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -94,13 +93,6 @@ func CmdLoadPool() *cobra.Command {
 			params := &types.QueryAllPoolRequest{
 				Pagination: pageReq,
 			}
-
-			ex_res, _, err := clientCtx.QueryWithData(fmt.Sprintf("custom/%s/load-pool", types.QuerierRoute), nil)
-			if err != nil {
-				return err
-			}
-			fmt.Println("==========Response from QueryWithData==============")
-			fmt.Println(ex_res)
 
 			res, err := queryClient.PoolAll(context.Background(), params)
 			if err != nil {
@@ -117,10 +109,10 @@ func CmdLoadPool() *cobra.Command {
 	return cmd
 }
 
-func CmdTestLoadPool() *cobra.Command {
+func CmdLoadPoolGrpc() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "load-pool-test",
-		Short: "test list all pool",
+		Use:   "load-pool-grpc",
+		Short: "Load pools using grpc",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
