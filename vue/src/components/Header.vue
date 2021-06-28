@@ -1,7 +1,6 @@
 <template>
 	<div class="header-wrapper">
 		<div class="logo">IBB</div>
-
 		<SpWallet ref="wallet" v-on:dropdown-opened="$refs.menu.closeDropdown()" />
 	</div>
 </template>

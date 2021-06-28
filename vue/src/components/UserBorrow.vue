@@ -48,36 +48,41 @@
 	font-size: 26px;
 	font-weight: bold;
 }
-
 .asset-table {
 	margin-top: 20px;
-	padding: 20px;
+	padding: 12px;
 	border: 1px solid white;
 	border-radius: 10px;
 }
 
 .table-header {
 	display: flex;
+	padding: 8px 12px;
 	color: rgba(255, 255, 255, 0.7);
-}
-
-.table-rows {
-	margin-top: 16px;
-	font-weight: bold;
+	font-size: 14px;
 }
 
 .table-row {
 	display: flex;
+	padding: 8px 12px 7px;
+	border-radius: 5px;
+}
+
+.table-row:hover {
+	cursor: pointer;
+	background: rgba(0, 0, 0, 0.5);
 }
 
 .table-cell {
 	width: 100%;
 	min-width: 40px;
-	text-align: right;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
 }
 
 .table-cell:first-child {
-	text-align: left;
+	justify-content: flex-start;
 }
 </style>
 
