@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"math"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -64,15 +63,17 @@ func (k Keeper) PoolLoad(c context.Context, req *types.QueryLoadPoolRequest) (*t
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	// var pool types.Pool
 	ctx := sdk.UnwrapSDKContext(c)
 
 	poolList := k.GetAllPool(ctx)
 	var loadPoolList []*types.LoadPoolResponse
-	var loadPool types.LoadPoolResponse
 	for _, msg := range poolList {
+		var loadPool types.LoadPoolResponse
 		currentTargetBorrowRatio := float64(msg.BorrowBalance) / float64(msg.DepositBalance)
-		currentDepositApy := types.DepositInterest + types.DepositInterest*math.Abs(currentTargetBorrowRatio-float64(types.TargetBorrowRatio)*0.01)*types.InterestFactor
+		currentDepositApy := types.DepositInterest + types.DepositInterest*(currentTargetBorrowRatio-float64(types.TargetBorrowRatio)*0.01)*types.InterestFactor
+		//TODO: Add following logic
+		// if currentDepositApy < minDepositApy
+		// currentDepositApy = minDepositApy
 		loadPool.Asset = msg.Asset
 		loadPool.CollatoralFactor = msg.CollatoralFactor
 		loadPool.Liquidity = msg.DepositBalance - msg.BorrowBalance
@@ -81,7 +82,22 @@ func (k Keeper) PoolLoad(c context.Context, req *types.QueryLoadPoolRequest) (*t
 
 		loadPoolList = append(loadPoolList, &loadPool)
 	}
-	// k.cdc.MustUnmarshalBinaryBare(store.Get(GetPoolIDBytes(req.Id)), &pool)
+
+	// var pools []*types.Pool
+	// store := ctx.KVStore(k.storeKey)
+	// poolStore := prefix.NewStore(store, types.KeyPrefix(types.PoolKey))
+	// pageRes, err := query.Paginate(poolStore, req.Pagination, func(key []byte, value []byte) error {
+	// 	var pool types.Pool
+	// 	if err := k.cdc.UnmarshalBinaryBare(value, &pool); err != nil {
+	// 		return err
+	// 	}
+
+	// 	pools = append(pools, &pool)
+	// 	return nil
+	// })
+	// if err != nil {
+	// 	return nil, status.Error(codes.Internal, err.Error())
+	// }
 
 	return &types.QueryLoadPoolResponse{LoadPoolResponse: loadPoolList}, nil
 }

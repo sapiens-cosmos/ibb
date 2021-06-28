@@ -1,7 +1,6 @@
 package keeper
 
 import (
-	"math"
 	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -47,7 +46,7 @@ func loadPool(ctx sdk.Context, keeper Keeper, legacyQuerierCdc *codec.LegacyAmin
 	var loadPool types.LoadPoolRestResponse
 	for _, msg := range poolList {
 		currentTargetBorrowRatio := float64(msg.BorrowBalance) / float64(msg.DepositBalance)
-		currentDepositApy := types.DepositInterest + types.DepositInterest*math.Abs(currentTargetBorrowRatio-float64(types.TargetBorrowRatio)*0.01)*types.InterestFactor
+		currentDepositApy := types.DepositInterest + types.DepositInterest*(currentTargetBorrowRatio-float64(types.TargetBorrowRatio)*0.01)*types.InterestFactor
 		loadPool.Asset = msg.Asset
 		loadPool.CollatoralFactor = msg.CollatoralFactor
 		loadPool.Liquidity = msg.DepositBalance - msg.BorrowBalance

@@ -116,3 +116,36 @@ func CmdLoadPool() *cobra.Command {
 
 	return cmd
 }
+
+func CmdTestLoadPool() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "load-pool-test",
+		Short: "test list all pool",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx := client.GetClientContextFromCmd(cmd)
+
+			pageReq, err := client.ReadPageRequest(cmd.Flags())
+			if err != nil {
+				return err
+			}
+
+			queryClient := types.NewQueryClient(clientCtx)
+
+			params := &types.QueryLoadPoolRequest{
+				Pagination: pageReq,
+			}
+
+			res, err := queryClient.PoolLoad(context.Background(), params)
+			if err != nil {
+				return err
+			}
+
+			return clientCtx.PrintProto(res)
+		},
+	}
+
+	flags.AddPaginationFlagsToCmd(cmd, cmd.Use)
+	flags.AddQueryFlagsToCmd(cmd)
+
+	return cmd
+}
