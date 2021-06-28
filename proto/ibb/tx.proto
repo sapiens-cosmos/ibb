@@ -12,6 +12,9 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateWithdraw(MsgCreateWithdraw) returns (MsgCreateWithdrawResponse);
+  rpc UpdateWithdraw(MsgUpdateWithdraw) returns (MsgUpdateWithdrawResponse);
+  rpc DeleteWithdraw(MsgDeleteWithdraw) returns (MsgDeleteWithdrawResponse);
   rpc CreateUser(MsgCreateUser) returns (MsgCreateUserResponse);
   rpc UpdateUser(MsgUpdateUser) returns (MsgUpdateUserResponse);
   rpc DeleteUser(MsgDeleteUser) returns (MsgDeleteUserResponse);
@@ -27,6 +30,36 @@ service Msg {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateWithdraw {
+  string creator = 1;
+  int32 blockHeight = 2;
+  string asset = 3;
+  int32 amount = 4;
+  string denom = 5;
+}
+
+message MsgCreateWithdrawResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateWithdraw {
+  string creator = 1;
+  uint64 id = 2;
+  int32 blockHeight = 3;
+  string asset = 4;
+  int32 amount = 5;
+  string denom = 6;
+}
+
+message MsgUpdateWithdrawResponse { }
+
+message MsgDeleteWithdraw {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteWithdrawResponse { }
+
 message MsgCreateUser {
   string creator = 1;
   repeated bool collateral = 2;

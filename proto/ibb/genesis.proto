@@ -2,6 +2,7 @@ syntax = "proto3";
 package sapienscosmos.ibb.ibb;
 
 // this line is used by starport scaffolding # genesis/proto/import
+import "ibb/withdraw.proto";
 import "ibb/user.proto";
 import "ibb/borrow.proto";
 import "ibb/deposit.proto";
@@ -12,6 +13,7 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // GenesisState defines the ibb module's genesis state.
 message GenesisState {
     // this line is used by starport scaffolding # genesis/proto/state
+		repeated Withdraw withdrawList = 9; // this line is used by starport scaffolding # genesis/proto/stateField
 		repeated User userList = 7; // this line is used by starport scaffolding # genesis/proto/stateField
 		uint64 userCount = 8; // this line is used by starport scaffolding # genesis/proto/stateField
 		repeated Borrow borrowList = 5; // this line is used by starport scaffolding # genesis/proto/stateField

@@ -44,3 +44,8 @@ const (
 	UserKey      = "User-value-"
 	UserCountKey = "User-count-"
 )
+
+const (
+	WithdrawKey      = "Withdraw-value-"
+	WithdrawCountKey = "Withdraw-count-"
+)

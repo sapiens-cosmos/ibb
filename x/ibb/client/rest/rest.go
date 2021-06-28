@@ -20,10 +20,16 @@ func RegisterRoutes(clientCtx client.Context, r *mux.Router) {
 	registerQueryRoutes(clientCtx, r)
 	registerTxHandlers(clientCtx, r)
 
+	registerQueryRoutes(clientCtx, r)
+	registerTxHandlers(clientCtx, r)
+
 }
 
 func registerQueryRoutes(clientCtx client.Context, r *mux.Router) {
 	// this line is used by starport scaffolding # 3
+	r.HandleFunc("/ibb/withdraws/{id}", getWithdrawHandler(clientCtx)).Methods("GET")
+	r.HandleFunc("/ibb/withdraws", listWithdrawHandler(clientCtx)).Methods("GET")
+
 	// r.HandleFunc("/voter/votes/{id}", getVoteHandler(clientCtx)).Methods("GET")
 	// r.HandleFunc("/voter/votes", listVoteHandler(clientCtx)).Methods("GET")
 
@@ -37,6 +43,10 @@ func registerQueryRoutes(clientCtx client.Context, r *mux.Router) {
 
 func registerTxHandlers(clientCtx client.Context, r *mux.Router) {
 	// this line is used by starport scaffolding # 4
+	r.HandleFunc("/ibb/withdraws", createWithdrawHandler(clientCtx)).Methods("POST")
+	r.HandleFunc("/ibb/withdraws/{id}", updateWithdrawHandler(clientCtx)).Methods("POST")
+	r.HandleFunc("/ibb/withdraws/{id}", deleteWithdrawHandler(clientCtx)).Methods("POST")
+
 	// r.HandleFunc("/voter/votes", createVoteHandler(clientCtx)).Methods("POST")
 	// r.HandleFunc("/voter/votes/{id}", updateVoteHandler(clientCtx)).Methods("POST")
 	// r.HandleFunc("/voter/votes/{id}", deleteVoteHandler(clientCtx)).Methods("POST")

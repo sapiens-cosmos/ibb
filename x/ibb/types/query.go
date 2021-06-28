@@ -9,3 +9,8 @@ const (
 const (
 	QueryLoadUser = "load-user"
 )
+
+const (
+	QueryGetWithdraw  = "get-withdraw"
+	QueryListWithdraw = "list-withdraw"
+)
