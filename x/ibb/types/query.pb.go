@@ -30,6 +30,190 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // this line is used by starport scaffolding # 3
+type QueryGetRepayRequest struct {
+	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (m *QueryGetRepayRequest) Reset()         { *m = QueryGetRepayRequest{} }
+func (m *QueryGetRepayRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetRepayRequest) ProtoMessage()    {}
+func (*QueryGetRepayRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d85b8158112bb13e, []int{0}
+}
+func (m *QueryGetRepayRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetRepayRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetRepayRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetRepayRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetRepayRequest.Merge(m, src)
+}
+func (m *QueryGetRepayRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetRepayRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetRepayRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetRepayRequest proto.InternalMessageInfo
+
+func (m *QueryGetRepayRequest) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type QueryGetRepayResponse struct {
+	Repay *Repay `protobuf:"bytes,1,opt,name=Repay,proto3" json:"Repay,omitempty"`
+}
+
+func (m *QueryGetRepayResponse) Reset()         { *m = QueryGetRepayResponse{} }
+func (m *QueryGetRepayResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetRepayResponse) ProtoMessage()    {}
+func (*QueryGetRepayResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d85b8158112bb13e, []int{1}
+}
+func (m *QueryGetRepayResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetRepayResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetRepayResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetRepayResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetRepayResponse.Merge(m, src)
+}
+func (m *QueryGetRepayResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetRepayResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetRepayResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetRepayResponse proto.InternalMessageInfo
+
+func (m *QueryGetRepayResponse) GetRepay() *Repay {
+	if m != nil {
+		return m.Repay
+	}
+	return nil
+}
+
+type QueryAllRepayRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllRepayRequest) Reset()         { *m = QueryAllRepayRequest{} }
+func (m *QueryAllRepayRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllRepayRequest) ProtoMessage()    {}
+func (*QueryAllRepayRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d85b8158112bb13e, []int{2}
+}
+func (m *QueryAllRepayRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllRepayRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllRepayRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllRepayRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllRepayRequest.Merge(m, src)
+}
+func (m *QueryAllRepayRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllRepayRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllRepayRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllRepayRequest proto.InternalMessageInfo
+
+func (m *QueryAllRepayRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllRepayResponse struct {
+	Repay      []*Repay            `protobuf:"bytes,1,rep,name=Repay,proto3" json:"Repay,omitempty"`
+	Pagination *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllRepayResponse) Reset()         { *m = QueryAllRepayResponse{} }
+func (m *QueryAllRepayResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllRepayResponse) ProtoMessage()    {}
+func (*QueryAllRepayResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d85b8158112bb13e, []int{3}
+}
+func (m *QueryAllRepayResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllRepayResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllRepayResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllRepayResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllRepayResponse.Merge(m, src)
+}
+func (m *QueryAllRepayResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllRepayResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllRepayResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllRepayResponse proto.InternalMessageInfo
+
+func (m *QueryAllRepayResponse) GetRepay() []*Repay {
+	if m != nil {
+		return m.Repay
+	}
+	return nil
+}
+
+func (m *QueryAllRepayResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
 type QueryGetWithdrawRequest struct {
 	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 }
@@ -38,7 +222,7 @@ func (m *QueryGetWithdrawRequest) Reset()         { *m = QueryGetWithdrawRequest
 func (m *QueryGetWithdrawRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetWithdrawRequest) ProtoMessage()    {}
 func (*QueryGetWithdrawRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{0}
+	return fileDescriptor_d85b8158112bb13e, []int{4}
 }
 func (m *QueryGetWithdrawRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -82,7 +266,7 @@ func (m *QueryGetWithdrawResponse) Reset()         { *m = QueryGetWithdrawRespon
 func (m *QueryGetWithdrawResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetWithdrawResponse) ProtoMessage()    {}
 func (*QueryGetWithdrawResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{1}
+	return fileDescriptor_d85b8158112bb13e, []int{5}
 }
 func (m *QueryGetWithdrawResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -126,7 +310,7 @@ func (m *QueryAllWithdrawRequest) Reset()         { *m = QueryAllWithdrawRequest
 func (m *QueryAllWithdrawRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllWithdrawRequest) ProtoMessage()    {}
 func (*QueryAllWithdrawRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{2}
+	return fileDescriptor_d85b8158112bb13e, []int{6}
 }
 func (m *QueryAllWithdrawRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -171,7 +355,7 @@ func (m *QueryAllWithdrawResponse) Reset()         { *m = QueryAllWithdrawRespon
 func (m *QueryAllWithdrawResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllWithdrawResponse) ProtoMessage()    {}
 func (*QueryAllWithdrawResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{3}
+	return fileDescriptor_d85b8158112bb13e, []int{7}
 }
 func (m *QueryAllWithdrawResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -222,7 +406,7 @@ func (m *QueryGetUserRequest) Reset()         { *m = QueryGetUserRequest{} }
 func (m *QueryGetUserRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetUserRequest) ProtoMessage()    {}
 func (*QueryGetUserRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{4}
+	return fileDescriptor_d85b8158112bb13e, []int{8}
 }
 func (m *QueryGetUserRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -266,7 +450,7 @@ func (m *QueryGetUserResponse) Reset()         { *m = QueryGetUserResponse{} }
 func (m *QueryGetUserResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetUserResponse) ProtoMessage()    {}
 func (*QueryGetUserResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{5}
+	return fileDescriptor_d85b8158112bb13e, []int{9}
 }
 func (m *QueryGetUserResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -310,7 +494,7 @@ func (m *QueryAllUserRequest) Reset()         { *m = QueryAllUserRequest{} }
 func (m *QueryAllUserRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllUserRequest) ProtoMessage()    {}
 func (*QueryAllUserRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{6}
+	return fileDescriptor_d85b8158112bb13e, []int{10}
 }
 func (m *QueryAllUserRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -355,7 +539,7 @@ func (m *QueryAllUserResponse) Reset()         { *m = QueryAllUserResponse{} }
 func (m *QueryAllUserResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllUserResponse) ProtoMessage()    {}
 func (*QueryAllUserResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{7}
+	return fileDescriptor_d85b8158112bb13e, []int{11}
 }
 func (m *QueryAllUserResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -406,7 +590,7 @@ func (m *QueryLoadUserRequest) Reset()         { *m = QueryLoadUserRequest{} }
 func (m *QueryLoadUserRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryLoadUserRequest) ProtoMessage()    {}
 func (*QueryLoadUserRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{8}
+	return fileDescriptor_d85b8158112bb13e, []int{12}
 }
 func (m *QueryLoadUserRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -450,7 +634,7 @@ func (m *QueryLoadUserResponse) Reset()         { *m = QueryLoadUserResponse{} }
 func (m *QueryLoadUserResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryLoadUserResponse) ProtoMessage()    {}
 func (*QueryLoadUserResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{9}
+	return fileDescriptor_d85b8158112bb13e, []int{13}
 }
 func (m *QueryLoadUserResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -494,7 +678,7 @@ func (m *QueryBalanceUserRequest) Reset()         { *m = QueryBalanceUserRequest
 func (m *QueryBalanceUserRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryBalanceUserRequest) ProtoMessage()    {}
 func (*QueryBalanceUserRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{10}
+	return fileDescriptor_d85b8158112bb13e, []int{14}
 }
 func (m *QueryBalanceUserRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -538,7 +722,7 @@ func (m *QueryBalanceUserResponse) Reset()         { *m = QueryBalanceUserRespon
 func (m *QueryBalanceUserResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryBalanceUserResponse) ProtoMessage()    {}
 func (*QueryBalanceUserResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{11}
+	return fileDescriptor_d85b8158112bb13e, []int{15}
 }
 func (m *QueryBalanceUserResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -582,7 +766,7 @@ func (m *QueryGetBorrowRequest) Reset()         { *m = QueryGetBorrowRequest{} }
 func (m *QueryGetBorrowRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetBorrowRequest) ProtoMessage()    {}
 func (*QueryGetBorrowRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{12}
+	return fileDescriptor_d85b8158112bb13e, []int{16}
 }
 func (m *QueryGetBorrowRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -626,7 +810,7 @@ func (m *QueryGetBorrowResponse) Reset()         { *m = QueryGetBorrowResponse{}
 func (m *QueryGetBorrowResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetBorrowResponse) ProtoMessage()    {}
 func (*QueryGetBorrowResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{13}
+	return fileDescriptor_d85b8158112bb13e, []int{17}
 }
 func (m *QueryGetBorrowResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -670,7 +854,7 @@ func (m *QueryAllBorrowRequest) Reset()         { *m = QueryAllBorrowRequest{} }
 func (m *QueryAllBorrowRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllBorrowRequest) ProtoMessage()    {}
 func (*QueryAllBorrowRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{14}
+	return fileDescriptor_d85b8158112bb13e, []int{18}
 }
 func (m *QueryAllBorrowRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -715,7 +899,7 @@ func (m *QueryAllBorrowResponse) Reset()         { *m = QueryAllBorrowResponse{}
 func (m *QueryAllBorrowResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllBorrowResponse) ProtoMessage()    {}
 func (*QueryAllBorrowResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{15}
+	return fileDescriptor_d85b8158112bb13e, []int{19}
 }
 func (m *QueryAllBorrowResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -766,7 +950,7 @@ func (m *QueryGetDepositRequest) Reset()         { *m = QueryGetDepositRequest{}
 func (m *QueryGetDepositRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetDepositRequest) ProtoMessage()    {}
 func (*QueryGetDepositRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{16}
+	return fileDescriptor_d85b8158112bb13e, []int{20}
 }
 func (m *QueryGetDepositRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -810,7 +994,7 @@ func (m *QueryGetDepositResponse) Reset()         { *m = QueryGetDepositResponse
 func (m *QueryGetDepositResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetDepositResponse) ProtoMessage()    {}
 func (*QueryGetDepositResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{17}
+	return fileDescriptor_d85b8158112bb13e, []int{21}
 }
 func (m *QueryGetDepositResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -854,7 +1038,7 @@ func (m *QueryAllDepositRequest) Reset()         { *m = QueryAllDepositRequest{}
 func (m *QueryAllDepositRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllDepositRequest) ProtoMessage()    {}
 func (*QueryAllDepositRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{18}
+	return fileDescriptor_d85b8158112bb13e, []int{22}
 }
 func (m *QueryAllDepositRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -899,7 +1083,7 @@ func (m *QueryAllDepositResponse) Reset()         { *m = QueryAllDepositResponse
 func (m *QueryAllDepositResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllDepositResponse) ProtoMessage()    {}
 func (*QueryAllDepositResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{19}
+	return fileDescriptor_d85b8158112bb13e, []int{23}
 }
 func (m *QueryAllDepositResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -950,7 +1134,7 @@ func (m *QueryGetPoolRequest) Reset()         { *m = QueryGetPoolRequest{} }
 func (m *QueryGetPoolRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetPoolRequest) ProtoMessage()    {}
 func (*QueryGetPoolRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{20}
+	return fileDescriptor_d85b8158112bb13e, []int{24}
 }
 func (m *QueryGetPoolRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -994,7 +1178,7 @@ func (m *QueryGetPoolResponse) Reset()         { *m = QueryGetPoolResponse{} }
 func (m *QueryGetPoolResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetPoolResponse) ProtoMessage()    {}
 func (*QueryGetPoolResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{21}
+	return fileDescriptor_d85b8158112bb13e, []int{25}
 }
 func (m *QueryGetPoolResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1038,7 +1222,7 @@ func (m *QueryAllPoolRequest) Reset()         { *m = QueryAllPoolRequest{} }
 func (m *QueryAllPoolRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllPoolRequest) ProtoMessage()    {}
 func (*QueryAllPoolRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{22}
+	return fileDescriptor_d85b8158112bb13e, []int{26}
 }
 func (m *QueryAllPoolRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1083,7 +1267,7 @@ func (m *QueryAllPoolResponse) Reset()         { *m = QueryAllPoolResponse{} }
 func (m *QueryAllPoolResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllPoolResponse) ProtoMessage()    {}
 func (*QueryAllPoolResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{23}
+	return fileDescriptor_d85b8158112bb13e, []int{27}
 }
 func (m *QueryAllPoolResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1134,7 +1318,7 @@ func (m *QueryLoadPoolRequest) Reset()         { *m = QueryLoadPoolRequest{} }
 func (m *QueryLoadPoolRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryLoadPoolRequest) ProtoMessage()    {}
 func (*QueryLoadPoolRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{24}
+	return fileDescriptor_d85b8158112bb13e, []int{28}
 }
 func (m *QueryLoadPoolRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1179,7 +1363,7 @@ func (m *QueryLoadPoolResponse) Reset()         { *m = QueryLoadPoolResponse{} }
 func (m *QueryLoadPoolResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryLoadPoolResponse) ProtoMessage()    {}
 func (*QueryLoadPoolResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d85b8158112bb13e, []int{25}
+	return fileDescriptor_d85b8158112bb13e, []int{29}
 }
 func (m *QueryLoadPoolResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1223,6 +1407,10 @@ func (m *QueryLoadPoolResponse) GetPagination() *query.PageResponse {
 }
 
 func init() {
+	proto.RegisterType((*QueryGetRepayRequest)(nil), "sapienscosmos.ibb.ibb.QueryGetRepayRequest")
+	proto.RegisterType((*QueryGetRepayResponse)(nil), "sapienscosmos.ibb.ibb.QueryGetRepayResponse")
+	proto.RegisterType((*QueryAllRepayRequest)(nil), "sapienscosmos.ibb.ibb.QueryAllRepayRequest")
+	proto.RegisterType((*QueryAllRepayResponse)(nil), "sapienscosmos.ibb.ibb.QueryAllRepayResponse")
 	proto.RegisterType((*QueryGetWithdrawRequest)(nil), "sapienscosmos.ibb.ibb.QueryGetWithdrawRequest")
 	proto.RegisterType((*QueryGetWithdrawResponse)(nil), "sapienscosmos.ibb.ibb.QueryGetWithdrawResponse")
 	proto.RegisterType((*QueryAllWithdrawRequest)(nil), "sapienscosmos.ibb.ibb.QueryAllWithdrawRequest")
@@ -1254,71 +1442,78 @@ func init() {
 func init() { proto.RegisterFile("ibb/query.proto", fileDescriptor_d85b8158112bb13e) }
 
 var fileDescriptor_d85b8158112bb13e = []byte{
-	// 1019 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x98, 0xcf, 0x6f, 0xdc, 0x44,
-	0x14, 0xc7, 0x33, 0xd9, 0xd2, 0xa6, 0x13, 0xa9, 0x3f, 0x06, 0x0a, 0xd5, 0x52, 0xdc, 0xd4, 0x6d,
-	0xb2, 0xdb, 0x74, 0x63, 0xd3, 0x22, 0x24, 0x24, 0x4e, 0x1b, 0x10, 0xb9, 0x20, 0x51, 0xb6, 0x82,
-	0x4a, 0x48, 0xfc, 0xb0, 0xb3, 0xa3, 0xad, 0xa5, 0xe9, 0x8e, 0xeb, 0x71, 0x28, 0x15, 0xe2, 0xc2,
-	0x09, 0x71, 0x8a, 0x20, 0x42, 0x15, 0xe2, 0xd0, 0x7f, 0x82, 0xff, 0x81, 0x63, 0x25, 0x2e, 0x1c,
-	0x51, 0xc2, 0x1f, 0x82, 0x66, 0xe6, 0x79, 0x3d, 0xb6, 0xd7, 0xf6, 0xac, 0xb4, 0x39, 0xb4, 0xd2,
-	0x4c, 0xbe, 0xef, 0xcd, 0x67, 0xbe, 0xfb, 0xf2, 0xe6, 0x6d, 0xf0, 0xc5, 0x28, 0x0c, 0xfd, 0x27,
-	0x07, 0x34, 0x79, 0xe6, 0xc5, 0x09, 0x4f, 0x39, 0xb9, 0x22, 0x82, 0x38, 0xa2, 0x53, 0xb1, 0xcf,
-	0xc5, 0x63, 0x2e, 0xbc, 0x28, 0x0c, 0xe5, 0xbf, 0xee, 0xb5, 0x09, 0xe7, 0x13, 0x46, 0xfd, 0x20,
-	0x8e, 0xfc, 0x60, 0x3a, 0xe5, 0x69, 0x90, 0x46, 0x7c, 0x2a, 0x74, 0x50, 0x77, 0x5b, 0xab, 0xfd,
-	0x30, 0x10, 0x54, 0x67, 0xf3, 0xbf, 0xbd, 0x1b, 0xd2, 0x34, 0xb8, 0xeb, 0xc7, 0xc1, 0x24, 0x9a,
-	0x2a, 0x31, 0x68, 0x89, 0x3c, 0xf1, 0x69, 0x94, 0x3e, 0x1a, 0x27, 0xc1, 0x53, 0xd8, 0xbb, 0x20,
-	0xf7, 0x0e, 0x04, 0x4d, 0x60, 0x7d, 0x49, 0xae, 0x43, 0x9e, 0x24, 0x3c, 0x53, 0x5c, 0x96, 0x3b,
-	0x63, 0x1a, 0x73, 0x11, 0xa5, 0x66, 0x50, 0xcc, 0x39, 0x33, 0x13, 0x27, 0x54, 0xc4, 0x7c, 0x2a,
-	0xa8, 0xde, 0x73, 0x6f, 0xe3, 0x37, 0x3e, 0x95, 0x38, 0x7b, 0x34, 0x7d, 0x08, 0x47, 0x8e, 0xe8,
-	0x93, 0x03, 0x2a, 0x52, 0x72, 0x01, 0xaf, 0x46, 0xe3, 0xab, 0x68, 0x03, 0xf5, 0xcf, 0x8c, 0x56,
-	0xa3, 0xb1, 0xfb, 0x10, 0x5f, 0xad, 0x4a, 0x75, 0x32, 0xf2, 0x3e, 0x5e, 0xcb, 0xf6, 0x54, 0xc4,
-	0xfa, 0xbd, 0xeb, 0xde, 0x5c, 0x9f, 0xbc, 0x59, 0xe8, 0x2c, 0xc0, 0x0d, 0x80, 0x61, 0xc8, 0x58,
-	0x99, 0xe1, 0x23, 0x8c, 0x73, 0x7f, 0x20, 0xf3, 0x96, 0x07, 0x29, 0xa5, 0x99, 0x9e, 0xfe, 0x68,
-	0xc0, 0x4c, 0xef, 0x7e, 0x30, 0xa1, 0x10, 0x3b, 0x32, 0x22, 0xdd, 0x17, 0x08, 0xe0, 0x0b, 0x67,
-	0xcc, 0x85, 0xef, 0x2c, 0x04, 0x4f, 0xf6, 0x0a, 0x84, 0xab, 0x8a, 0xb0, 0xd7, 0x4a, 0xa8, 0x4f,
-	0x2e, 0x20, 0x6e, 0xe2, 0x57, 0x33, 0x7b, 0x3f, 0x13, 0x34, 0xa9, 0xfb, 0x14, 0xf6, 0xf0, 0x6b,
-	0x45, 0x19, 0x5c, 0xc2, 0xc7, 0x67, 0xe4, 0x1a, 0x3c, 0x7a, 0xb3, 0xe6, 0x02, 0x2a, 0x44, 0x09,
-	0xdd, 0x2f, 0xe1, 0xbc, 0x21, 0x63, 0xe6, 0x79, 0xcb, 0x72, 0xfc, 0x10, 0x01, 0xe8, 0x2c, 0x7f,
-	0x05, 0xb4, 0x63, 0x05, 0xba, 0x3c, 0x87, 0xb7, 0x80, 0xe8, 0x63, 0x1e, 0x8c, 0xe7, 0x5b, 0x7c,
-	0x5e, 0x59, 0xcc, 0xf0, 0x95, 0x92, 0x0e, 0xd0, 0x1f, 0xe0, 0x4b, 0xe5, 0x3d, 0xb8, 0x46, 0xaf,
-	0xe6, 0x1a, 0x65, 0xf9, 0xa8, 0x92, 0x60, 0xf6, 0x1b, 0xb8, 0x1b, 0xb0, 0x60, 0xba, 0x4f, 0x9b,
-	0xc0, 0x12, 0x28, 0xe2, 0x82, 0x14, 0xd8, 0x3e, 0xc7, 0x97, 0xe5, 0x7a, 0x28, 0x04, 0x4d, 0xe1,
-	0xe7, 0x02, 0x3e, 0xbe, 0x7e, 0x83, 0xc7, 0x05, 0xfd, 0xa8, 0x9a, 0xc2, 0xed, 0x81, 0x19, 0x7b,
-	0x34, 0xdd, 0x55, 0xfd, 0xa6, 0xae, 0x30, 0x3f, 0xc1, 0xaf, 0x97, 0x85, 0x80, 0xf6, 0x2e, 0x3e,
-	0xab, 0x77, 0x80, 0xe7, 0xad, 0x1a, 0x1e, 0x08, 0x03, 0xb1, 0xfb, 0x35, 0x9c, 0x3c, 0x64, 0xac,
-	0x78, 0xf2, 0xb2, 0x4a, 0xf4, 0x39, 0x02, 0x64, 0xe3, 0x84, 0x39, 0xc8, 0x1d, 0x6b, 0xe4, 0xe5,
-	0x95, 0x6a, 0x3f, 0x37, 0xf3, 0x43, 0xdd, 0xd3, 0xeb, 0x6c, 0x7f, 0x90, 0x37, 0xf0, 0x99, 0x12,
-	0x2e, 0xf1, 0x1e, 0x3e, 0x07, 0x5b, 0x60, 0x92, 0x53, 0x73, 0x8b, 0x2c, 0x30, 0x93, 0xbb, 0xdf,
-	0xe4, 0xc6, 0x94, 0x8e, 0x5f, 0x96, 0xf7, 0x7f, 0xa0, 0xbc, 0xe9, 0x37, 0x72, 0x77, 0x16, 0xe0,
-	0x3e, 0x95, 0x66, 0x7c, 0x9f, 0x73, 0x66, 0xd1, 0x8c, 0xb5, 0x2c, 0xef, 0x71, 0x72, 0xdd, 0xd2,
-	0x8c, 0x55, 0x88, 0x12, 0x9a, 0xcd, 0xd8, 0x3c, 0xef, 0x34, 0x9a, 0x71, 0x0d, 0x68, 0xc7, 0x0a,
-	0x74, 0x79, 0x0e, 0x7f, 0x65, 0x34, 0xe3, 0xd3, 0xb8, 0xf2, 0x9f, 0xc8, 0xe8, 0xe2, 0x85, 0x3b,
-	0x43, 0x17, 0x37, 0xf7, 0x2c, 0xba, 0xb8, 0x29, 0x1f, 0x55, 0x12, 0x2c, 0xcd, 0x97, 0x7b, 0x47,
-	0x17, 0xf1, 0x2b, 0x8a, 0x9b, 0xfc, 0x8e, 0xf2, 0xb9, 0x84, 0x78, 0x35, 0x68, 0x35, 0xc3, 0x5b,
-	0xd7, 0xb7, 0xd6, 0xc3, 0x33, 0xb4, 0xf3, 0xe3, 0xdf, 0xff, 0xfd, 0xba, 0xda, 0x23, 0x9b, 0x3e,
-	0x04, 0xee, 0xc0, 0xc8, 0x2a, 0x87, 0x46, 0x73, 0x22, 0xf5, 0xbf, 0x8f, 0xc6, 0x3f, 0x90, 0xe7,
-	0x08, 0xaf, 0x67, 0x39, 0x86, 0x8c, 0x35, 0xf3, 0x55, 0x07, 0xbb, 0x66, 0xbe, 0x39, 0x43, 0x9a,
-	0xdb, 0x57, 0x7c, 0x2e, 0xd9, 0x68, 0xe3, 0x23, 0x3f, 0x23, 0x3d, 0x61, 0x90, 0xed, 0x16, 0x0f,
-	0x8c, 0xa7, 0xb6, 0x7b, 0xc7, 0x4a, 0x9b, 0x3d, 0xd9, 0x8a, 0xe5, 0x26, 0xb9, 0x51, 0xc7, 0x22,
-	0x27, 0x75, 0xed, 0xd3, 0x4f, 0x08, 0x9f, 0x53, 0x8f, 0x2a, 0x63, 0xcd, 0x3c, 0xc5, 0x31, 0xac,
-	0x99, 0xa7, 0x34, 0x52, 0xb9, 0xb7, 0x14, 0x8f, 0x43, 0xae, 0x35, 0xf1, 0x90, 0x23, 0x84, 0xd7,
-	0x64, 0x98, 0xac, 0x5d, 0xd2, 0x98, 0xbf, 0x34, 0x20, 0x75, 0x07, 0x76, 0x62, 0xdb, 0x4a, 0x62,
-	0x10, 0xa1, 0x1d, 0x7a, 0x81, 0xf0, 0xba, 0x5c, 0xc1, 0xc4, 0xd1, 0x5c, 0x49, 0xd5, 0x21, 0xa9,
-	0xb9, 0x92, 0xe6, 0x4c, 0x4a, 0xee, 0xdb, 0x8a, 0x6f, 0x9b, 0xf4, 0x9b, 0xdc, 0x82, 0x40, 0x8d,
-	0xf8, 0x0b, 0xca, 0xc6, 0x01, 0x32, 0x68, 0xa9, 0x93, 0xc2, 0xa4, 0xd2, 0xdd, 0xb1, 0x54, 0x03,
-	0xd9, 0x1d, 0x45, 0xb6, 0x49, 0x6e, 0xd6, 0x91, 0xe9, 0x6f, 0x7c, 0x1a, 0xea, 0x10, 0xe1, 0xf3,
-	0x3a, 0x5e, 0xd6, 0xd6, 0xa0, 0xa5, 0x5e, 0x16, 0xe0, 0xaa, 0x4c, 0x43, 0xee, 0x96, 0xe2, 0xda,
-	0x20, 0x4e, 0x33, 0x17, 0xf9, 0x0d, 0xcd, 0x5e, 0x6e, 0xd2, 0x76, 0xf5, 0xe2, 0x5c, 0xd1, 0xf5,
-	0x6c, 0xe5, 0x80, 0x34, 0x50, 0x48, 0x5b, 0xe4, 0x56, 0x1d, 0x12, 0x7c, 0x15, 0xd6, 0x5e, 0x1d,
-	0x21, 0x8c, 0x21, 0x83, 0x34, 0xab, 0xed, 0xfa, 0x8b, 0xb0, 0x55, 0xe7, 0x17, 0xb7, 0xa7, 0xd8,
-	0x6e, 0x90, 0xeb, 0x2d, 0x6c, 0xaa, 0x53, 0xa9, 0x57, 0xb5, 0xad, 0x53, 0x19, 0x0f, 0x64, 0x6b,
-	0xa7, 0x32, 0x9f, 0xa5, 0xf6, 0x4e, 0x15, 0x73, 0xce, 0xf2, 0x4e, 0x25, 0x63, 0x6d, 0x3a, 0x95,
-	0x35, 0x4f, 0x69, 0xde, 0x68, 0xef, 0x54, 0x92, 0x47, 0x96, 0xf6, 0x9a, 0x0c, 0xb3, 0xeb, 0x54,
-	0x26, 0xcc, 0xc0, 0x4e, 0x6c, 0xeb, 0x0e, 0x83, 0x08, 0xb1, 0xfb, 0xc1, 0x5f, 0xc7, 0x0e, 0x7a,
-	0x79, 0xec, 0xa0, 0x7f, 0x8f, 0x1d, 0x74, 0x78, 0xe2, 0xac, 0xbc, 0x3c, 0x71, 0x56, 0xfe, 0x39,
-	0x71, 0x56, 0xbe, 0xb8, 0x3d, 0x89, 0xd2, 0x47, 0x07, 0xa1, 0xb7, 0xcf, 0x1f, 0xcf, 0x4b, 0xf3,
-	0x9d, 0xfa, 0x3f, 0x7d, 0x16, 0x53, 0x11, 0x9e, 0x55, 0x7f, 0x73, 0x79, 0xe7, 0xff, 0x00, 0x00,
-	0x00, 0xff, 0xff, 0x9d, 0x1f, 0xac, 0x49, 0x54, 0x12, 0x00, 0x00,
+	// 1127 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x98, 0x4d, 0x6f, 0xdc, 0x44,
+	0x18, 0xc7, 0x33, 0xd9, 0xbe, 0xa4, 0x13, 0xa9, 0x34, 0x03, 0x85, 0xca, 0xa4, 0x4e, 0xea, 0x26,
+	0xd9, 0x6d, 0x5e, 0x6c, 0x1a, 0x84, 0x84, 0xc4, 0x69, 0x03, 0x22, 0x07, 0x90, 0x28, 0x5b, 0x41,
+	0x25, 0x24, 0x0a, 0x76, 0x76, 0xb4, 0xb5, 0x34, 0xdd, 0x71, 0x6d, 0x87, 0x52, 0x21, 0x2e, 0x9c,
+	0x10, 0x42, 0x28, 0x82, 0x08, 0x55, 0x88, 0x43, 0x3f, 0x04, 0x7c, 0x07, 0x8e, 0x91, 0xb8, 0x70,
+	0x44, 0x09, 0x1f, 0x04, 0xcd, 0xcc, 0xe3, 0xf5, 0xdb, 0xda, 0x9e, 0x95, 0x9c, 0x43, 0x2b, 0x79,
+	0xf2, 0x7f, 0x66, 0x7e, 0xf3, 0xf7, 0xf8, 0xd9, 0xbf, 0x8d, 0x5f, 0xf2, 0x3d, 0xcf, 0x79, 0x72,
+	0x48, 0xc3, 0x67, 0x76, 0x10, 0xf2, 0x98, 0x93, 0xeb, 0x91, 0x1b, 0xf8, 0x74, 0x1c, 0x1d, 0xf0,
+	0xe8, 0x31, 0x8f, 0x6c, 0xdf, 0xf3, 0xc4, 0x3f, 0x63, 0x79, 0xc4, 0xf9, 0x88, 0x51, 0xc7, 0x0d,
+	0x7c, 0xc7, 0x1d, 0x8f, 0x79, 0xec, 0xc6, 0x3e, 0x1f, 0x47, 0xaa, 0xc8, 0xd8, 0x54, 0x6a, 0xc7,
+	0x73, 0x23, 0xaa, 0x66, 0x73, 0xbe, 0xba, 0xeb, 0xd1, 0xd8, 0xbd, 0xeb, 0x04, 0xee, 0xc8, 0x1f,
+	0x4b, 0x31, 0x68, 0xe5, 0x8a, 0x21, 0x0d, 0x5c, 0x58, 0xd1, 0x20, 0x62, 0xe0, 0xa9, 0x1f, 0x3f,
+	0x1a, 0x86, 0xee, 0x53, 0x18, 0xbb, 0x2a, 0xc6, 0x0e, 0x23, 0x1a, 0xc2, 0xf5, 0x35, 0x71, 0xed,
+	0xf1, 0x30, 0xe4, 0x89, 0x62, 0x49, 0x8c, 0x0c, 0x69, 0xc0, 0x23, 0x3f, 0xce, 0x16, 0x05, 0x9c,
+	0xb3, 0xec, 0xc4, 0x21, 0x8d, 0x02, 0x3e, 0x8e, 0xa8, 0x1a, 0xb3, 0x36, 0xf0, 0x2b, 0x1f, 0x0b,
+	0xbe, 0x7d, 0x1a, 0x0f, 0x04, 0xc3, 0x80, 0x3e, 0x39, 0xa4, 0x51, 0x4c, 0xae, 0xe2, 0x79, 0x7f,
+	0x78, 0x03, 0xad, 0xa2, 0xde, 0x85, 0xc1, 0xbc, 0x3f, 0xb4, 0x3e, 0xc0, 0xd7, 0x0b, 0x3a, 0x35,
+	0x0d, 0xd9, 0xc5, 0x17, 0xe5, 0x80, 0xd4, 0x2e, 0xee, 0x2e, 0xdb, 0x53, 0xfd, 0xb2, 0x55, 0x91,
+	0x92, 0x5a, 0x0f, 0x61, 0xd1, 0x3e, 0x63, 0xb9, 0x45, 0xdf, 0xc7, 0x38, 0xb5, 0x07, 0x26, 0xdc,
+	0xb0, 0x61, 0x26, 0xe1, 0xa5, 0xad, 0xee, 0x0c, 0x78, 0x69, 0xdf, 0x73, 0x47, 0x14, 0x6a, 0x07,
+	0x99, 0x4a, 0xeb, 0x18, 0x01, 0x6d, 0xba, 0x40, 0x99, 0xb6, 0xa3, 0x49, 0x4b, 0xf6, 0x73, 0x54,
+	0xf3, 0x92, 0xaa, 0xdb, 0x48, 0xa5, 0x16, 0xcc, 0x61, 0xdd, 0xc1, 0xaf, 0x25, 0x1e, 0x3e, 0x80,
+	0xdb, 0x5b, 0x65, 0xf7, 0x03, 0x7c, 0xa3, 0x2c, 0x85, 0x3d, 0xbc, 0x83, 0x17, 0x92, 0x31, 0xf0,
+	0x68, 0xa5, 0x62, 0x1b, 0x93, 0xd2, 0x49, 0x81, 0xe5, 0x02, 0x43, 0x9f, 0xb1, 0x22, 0x43, 0x5b,
+	0xee, 0xbf, 0x40, 0x00, 0x9f, 0x5b, 0x63, 0x2a, 0x7c, 0x67, 0x26, 0xf8, 0xf6, 0xee, 0xc4, 0x3a,
+	0x7e, 0x39, 0xb1, 0xf7, 0x93, 0x88, 0x86, 0x55, 0x77, 0x61, 0x3f, 0x7d, 0x38, 0x94, 0x0c, 0x36,
+	0xe1, 0xe0, 0x0b, 0xe2, 0x1a, 0x3c, 0x7a, 0xbd, 0x62, 0x03, 0xb2, 0x44, 0x0a, 0xad, 0xcf, 0x61,
+	0xbd, 0x3e, 0x63, 0xd9, 0xf5, 0xda, 0x72, 0xfc, 0x08, 0xa5, 0x0f, 0x54, 0x05, 0x68, 0x47, 0x0b,
+	0xb4, 0x3d, 0x87, 0x93, 0xbe, 0xf2, 0x21, 0x77, 0x87, 0xd3, 0x2d, 0xbe, 0x22, 0x2d, 0x66, 0xf0,
+	0xa4, 0xa6, 0x3a, 0x40, 0xbf, 0x8f, 0xaf, 0x15, 0xc7, 0x60, 0x1b, 0xdd, 0x8a, 0x6d, 0x14, 0xe5,
+	0x83, 0xd2, 0x04, 0x93, 0x27, 0x70, 0xcf, 0x65, 0xee, 0xf8, 0x80, 0xd6, 0x81, 0x85, 0x70, 0x88,
+	0x73, 0x52, 0x60, 0xfb, 0x14, 0x2f, 0x89, 0xeb, 0x7e, 0x14, 0xd1, 0x18, 0xfe, 0x1e, 0xc1, 0xed,
+	0xeb, 0xd5, 0x78, 0x9c, 0xd3, 0x0f, 0xca, 0x53, 0x58, 0xdd, 0xb4, 0xc9, 0xee, 0xc9, 0xde, 0x5e,
+	0x75, 0x30, 0x3f, 0xc2, 0xaf, 0x16, 0x85, 0x80, 0xf6, 0x16, 0xbe, 0xa4, 0x46, 0x80, 0xe7, 0x66,
+	0x05, 0x0f, 0x94, 0x81, 0xd8, 0xfa, 0x22, 0x6d, 0x98, 0xf9, 0x95, 0xdb, 0x3a, 0xa2, 0xcf, 0x11,
+	0x20, 0x67, 0x56, 0x98, 0x82, 0xdc, 0xd1, 0x46, 0x6e, 0xef, 0xa8, 0xf6, 0x52, 0x33, 0xdf, 0x53,
+	0xbf, 0x9f, 0x55, 0xb6, 0xdf, 0x4f, 0x1b, 0xf8, 0x44, 0x09, 0x9b, 0x78, 0x1b, 0x5f, 0x86, 0x21,
+	0x30, 0xc9, 0xac, 0xd8, 0x45, 0x52, 0x98, 0xc8, 0xad, 0x2f, 0x53, 0x63, 0x0a, 0xcb, 0xb7, 0xe5,
+	0xfd, 0xef, 0x28, 0x6d, 0xfa, 0xb5, 0xdc, 0x9d, 0x19, 0xb8, 0xcf, 0xa5, 0x19, 0xdf, 0xe3, 0x9c,
+	0x69, 0x34, 0x63, 0x25, 0x4b, 0x7b, 0x9c, 0xb8, 0x6e, 0x68, 0xc6, 0xb2, 0x44, 0x0a, 0xb3, 0xcd,
+	0x38, 0xbb, 0xde, 0x79, 0x34, 0xe3, 0x0a, 0xd0, 0x8e, 0x16, 0x68, 0x7b, 0x0e, 0x3f, 0xcc, 0x34,
+	0xe3, 0xf3, 0xd8, 0xf2, 0x9f, 0x28, 0xd3, 0xc5, 0x73, 0x7b, 0x86, 0x2e, 0x9e, 0x1d, 0xd3, 0xe8,
+	0xe2, 0x59, 0xf9, 0xa0, 0x34, 0x41, 0x6b, 0xbe, 0xec, 0xfe, 0xb1, 0x84, 0x2f, 0x4a, 0x6e, 0xf2,
+	0x13, 0x82, 0x60, 0x48, 0xb6, 0x2a, 0xb8, 0xa6, 0xa5, 0x64, 0x63, 0x5b, 0x4f, 0x0c, 0xbf, 0x3e,
+	0x9b, 0xdf, 0xfd, 0xfd, 0xdf, 0x2f, 0xf3, 0x6b, 0xc4, 0x72, 0xa0, 0x6a, 0x07, 0x5e, 0x13, 0x44,
+	0x2e, 0x9f, 0xbc, 0x05, 0x38, 0xdf, 0xf8, 0xc3, 0x6f, 0xc9, 0x8f, 0x08, 0x2f, 0xc8, 0xea, 0x3e,
+	0x63, 0xf5, 0x4c, 0x85, 0x10, 0x5d, 0xcf, 0x54, 0x0c, 0xc4, 0xd6, 0xba, 0x64, 0x5a, 0x21, 0x37,
+	0x6b, 0x99, 0xc8, 0x6f, 0x28, 0xcd, 0x6d, 0xc4, 0x6e, 0xd8, 0x75, 0x21, 0x58, 0x1a, 0x8e, 0xb6,
+	0x1e, 0xa0, 0x76, 0x24, 0x54, 0x97, 0xac, 0x57, 0x41, 0x25, 0x6f, 0x47, 0xca, 0xab, 0xe7, 0x08,
+	0x2f, 0x26, 0x73, 0x08, 0xbb, 0xec, 0x06, 0x07, 0x66, 0xe2, 0x9b, 0x12, 0x62, 0xad, 0x9e, 0xe4,
+	0xb3, 0xc8, 0x6a, 0x13, 0x1f, 0xf9, 0x01, 0xa9, 0x04, 0x46, 0x36, 0x1b, 0x3c, 0xc8, 0x44, 0x11,
+	0x63, 0x4b, 0x4b, 0x9b, 0x44, 0x1a, 0xc9, 0x72, 0x9b, 0xdc, 0xaa, 0x62, 0x11, 0x6f, 0x8d, 0xca,
+	0xa7, 0xef, 0x11, 0xbe, 0x2c, 0x43, 0x07, 0x63, 0xf5, 0x3c, 0xf9, 0x98, 0x6a, 0x6c, 0x69, 0x69,
+	0x81, 0x67, 0x4d, 0xf2, 0x98, 0x64, 0xb9, 0x8e, 0x87, 0x1c, 0x23, 0xbc, 0x20, 0xca, 0xc4, 0xb3,
+	0x5d, 0x7f, 0xbc, 0x0b, 0x01, 0xb2, 0xfe, 0x78, 0x97, 0x02, 0x5f, 0xe3, 0x49, 0x62, 0x50, 0xa1,
+	0x1c, 0x7a, 0x81, 0xf0, 0xa2, 0xb8, 0x82, 0x44, 0x56, 0x7f, 0x92, 0xca, 0x21, 0xb2, 0xfe, 0x24,
+	0x4d, 0x49, 0x92, 0xd6, 0x1b, 0x92, 0x6f, 0x93, 0xf4, 0xea, 0xdc, 0x82, 0x42, 0x85, 0xf8, 0x33,
+	0x4a, 0xe2, 0x12, 0x69, 0xea, 0x3e, 0xb9, 0x24, 0x67, 0xec, 0x68, 0xaa, 0x81, 0x6c, 0x4b, 0x92,
+	0xad, 0x93, 0xdb, 0x55, 0x64, 0xea, 0xeb, 0x83, 0x82, 0x3a, 0x42, 0xf8, 0x8a, 0xaa, 0x17, 0x67,
+	0xab, 0xa9, 0x03, 0xcd, 0xc0, 0x55, 0x4a, 0x8b, 0xd6, 0x86, 0xe4, 0x5a, 0x25, 0x66, 0x3d, 0x17,
+	0xf9, 0x15, 0x4d, 0x92, 0x0d, 0x69, 0xda, 0x7a, 0x3e, 0x77, 0x19, 0xb6, 0xae, 0x1c, 0x90, 0xb6,
+	0x25, 0xd2, 0x06, 0x59, 0xab, 0x42, 0x82, 0xcf, 0x32, 0xca, 0xab, 0x63, 0x84, 0x31, 0xcc, 0x20,
+	0xcc, 0x6a, 0xda, 0xfe, 0x2c, 0x6c, 0xe5, 0x7c, 0x67, 0x75, 0x25, 0xdb, 0x2d, 0xb2, 0xd2, 0xc0,
+	0x26, 0x3b, 0x95, 0x4c, 0x1d, 0x4d, 0x9d, 0x2a, 0x13, 0x20, 0x1a, 0x3b, 0x55, 0xf6, 0x67, 0xbb,
+	0xb9, 0x53, 0x05, 0x9c, 0xb3, 0xb4, 0x53, 0x89, 0x5a, 0x9d, 0x4e, 0xa5, 0xcd, 0x53, 0xc8, 0x63,
+	0xcd, 0x9d, 0x4a, 0xf0, 0x88, 0xa3, 0xbd, 0x20, 0xca, 0xf4, 0x3a, 0x55, 0x16, 0x66, 0x5b, 0x4f,
+	0xac, 0xeb, 0x0e, 0x83, 0x8a, 0x68, 0xef, 0xdd, 0xbf, 0x4e, 0x4d, 0x74, 0x72, 0x6a, 0xa2, 0x7f,
+	0x4f, 0x4d, 0x74, 0x74, 0x66, 0xce, 0x9d, 0x9c, 0x99, 0x73, 0xff, 0x9c, 0x99, 0x73, 0x9f, 0xdd,
+	0x19, 0xf9, 0xf1, 0xa3, 0x43, 0xcf, 0x3e, 0xe0, 0x8f, 0xa7, 0x4d, 0xf3, 0xb5, 0xfc, 0x3f, 0x7e,
+	0x16, 0xd0, 0xc8, 0xbb, 0x24, 0xbf, 0xff, 0xbd, 0xf9, 0x7f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x87,
+	0xb9, 0x3c, 0x96, 0xf1, 0x14, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -1334,6 +1529,8 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type QueryClient interface {
 	// this line is used by starport scaffolding # 2
+	Repay(ctx context.Context, in *QueryGetRepayRequest, opts ...grpc.CallOption) (*QueryGetRepayResponse, error)
+	RepayAll(ctx context.Context, in *QueryAllRepayRequest, opts ...grpc.CallOption) (*QueryAllRepayResponse, error)
 	Withdraw(ctx context.Context, in *QueryGetWithdrawRequest, opts ...grpc.CallOption) (*QueryGetWithdrawResponse, error)
 	WithdrawAll(ctx context.Context, in *QueryAllWithdrawRequest, opts ...grpc.CallOption) (*QueryAllWithdrawResponse, error)
 	// Queries a user by id.
@@ -1363,6 +1560,24 @@ type queryClient struct {
 
 func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 	return &queryClient{cc}
+}
+
+func (c *queryClient) Repay(ctx context.Context, in *QueryGetRepayRequest, opts ...grpc.CallOption) (*QueryGetRepayResponse, error) {
+	out := new(QueryGetRepayResponse)
+	err := c.cc.Invoke(ctx, "/sapienscosmos.ibb.ibb.Query/Repay", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) RepayAll(ctx context.Context, in *QueryAllRepayRequest, opts ...grpc.CallOption) (*QueryAllRepayResponse, error) {
+	out := new(QueryAllRepayResponse)
+	err := c.cc.Invoke(ctx, "/sapienscosmos.ibb.ibb.Query/RepayAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *queryClient) Withdraw(ctx context.Context, in *QueryGetWithdrawRequest, opts ...grpc.CallOption) (*QueryGetWithdrawResponse, error) {
@@ -1485,6 +1700,8 @@ func (c *queryClient) PoolLoad(ctx context.Context, in *QueryLoadPoolRequest, op
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	// this line is used by starport scaffolding # 2
+	Repay(context.Context, *QueryGetRepayRequest) (*QueryGetRepayResponse, error)
+	RepayAll(context.Context, *QueryAllRepayRequest) (*QueryAllRepayResponse, error)
 	Withdraw(context.Context, *QueryGetWithdrawRequest) (*QueryGetWithdrawResponse, error)
 	WithdrawAll(context.Context, *QueryAllWithdrawRequest) (*QueryAllWithdrawResponse, error)
 	// Queries a user by id.
@@ -1512,6 +1729,12 @@ type QueryServer interface {
 type UnimplementedQueryServer struct {
 }
 
+func (*UnimplementedQueryServer) Repay(ctx context.Context, req *QueryGetRepayRequest) (*QueryGetRepayResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Repay not implemented")
+}
+func (*UnimplementedQueryServer) RepayAll(ctx context.Context, req *QueryAllRepayRequest) (*QueryAllRepayResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RepayAll not implemented")
+}
 func (*UnimplementedQueryServer) Withdraw(ctx context.Context, req *QueryGetWithdrawRequest) (*QueryGetWithdrawResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Withdraw not implemented")
 }
@@ -1554,6 +1777,42 @@ func (*UnimplementedQueryServer) PoolLoad(ctx context.Context, req *QueryLoadPoo
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
 	s.RegisterService(&_Query_serviceDesc, srv)
+}
+
+func _Query_Repay_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetRepayRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Repay(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/sapienscosmos.ibb.ibb.Query/Repay",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Repay(ctx, req.(*QueryGetRepayRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_RepayAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllRepayRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).RepayAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/sapienscosmos.ibb.ibb.Query/RepayAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).RepayAll(ctx, req.(*QueryAllRepayRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Query_Withdraw_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1795,6 +2054,14 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "Repay",
+			Handler:    _Query_Repay_Handler,
+		},
+		{
+			MethodName: "RepayAll",
+			Handler:    _Query_RepayAll_Handler,
+		},
+		{
 			MethodName: "Withdraw",
 			Handler:    _Query_Withdraw_Handler,
 		},
@@ -1849,6 +2116,153 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "ibb/query.proto",
+}
+
+func (m *QueryGetRepayRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetRepayRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetRepayRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Id != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetRepayResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetRepayResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetRepayResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Repay != nil {
+		{
+			size, err := m.Repay.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllRepayRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllRepayRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllRepayRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllRepayResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllRepayResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllRepayResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Repay) > 0 {
+		for iNdEx := len(m.Repay) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Repay[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
 }
 
 func (m *QueryGetWithdrawRequest) Marshal() (dAtA []byte, err error) {
@@ -2813,6 +3227,63 @@ func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *QueryGetRepayRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Id != 0 {
+		n += 1 + sovQuery(uint64(m.Id))
+	}
+	return n
+}
+
+func (m *QueryGetRepayResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Repay != nil {
+		l = m.Repay.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllRepayRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllRepayResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Repay) > 0 {
+		for _, e := range m.Repay {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
 func (m *QueryGetWithdrawRequest) Size() (n int) {
 	if m == nil {
 		return 0
@@ -3189,6 +3660,367 @@ func sovQuery(x uint64) (n int) {
 }
 func sozQuery(x uint64) (n int) {
 	return sovQuery(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *QueryGetRepayRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetRepayRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetRepayRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetRepayResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetRepayResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetRepayResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Repay", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Repay == nil {
+				m.Repay = &Repay{}
+			}
+			if err := m.Repay.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllRepayRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllRepayRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllRepayRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllRepayResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllRepayResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllRepayResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Repay", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Repay = append(m.Repay, &Repay{})
+			if err := m.Repay[len(m.Repay)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *QueryGetWithdrawRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)

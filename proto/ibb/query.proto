@@ -4,6 +4,7 @@ package sapienscosmos.ibb.ibb;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "ibb/repay.proto";
 import "ibb/withdraw.proto";
 import "ibb/user.proto";
 import "ibb/borrow.proto";
@@ -16,6 +17,13 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+	rpc Repay(QueryGetRepayRequest) returns (QueryGetRepayResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/repay/{id}";
+	}
+	rpc RepayAll(QueryAllRepayRequest) returns (QueryAllRepayResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/repay";
+	}
+
 	rpc Withdraw(QueryGetWithdrawRequest) returns (QueryGetWithdrawResponse) {
 		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/withdraw/{id}";
 	}
@@ -79,6 +87,22 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetRepayRequest {
+	uint64 id = 1;
+}
+
+message QueryGetRepayResponse {
+	Repay Repay = 1;
+}
+
+message QueryAllRepayRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllRepayResponse {
+	repeated Repay Repay = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
 message QueryGetWithdrawRequest {
 	uint64 id = 1;
 }
