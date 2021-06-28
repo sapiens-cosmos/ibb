@@ -67,4 +67,5 @@ func registerTxHandlers(clientCtx client.Context, r *mux.Router) {
 	r.HandleFunc("/ibb/createDeposit", createDepositHandler(clientCtx)).Methods("POST")
 	r.HandleFunc("/ibb/createBorrow", createBorrowHandler(clientCtx)).Methods("POST")
 	r.HandleFunc("/ibb/createWithdraw", createWithdrawHandler(clientCtx)).Methods("POST")
+	r.HandleFunc("/ibb/createRepay", createRepayHandler(clientCtx)).Methods("POST")
 }
