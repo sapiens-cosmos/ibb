@@ -12,9 +12,9 @@
 				<div class="table-cell">Liquidity</div>
 			</div>
 			<div v-if="Array.isArray(pools)" class="table-rows">
-				<div v-for="pool in pools" v-bind:key="pool.id" class="table-row" @click="clickAsset">
+				<div v-for="pool in pools" v-bind:key="pool.id" class="table-row" @click="clickAsset(pool)">
 					<div class="table-cell">{{ pool.Asset }}</div>
-					<div class="table-cell">{{ pool.BorrowApy }}</div>
+					<div class="table-cell">{{ pool.BorrowApy / 10000 }}%</div>
 					<div class="table-cell">{{ `${pool.Liquidity} ${pool.Asset}` }}</div>
 				</div>
 			</div>
@@ -91,8 +91,8 @@
 export default {
 	name: 'BorrowPools',
 	methods: {
-		clickAsset() {
-			this.$emit('click-asset')
+		clickAsset(pool) {
+			this.$emit('click-asset', pool, 'Borrow')
 		}
 	},
 	computed: {

@@ -8,7 +8,7 @@
 			<DepositPools @click-asset="openModal" />
 			<BorrowPools @click-asset="openModal" />
 		</div>
-		<Modal v-if="isModalOpen" @click-outside="closeModal" />
+		<Modal v-bind="pool" v-bind:type="type" v-if="isModalOpen" @click-outside="closeModal" />
 	</div>
 </template>
 
@@ -34,7 +34,9 @@ export default {
 	name: 'Index',
 	data() {
 		return {
-			isModalOpen: false
+			isModalOpen: false,
+			pool: null,
+			type: ''
 		}
 	},
 	async created() {
@@ -49,10 +51,14 @@ export default {
 		}
 	},
 	methods: {
-		openModal() {
+		openModal(pool, type) {
+			this.pool = pool
+			this.type = type
 			this.isModalOpen = true
 		},
 		closeModal() {
+			this.pool = null
+			this.type = ''
 			this.isModalOpen = false
 		}
 	},

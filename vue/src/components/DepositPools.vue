@@ -12,9 +12,9 @@
 				<div class="table-cell">Wallet</div>
 			</div>
 			<div v-if="Array.isArray(pools)" class="table-rows">
-				<div v-for="pool in pools" v-bind:key="pool.id" class="table-row" @click="clickAsset">
+				<div v-for="pool in pools" v-bind:key="pool.id" class="table-row" @click="clickAsset(pool)">
 					<div class="table-cell">{{ pool.Asset }}</div>
-					<div class="table-cell">{{ pool.DepositApy / 1000000 }}</div>
+					<div class="table-cell">{{ pool.DepositApy / 10000 }}%</div>
 					<div class="table-cell">{{ `0 ${pool.Asset}` }}</div>
 				</div>
 			</div>
@@ -91,12 +91,25 @@
 export default {
 	name: 'DepositPools',
 	methods: {
-		clickAsset() {
-			this.$emit('click-asset')
+		clickAsset(pool) {
+			this.$emit('click-asset', pool, 'Deposit')
 		}
 	},
 	computed: {
 		pools() {
+			const loggedAddress = this.$store.getters['common/wallet/address']
+			const userAssets = loggedAddress
+				? this.$store.getters['sapienscosmos.ibb.ibb/getUserLoad']({
+						params: {
+							id: loggedAddress
+						}
+				  })?.LoadUserResponse ?? []
+				: []
+			const assetPools =
+				this.$store.getters['sapienscosmos.ibb.ibb/getPoolLoad']({
+					params: {}
+				})?.LoadPoolResponse ?? []
+			console.log(userAssets, assetPools)
 			return (
 				this.$store.getters['sapienscosmos.ibb.ibb/getPoolLoad']({
 					params: {}

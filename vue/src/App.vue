@@ -25,7 +25,7 @@ body {
 
 <script>
 import './scss/app.scss'
-// import '@starport/vue/lib/starport-vue.css'
+//import '@starport/vue/lib/starport-vue.css'
 import Header from './components/Header'
 
 export default {

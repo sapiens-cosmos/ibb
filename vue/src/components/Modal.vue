@@ -3,7 +3,7 @@
 		<div class="modal">
 			<div class="asset">
 				<img class="asset-icon" src="@/assets/images/icons/atom.png" />
-				<div class="asset-name">ATOM</div>
+				<div class="asset-name">{{ Asset }}</div>
 			</div>
 			<div class="modes">
 				<div class="mode">Deposit</div>
@@ -12,15 +12,15 @@
 			<div class="body">
 				<div class="amount">
 					<div class="title">
-						<div class="property">Deposit Amount</div>
-						<div class="value">Wallet Balance: 334.45 ATOM</div>
+						<div class="property">{{ type }} Amount</div>
+						<div class="value">Wallet Balance: 334.45 {{ Asset }}</div>
 					</div>
 					<div class="content">
 						<div class="input-wrapper">
 							<div class="input">
 								<div class="balance">
 									<input type="text" />
-									<div class="denom">ATOM</div>
+									<div class="denom">{{ Asset }}</div>
 								</div>
 								<div class="dollar">$0</div>
 							</div>
@@ -45,11 +45,11 @@
 					<div class="title">Stats</div>
 					<div class="content">
 						<div class="property">APY</div>
-						<div class="value">23.56%</div>
+						<div class="value">{{ type === 'Deposit' ? DepositApy / 10000 : BorrowApy / 10000 }}%</div>
 					</div>
 					<div class="content">
 						<div class="property">Balance</div>
-						<div class="value">20 ATOM</div>
+						<div class="value">20 {{ Asset }}</div>
 					</div>
 				</div>
 				<div class="collateral">
@@ -74,7 +74,7 @@
 						<div class="value">0% -> 0%</div>
 					</div>
 				</div>
-				<div class="cta" @click="submit">Deposit</div>
+				<div class="cta" @click="submit">{{ type }}</div>
 			</div>
 		</div>
 	</div>
@@ -240,7 +240,7 @@
 .content {
 	margin-top: 8px;
 	display: flex;
-	font-size: 20px;
+	font-size: 18px;
 	justify-content: space-between;
 }
 
@@ -255,11 +255,16 @@
 	background: white;
 	border-radius: 10px;
 }
+
+.cta:hover {
+	cursor: pointer;
+}
 </style>
 
 <script>
 export default {
 	name: 'Modal',
+	props: ['type', 'Asset', 'BorrowApy', 'CollatoralFactor', 'DepositApy', 'Liquidity'],
 	methods: {
 		checkClickOutside(e) {
 			if (e.target === e.currentTarget) {
@@ -267,11 +272,12 @@ export default {
 			}
 		},
 		async submit() {
+			const loggedAddress = this.$store.getters['common/wallet/address']
 			const value = {
-				creator: 'cosmos17zrpv7eqqrqhf52pxpsfk7nwl8l6cnq7w2v052', // MUST replace with Alice's wallet address.
+				creator: loggedAddress,
 				blockHeight: 0,
 				asset: 'atom',
-				amount: 100,
+				amount: 10,
 				denom: 'uatom'
 			}
 			await this.$store.dispatch('sapienscosmos.ibb.ibb/sendMsgCreateDeposit', {

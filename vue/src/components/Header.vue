@@ -1,7 +1,7 @@
 <template>
 	<div class="header-wrapper">
 		<div class="logo">IBB</div>
-		<SpWallet ref="wallet" v-on:dropdown-opened="$refs.menu.closeDropdown()" />
+		<Wallet />
 	</div>
 </template>
 
@@ -20,8 +20,13 @@
 </style>
 
 <script>
+import Wallet from './Wallet'
+
 export default {
 	name: 'Header',
+	components: {
+		Wallet
+	},
 	data() {
 		return {}
 	},

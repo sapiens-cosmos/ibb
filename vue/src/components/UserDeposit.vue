@@ -100,13 +100,40 @@
 <script>
 export default {
 	name: 'UserDeposit',
-	methods: {
-		clickAsset() {
-			this.$emit('click-asset')
-		}
-	},
 	props: {
 		toggleModal: Function
+	},
+	data() {
+		return {
+			userInfo: {}
+		}
+	},
+	async created() {
+		const loggedAddress = this.$store.getters['common/wallet/address']
+		if (loggedAddress) {
+			console.log('loggedAddress', loggedAddress)
+			this.userInfo =
+				this.$store.getters['sapienscosmos.ibb.ibb/getUserLoad']({
+					params: {
+						id: loggedAddress
+					}
+				})?.LoadUserResponse ?? []
+			console.log(this.userInfo)
+		}
+	},
+	methods: {
+		clickAsset() {
+			const loggedAddress = this.$store.getters['common/wallet/address']
+			if (loggedAddress) {
+				this.userInfo =
+					this.$store.getters['sapienscosmos.ibb.ibb/getUserLoad']({
+						params: {
+							id: loggedAddress
+						}
+					})?.LoadUserResponse ?? []
+			}
+			this.$emit('click-asset')
+		}
 	}
 }
 </script>
