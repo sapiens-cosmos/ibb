@@ -20128,6 +20128,187 @@ paths:
           format: uint64
       tags:
         - Query
+  /sapiens-cosmos/ibb/ibb/repay:
+    get:
+      operationId: SapienscosmosIbbIbbRepayAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Repay:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    creator:
+                      type: string
+                    id:
+                      type: string
+                      format: uint64
+                    blockHeight:
+                      type: integer
+                      format: int32
+                    asset:
+                      type: string
+                    amount:
+                      type: integer
+                      format: int32
+                    denom:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  nextKey:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/sapiens-cosmos/ibb/ibb/repay/{id}':
+    get:
+      summary: 'this line is used by starport scaffolding # 2'
+      operationId: SapienscosmosIbbIbbRepay
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Repay:
+                type: object
+                properties:
+                  creator:
+                    type: string
+                  id:
+                    type: string
+                    format: uint64
+                  blockHeight:
+                    type: integer
+                    format: int32
+                  asset:
+                    type: string
+                  amount:
+                    type: integer
+                    format: int32
+                  denom:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   /sapiens-cosmos/ibb/ibb/user:
     get:
       summary: Queries a list of user items.
@@ -20443,6 +20624,186 @@ paths:
           in: path
           required: true
           type: string
+      tags:
+        - Query
+  /sapiens-cosmos/ibb/ibb/withdraw:
+    get:
+      operationId: SapienscosmosIbbIbbWithdrawAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Withdraw:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    creator:
+                      type: string
+                    id:
+                      type: string
+                      format: uint64
+                    blockHeight:
+                      type: integer
+                      format: int32
+                    asset:
+                      type: string
+                    amount:
+                      type: integer
+                      format: int32
+                    denom:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  nextKey:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/sapiens-cosmos/ibb/ibb/withdraw/{id}':
+    get:
+      operationId: SapienscosmosIbbIbbWithdraw
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Withdraw:
+                type: object
+                properties:
+                  creator:
+                    type: string
+                  id:
+                    type: string
+                    format: uint64
+                  blockHeight:
+                    type: integer
+                    format: int32
+                  asset:
+                    type: string
+                  amount:
+                    type: integer
+                    format: int32
+                  denom:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
       tags:
         - Query
 definitions:
@@ -30752,7 +31113,19 @@ definitions:
       id:
         type: string
         format: uint64
+  sapienscosmos.ibb.ibb.MsgCreateRepayResponse:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
   sapienscosmos.ibb.ibb.MsgCreateUserResponse:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+  sapienscosmos.ibb.ibb.MsgCreateWithdrawResponse:
     type: object
     properties:
       id:
@@ -30764,7 +31137,11 @@ definitions:
     type: object
   sapienscosmos.ibb.ibb.MsgDeletePoolResponse:
     type: object
+  sapienscosmos.ibb.ibb.MsgDeleteRepayResponse:
+    type: object
   sapienscosmos.ibb.ibb.MsgDeleteUserResponse:
+    type: object
+  sapienscosmos.ibb.ibb.MsgDeleteWithdrawResponse:
     type: object
   sapienscosmos.ibb.ibb.MsgUpdateBorrowResponse:
     type: object
@@ -30772,7 +31149,11 @@ definitions:
     type: object
   sapienscosmos.ibb.ibb.MsgUpdatePoolResponse:
     type: object
+  sapienscosmos.ibb.ibb.MsgUpdateRepayResponse:
+    type: object
   sapienscosmos.ibb.ibb.MsgUpdateUserResponse:
+    type: object
+  sapienscosmos.ibb.ibb.MsgUpdateWithdrawResponse:
     type: object
   sapienscosmos.ibb.ibb.Pool:
     type: object
@@ -31060,6 +31441,54 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
+  sapienscosmos.ibb.ibb.QueryAllRepayResponse:
+    type: object
+    properties:
+      Repay:
+        type: array
+        items:
+          type: object
+          properties:
+            creator:
+              type: string
+            id:
+              type: string
+              format: uint64
+            blockHeight:
+              type: integer
+              format: int32
+            asset:
+              type: string
+            amount:
+              type: integer
+              format: int32
+            denom:
+              type: string
+      pagination:
+        type: object
+        properties:
+          nextKey:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
   sapienscosmos.ibb.ibb.QueryAllUserResponse:
     type: object
     properties:
@@ -31122,6 +31551,54 @@ definitions:
               items:
                 type: integer
                 format: int32
+      pagination:
+        type: object
+        properties:
+          nextKey:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  sapienscosmos.ibb.ibb.QueryAllWithdrawResponse:
+    type: object
+    properties:
+      Withdraw:
+        type: array
+        items:
+          type: object
+          properties:
+            creator:
+              type: string
+            id:
+              type: string
+              format: uint64
+            blockHeight:
+              type: integer
+              format: int32
+            asset:
+              type: string
+            amount:
+              type: integer
+              format: int32
+            denom:
+              type: string
       pagination:
         type: object
         properties:
@@ -31296,6 +31773,27 @@ definitions:
                   items:
                     type: integer
                     format: int32
+  sapienscosmos.ibb.ibb.QueryGetRepayResponse:
+    type: object
+    properties:
+      Repay:
+        type: object
+        properties:
+          creator:
+            type: string
+          id:
+            type: string
+            format: uint64
+          blockHeight:
+            type: integer
+            format: int32
+          asset:
+            type: string
+          amount:
+            type: integer
+            format: int32
+          denom:
+            type: string
   sapienscosmos.ibb.ibb.QueryGetUserResponse:
     type: object
     properties:
@@ -31356,6 +31854,27 @@ definitions:
             items:
               type: integer
               format: int32
+  sapienscosmos.ibb.ibb.QueryGetWithdrawResponse:
+    type: object
+    properties:
+      Withdraw:
+        type: object
+        properties:
+          creator:
+            type: string
+          id:
+            type: string
+            format: uint64
+          blockHeight:
+            type: integer
+            format: int32
+          asset:
+            type: string
+          amount:
+            type: integer
+            format: int32
+          denom:
+            type: string
   sapienscosmos.ibb.ibb.QueryLoadPoolResponse:
     type: object
     properties:
@@ -31430,6 +31949,24 @@ definitions:
               format: int32
             Collateral:
               type: boolean
+  sapienscosmos.ibb.ibb.Repay:
+    type: object
+    properties:
+      creator:
+        type: string
+      id:
+        type: string
+        format: uint64
+      blockHeight:
+        type: integer
+        format: int32
+      asset:
+        type: string
+      amount:
+        type: integer
+        format: int32
+      denom:
+        type: string
   sapienscosmos.ibb.ibb.User:
     type: object
     properties:
@@ -31508,3 +32045,21 @@ definitions:
       Uxprt:
         type: string
         format: int64
+  sapienscosmos.ibb.ibb.Withdraw:
+    type: object
+    properties:
+      creator:
+        type: string
+      id:
+        type: string
+        format: uint64
+      blockHeight:
+        type: integer
+        format: int32
+      asset:
+        type: string
+      amount:
+        type: integer
+        format: int32
+      denom:
+        type: string

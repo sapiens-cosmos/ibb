@@ -9,9 +9,8 @@ import (
 	"github.com/sapiens-cosmos/ibb/x/ibb/types"
 )
 
+//TODO: takes asset out of User, put it in the pool ( maybe use module wallet address)
 func (k msgServer) CreateDeposit(goCtx context.Context, msg *types.MsgCreateDeposit) (*types.MsgCreateDepositResponse, error) {
-	ctx := sdk.UnwrapSDKContext(goCtx)
-
 	var deposit = types.Deposit{
 		Creator:     msg.Creator,
 		BlockHeight: msg.BlockHeight,
@@ -19,6 +18,38 @@ func (k msgServer) CreateDeposit(goCtx context.Context, msg *types.MsgCreateDepo
 		Amount:      msg.Amount,
 		Denom:       msg.Denom,
 	}
+	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	feeCoins, err := sdk.ParseCoinsNormalized(fmt.Sprint(msg.Amount, msg.Denom))
+	if err != nil {
+		return nil, err
+	}
+	userList := k.GetAllUser(ctx)
+	var queryUser types.User
+	for _, user := range userList {
+		if user.Creator == msg.Creator {
+			queryUser = user
+		}
+	}
+	queryUser.Deposit = append(queryUser.Deposit, &deposit)
+	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := k.bankKeeper.SubtractCoins(ctx, creatorAddress, feeCoins); err != nil {
+		return nil, err
+	}
+
+	poolList := k.GetAllPool(ctx)
+	var queryPool types.Pool
+	for _, pool := range poolList {
+		if pool.Asset == msg.Asset {
+			queryPool = pool
+		}
+	}
+	queryPool.DepositBalance = queryPool.DepositBalance + msg.Amount
+	k.SetPool(ctx, queryPool)
 
 	id := k.AppendDeposit(
 		ctx,
