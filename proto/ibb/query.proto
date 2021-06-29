@@ -4,6 +4,8 @@ package sapienscosmos.ibb.ibb;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "ibb/repay.proto";
+import "ibb/withdraw.proto";
 import "ibb/user.proto";
 import "ibb/borrow.proto";
 import "ibb/deposit.proto";
@@ -15,6 +17,20 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+	rpc Repay(QueryGetRepayRequest) returns (QueryGetRepayResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/repay/{id}";
+	}
+	rpc RepayAll(QueryAllRepayRequest) returns (QueryAllRepayResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/repay";
+	}
+
+	rpc Withdraw(QueryGetWithdrawRequest) returns (QueryGetWithdrawResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/withdraw/{id}";
+	}
+	rpc WithdrawAll(QueryAllWithdrawRequest) returns (QueryAllWithdrawResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/withdraw";
+	}
+
 
 	// Queries a user by id.
 	rpc User(QueryGetUserRequest) returns (QueryGetUserResponse) {
@@ -29,7 +45,9 @@ service Query {
 	rpc UserLoad(QueryLoadUserRequest) returns (QueryLoadUserResponse) {
 		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/loadUser/{id}";
 	}
-
+	rpc UserBalance(QueryBalanceUserRequest) returns (QueryBalanceUserResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/userBalance/{id}";
+	}
 
 	// Queries a borrow by id.
 	rpc Borrow(QueryGetBorrowRequest) returns (QueryGetBorrowResponse) {
@@ -69,6 +87,38 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetRepayRequest {
+	uint64 id = 1;
+}
+
+message QueryGetRepayResponse {
+	Repay Repay = 1;
+}
+
+message QueryAllRepayRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllRepayResponse {
+	repeated Repay Repay = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+message QueryGetWithdrawRequest {
+	uint64 id = 1;
+}
+
+message QueryGetWithdrawResponse {
+	Withdraw Withdraw = 1;
+}
+
+message QueryAllWithdrawRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllWithdrawResponse {
+	repeated Withdraw Withdraw = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
 message QueryGetUserRequest {
 	uint64 id = 1;
 }
@@ -92,6 +142,14 @@ message QueryLoadUserRequest {
 
 message QueryLoadUserResponse {
 	repeated LoadUserResponse LoadUserResponse = 1;
+}
+
+message QueryBalanceUserRequest {
+	string id = 1;
+}
+
+message QueryBalanceUserResponse {
+	UserAssetBalances UserAssetBalances = 1;
 }
 
 message QueryGetBorrowRequest {

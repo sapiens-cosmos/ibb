@@ -20388,6 +20388,63 @@ paths:
           format: uint64
       tags:
         - Query
+  '/sapiens-cosmos/ibb/ibb/userBalance/{id}':
+    get:
+      operationId: SapienscosmosIbbIbbUserBalance
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              UserAssetBalances:
+                type: object
+                properties:
+                  Uakt:
+                    type: string
+                    format: int64
+                  Uatom:
+                    type: string
+                    format: int64
+                  Ucro:
+                    type: string
+                    format: int64
+                  Udvpn:
+                    type: string
+                    format: int64
+                  Uiris:
+                    type: string
+                    format: int64
+                  Uxprt:
+                    type: string
+                    format: int64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
 definitions:
   cosmos.bank.v1beta1.DenomUnit:
     type: object
@@ -31090,6 +31147,30 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
+  sapienscosmos.ibb.ibb.QueryBalanceUserResponse:
+    type: object
+    properties:
+      UserAssetBalances:
+        type: object
+        properties:
+          Uakt:
+            type: string
+            format: int64
+          Uatom:
+            type: string
+            format: int64
+          Ucro:
+            type: string
+            format: int64
+          Udvpn:
+            type: string
+            format: int64
+          Uiris:
+            type: string
+            format: int64
+          Uxprt:
+            type: string
+            format: int64
   sapienscosmos.ibb.ibb.QueryGetBorrowResponse:
     type: object
     properties:
@@ -31406,3 +31487,24 @@ definitions:
         items:
           type: integer
           format: int32
+  sapienscosmos.ibb.ibb.UserAssetBalances:
+    type: object
+    properties:
+      Uakt:
+        type: string
+        format: int64
+      Uatom:
+        type: string
+        format: int64
+      Ucro:
+        type: string
+        format: int64
+      Udvpn:
+        type: string
+        format: int64
+      Uiris:
+        type: string
+        format: int64
+      Uxprt:
+        type: string
+        format: int64

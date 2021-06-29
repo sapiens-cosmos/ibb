@@ -74,7 +74,7 @@
 						<div class="value">0% -> 0%</div>
 					</div>
 				</div>
-				<div class="cta">Deposit</div>
+				<div class="cta" @click="submit">Deposit</div>
 			</div>
 		</div>
 	</div>
@@ -266,6 +266,19 @@ export default {
 			if (e.target === e.currentTarget) {
 				this.$emit('click-outside')
 			}
+		},
+		async submit() {
+			const value = {
+				creator: 'cosmos17zrpv7eqqrqhf52pxpsfk7nwl8l6cnq7w2v052', // MUST replace with Alice's wallet address.
+				blockHeight: 0,
+				asset: 'atom',
+				amount: 100,
+				denom: 'uatom'
+			}
+			await this.$store.dispatch('sapienscosmos.ibb.ibb/sendMsgCreateDeposit', {
+				value,
+				fee: []
+			})
 		}
 	}
 }

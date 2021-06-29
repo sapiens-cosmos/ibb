@@ -20,10 +20,22 @@ func RegisterRoutes(clientCtx client.Context, r *mux.Router) {
 	registerQueryRoutes(clientCtx, r)
 	registerTxHandlers(clientCtx, r)
 
+	registerQueryRoutes(clientCtx, r)
+	registerTxHandlers(clientCtx, r)
+
+	registerQueryRoutes(clientCtx, r)
+	registerTxHandlers(clientCtx, r)
+
 }
 
 func registerQueryRoutes(clientCtx client.Context, r *mux.Router) {
 	// this line is used by starport scaffolding # 3
+	r.HandleFunc("/ibb/repays/{id}", getRepayHandler(clientCtx)).Methods("GET")
+	r.HandleFunc("/ibb/repays", listRepayHandler(clientCtx)).Methods("GET")
+
+	r.HandleFunc("/ibb/withdraws/{id}", getWithdrawHandler(clientCtx)).Methods("GET")
+	r.HandleFunc("/ibb/withdraws", listWithdrawHandler(clientCtx)).Methods("GET")
+
 	// r.HandleFunc("/voter/votes/{id}", getVoteHandler(clientCtx)).Methods("GET")
 	// r.HandleFunc("/voter/votes", listVoteHandler(clientCtx)).Methods("GET")
 
@@ -37,6 +49,14 @@ func registerQueryRoutes(clientCtx client.Context, r *mux.Router) {
 
 func registerTxHandlers(clientCtx client.Context, r *mux.Router) {
 	// this line is used by starport scaffolding # 4
+	r.HandleFunc("/ibb/repays", createRepayHandler(clientCtx)).Methods("POST")
+	r.HandleFunc("/ibb/repays/{id}", updateRepayHandler(clientCtx)).Methods("POST")
+	r.HandleFunc("/ibb/repays/{id}", deleteRepayHandler(clientCtx)).Methods("POST")
+
+	r.HandleFunc("/ibb/withdraws", createWithdrawHandler(clientCtx)).Methods("POST")
+	r.HandleFunc("/ibb/withdraws/{id}", updateWithdrawHandler(clientCtx)).Methods("POST")
+	r.HandleFunc("/ibb/withdraws/{id}", deleteWithdrawHandler(clientCtx)).Methods("POST")
+
 	// r.HandleFunc("/voter/votes", createVoteHandler(clientCtx)).Methods("POST")
 	// r.HandleFunc("/voter/votes/{id}", updateVoteHandler(clientCtx)).Methods("POST")
 	// r.HandleFunc("/voter/votes/{id}", deleteVoteHandler(clientCtx)).Methods("POST")
@@ -44,6 +64,8 @@ func registerTxHandlers(clientCtx client.Context, r *mux.Router) {
 	// r.HandleFunc("/voter/polls", createPollHandler(clientCtx)).Methods("POST")
 	// r.HandleFunc("/voter/polls/{id}", updatePollHandler(clientCtx)).Methods("POST")
 	// r.HandleFunc("/voter/polls/{id}", deletePollHandler(clientCtx)).Methods("POST")
-	r.HandleFunc("/ibb/createDeposit", createDepositHandler(clientCtx)).Methods(("POST"))
-	// r.HandleFunc("/ibb/loadUser/{id}", loadUserHandler(clientCtx)).Methods(("POST"))
+	r.HandleFunc("/ibb/createDeposit", createDepositHandler(clientCtx)).Methods("POST")
+	r.HandleFunc("/ibb/createBorrow", createBorrowHandler(clientCtx)).Methods("POST")
+	r.HandleFunc("/ibb/createWithdraw", createWithdrawHandler(clientCtx)).Methods("POST")
+	r.HandleFunc("/ibb/createRepay", createRepayHandler(clientCtx)).Methods("POST")
 }

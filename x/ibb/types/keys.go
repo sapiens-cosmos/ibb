@@ -44,3 +44,13 @@ const (
 	UserKey      = "User-value-"
 	UserCountKey = "User-count-"
 )
+
+const (
+	WithdrawKey      = "Withdraw-value-"
+	WithdrawCountKey = "Withdraw-count-"
+)
+
+const (
+	RepayKey      = "Repay-value-"
+	RepayCountKey = "Repay-count-"
+)

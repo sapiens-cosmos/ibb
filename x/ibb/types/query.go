@@ -9,3 +9,13 @@ const (
 const (
 	QueryLoadUser = "load-user"
 )
+
+const (
+	QueryGetWithdraw  = "get-withdraw"
+	QueryListWithdraw = "list-withdraw"
+)
+
+const (
+	QueryGetRepay  = "get-repay"
+	QueryListRepay = "list-repay"
+)
