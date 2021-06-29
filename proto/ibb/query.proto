@@ -84,6 +84,10 @@ service Query {
 	rpc PoolLoad(QueryLoadPoolRequest) returns (QueryLoadPoolResponse) {
 		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/loadPools";
 	}
+
+	rpc LiquidationList(QueryLiquidationListRequest) returns (QueryLiquidationListResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/liquidationList";
+	}
 }
 
 // this line is used by starport scaffolding # 3
@@ -208,4 +212,12 @@ message QueryLoadPoolRequest {
 message QueryLoadPoolResponse {
 	repeated LoadPoolResponse LoadPoolResponse = 1;
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryLiquidationListRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryLiquidationListResponse {
+	repeated Liquidation Liquidation = 1;
 }

@@ -5,3 +5,7 @@ const (
 	DepositInterest   = 0.04
 	InterestFactor    = 10
 )
+
+const (
+	LiquidationRatio = 75
+)

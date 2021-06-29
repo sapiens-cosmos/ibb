@@ -32,3 +32,13 @@ message UserAssetBalances {
   int64 Uiris = 5;
   int64 Uxprt = 6;
 }
+
+message Liquidation {
+  string WalletAddress = 1;
+  repeated LiquidationAsset LiquidationAsset = 2;
+}
+
+message LiquidationAsset {
+  string Asset = 1;
+  int64 Amount = 2;
+}
