@@ -30,7 +30,14 @@ func (k msgServer) CreateBorrow(goCtx context.Context, msg *types.MsgCreateBorro
 			queryUser = user
 		}
 	}
-	queryUser.Borrow = append(queryUser.Borrow, &borrow)
+
+	for i, eachBorrow := range queryUser.Borrow {
+		if eachBorrow.Denom == msg.Denom {
+			queryUser.Deposit[i].Amount = queryUser.Borrow[i].Amount + msg.Amount
+		}
+	}
+
+	// queryUser.Borrow = append(queryUser.Borrow, &borrow)
 	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return nil, err

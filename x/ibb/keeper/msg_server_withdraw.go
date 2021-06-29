@@ -12,6 +12,27 @@ import (
 func (k msgServer) CreateWithdraw(goCtx context.Context, msg *types.MsgCreateWithdraw) (*types.MsgCreateWithdrawResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	// var withdraw = types.Withdraw{
+	// 	Creator:     msg.Creator,
+	// 	BlockHeight: msg.BlockHeight,
+	// 	Asset:       msg.Asset,
+	// 	Amount:      msg.Amount,
+	// 	Denom:       msg.Denom,
+	// }
+
+	// feeCoins, err := sdk.ParseCoinsNormalized(fmt.Sprint(msg.Amount, msg.Denom))
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// userList := k.GetAllUser(ctx)
+	// var queryUser types.User
+	// for _, user := range userList {
+	// 	if user.Creator == msg.Creator {
+	// 		queryUser = user
+	// 	}
+	// }
+	// query
+
 	id := k.AppendWithdraw(
 		ctx,
 		msg.Creator,

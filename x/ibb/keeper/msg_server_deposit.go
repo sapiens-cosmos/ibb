@@ -32,7 +32,14 @@ func (k msgServer) CreateDeposit(goCtx context.Context, msg *types.MsgCreateDepo
 			queryUser = user
 		}
 	}
-	queryUser.Deposit = append(queryUser.Deposit, &deposit)
+
+	for i, eachDeposit := range queryUser.Deposit {
+		if eachDeposit.Denom == msg.Denom {
+			queryUser.Deposit[i].Amount = queryUser.Deposit[i].Amount + msg.Amount
+		}
+	}
+	k.SetUser(ctx, queryUser)
+
 	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return nil, err
