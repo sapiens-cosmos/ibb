@@ -74,7 +74,7 @@
 						<div class="value">0% -> 0%</div>
 					</div>
 				</div>
-				<div class="cta" @click="submit">Deposit</div>
+				<div class="cta" @click="submit">{{ type }}</div>
 			</div>
 		</div>
 	</div>
@@ -240,7 +240,7 @@
 .content {
 	margin-top: 8px;
 	display: flex;
-	font-size: 20px;
+	font-size: 18px;
 	justify-content: space-between;
 }
 
@@ -255,6 +255,10 @@
 	background: white;
 	border-radius: 10px;
 }
+
+.cta:hover {
+	cursor: pointer;
+}
 </style>
 
 <script>
@@ -268,11 +272,12 @@ export default {
 			}
 		},
 		async submit() {
+			const loggedAddress = this.$store.getters['common/wallet/address']
 			const value = {
-				creator: 'cosmos17zrpv7eqqrqhf52pxpsfk7nwl8l6cnq7w2v052', // MUST replace with Alice's wallet address.
+				creator: loggedAddress,
 				blockHeight: 0,
 				asset: 'atom',
-				amount: 100,
+				amount: 10,
 				denom: 'uatom'
 			}
 			await this.$store.dispatch('sapienscosmos.ibb.ibb/sendMsgCreateDeposit', {

@@ -97,6 +97,19 @@ export default {
 	},
 	computed: {
 		pools() {
+			const loggedAddress = this.$store.getters['common/wallet/address']
+			const userAssets = loggedAddress
+				? this.$store.getters['sapienscosmos.ibb.ibb/getUserLoad']({
+						params: {
+							id: loggedAddress
+						}
+				  })?.LoadUserResponse ?? []
+				: []
+			const assetPools =
+				this.$store.getters['sapienscosmos.ibb.ibb/getPoolLoad']({
+					params: {}
+				})?.LoadPoolResponse ?? []
+			console.log(userAssets, assetPools)
 			return (
 				this.$store.getters['sapienscosmos.ibb.ibb/getPoolLoad']({
 					params: {}

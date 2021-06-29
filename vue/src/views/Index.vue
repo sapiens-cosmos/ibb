@@ -44,13 +44,6 @@ export default {
 			options: { subscribe: true, all: true },
 			params: {}
 		})
-		console.log('address', this.$store.getters['common/wallet/address'])
-		await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryUserLoad', {
-			options: { subscribe: true, all: true },
-			params: {
-				id: 'cosmos1f5zznu7gp8fx8nftdlg243sw3kx66wl2ma3d46'
-			}
-		})
 	},
 	computed: {
 		address() {
