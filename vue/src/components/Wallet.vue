@@ -116,7 +116,7 @@ export default {
 			this.isSigning = false
 			this.loggedAddress = this.$store.getters['common/wallet/address']
 			await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryUserLoad', {
-				options: { subscribe: true, all: true },
+				options: { all: true },
 				params: {
 					id: this.loggedAddress
 				}

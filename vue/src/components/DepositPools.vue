@@ -15,7 +15,7 @@
 				<div v-for="pool in pools" v-bind:key="pool.id" class="table-row" @click="clickAsset(pool)">
 					<div class="table-cell">{{ pool.Asset }}</div>
 					<div class="table-cell">{{ pool.DepositApy / 10000 }}%</div>
-					<div class="table-cell">{{ `0 ${pool.Asset}` }}</div>
+					<div class="table-cell">{{ `${parseFloat(pool.AssetBalance) / 1000000} ${pool.Asset}` }}</div>
 				</div>
 			</div>
 			<div v-else class="table-rows">
@@ -90,12 +90,6 @@
 <script>
 export default {
 	name: 'DepositPools',
-	methods: {
-		clickAsset(pool) {
-			console.log('pool', pool)
-			this.$emit('click-asset', pool, 'Deposit')
-		}
-	},
 	computed: {
 		pools() {
 			const loggedAddress = this.$store.getters['common/wallet/address']
@@ -114,6 +108,11 @@ export default {
 				...pool,
 				...userAssets[index]
 			}))
+		}
+	},
+	methods: {
+		clickAsset(pool) {
+			this.$emit('click-asset', pool, 'Deposit')
 		}
 	}
 }

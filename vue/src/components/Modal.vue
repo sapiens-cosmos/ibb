@@ -17,7 +17,8 @@
 				<div class="amount">
 					<div class="title">
 						<div class="property">{{ type }} Amount</div>
-						<div class="value">Wallet Balance: {{ parseInt(AssetBalance) / 1000000 }} {{ Asset }}</div>
+						<div v-if="type === 'Deposit'" class="value">Wallet Balance: {{ parseInt(AssetBalance) / 1000000 }} {{ Asset }}</div>
+						<div v-if="type === 'Withdraw'" class="value">Deposit Balance: {{ parseInt(AssetDeposit) / 1000000 }} {{ Asset }}</div>
 					</div>
 					<div class="content">
 						<div class="input-wrapper">
@@ -26,7 +27,7 @@
 									<input ref="balance" type="number" v-model="balance" />
 									<div class="denom">{{ Asset }}</div>
 								</div>
-								<div class="dollar">${{ parseFloat(Number.isNaN(parseFloat(balance)) ? 0 : balance) * AssetPrice }}</div>
+								<div class="dollar">${{ (parseFloat(Number.isNaN(parseFloat(balance)) ? 0 : balance) * AssetPrice) / 1000000 }}</div>
 							</div>
 							<div class="max-button">Max</div>
 						</div>
@@ -53,7 +54,7 @@
 					</div>
 					<div class="content">
 						<div class="property">Balance</div>
-						<div class="value">{{ type === 'Deposit' || type === 'Withdraw' ? AssetDeposit / 100000 : AssetBorrow / 100000 }} {{ Asset }}</div>
+						<div class="value">{{ type === 'Deposit' || type === 'Withdraw' ? AssetDeposit / 1000000 : AssetBorrow / 1000000 }} {{ Asset }}</div>
 					</div>
 				</div>
 				<div v-if="type === 'Deposit'" class="collateral">
@@ -78,7 +79,7 @@
 						<div class="value">0% -> 0%</div>
 					</div>
 				</div>
-				<div class="cta" @click="submit">{{ type }}</div>
+				<div class="cta" @click="submit">{{ isLoading ? 'Loading...' : type }}</div>
 			</div>
 		</div>
 	</div>
@@ -351,7 +352,8 @@ export default {
 	data() {
 		return {
 			type: this.initialType,
-			balance: ''
+			balance: '',
+			isLoading: false
 		}
 	},
 	async mounted() {
@@ -381,17 +383,31 @@ export default {
 		},
 		async submit() {
 			const loggedAddress = this.$store.getters['common/wallet/address']
+			const asset = this.Asset.toLocaleLowerCase()
 			const value = {
 				creator: loggedAddress,
 				blockHeight: 0,
-				asset: 'atom',
-				amount: 10,
-				denom: 'uatom'
+				asset: this.Asset,
+				amount: parseFloat(this.balance) * 1000000,
+				denom: `u${asset}`
 			}
-			await this.$store.dispatch('sapienscosmos.ibb.ibb/sendMsgCreateDeposit', {
+
+			this.isLoading = true
+			await this.$store.dispatch(`sapienscosmos.ibb.ibb/sendMsgCreate${this.type}`, {
 				value,
 				fee: []
 			})
+			await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryPoolLoad', {
+				options: { all: true },
+				params: {}
+			})
+			await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryUserLoad', {
+				options: { all: true },
+				params: {
+					id: this.$store.getters['common/wallet/address']
+				}
+			})
+			this.$emit('click-outside')
 		},
 		changeType(type) {
 			this.type = type

@@ -15,7 +15,7 @@
 				<div v-for="pool in pools" v-bind:key="pool.id" class="table-row" @click="clickAsset(pool)">
 					<div class="table-cell">{{ pool.Asset }}</div>
 					<div class="table-cell">{{ pool.BorrowApy / 10000 }}%</div>
-					<div class="table-cell">{{ `${pool.Liquidity} ${pool.Asset}` }}</div>
+					<div class="table-cell">{{ `${pool.Liquidity / 1000000}` }}</div>
 				</div>
 			</div>
 			<div v-else class="table-rows">
@@ -90,18 +90,30 @@
 <script>
 export default {
 	name: 'BorrowPools',
-	methods: {
-		clickAsset(pool) {
-			this.$emit('click-asset', pool, 'Borrow')
-		}
-	},
 	computed: {
 		pools() {
-			return (
+			const loggedAddress = this.$store.getters['common/wallet/address']
+			const userAssets = loggedAddress
+				? this.$store.getters['sapienscosmos.ibb.ibb/getUserLoad']({
+						params: {
+							id: loggedAddress
+						}
+				  })?.LoadUserResponse ?? []
+				: []
+			const assetPools =
 				this.$store.getters['sapienscosmos.ibb.ibb/getPoolLoad']({
 					params: {}
 				})?.LoadPoolResponse ?? []
-			)
+			return assetPools.map((pool, index) => ({
+				...pool,
+				...userAssets[index]
+			}))
+		}
+	},
+	methods: {
+		clickAsset(pool) {
+			console.log(pool)
+			this.$emit('click-asset', pool, 'Borrow')
 		}
 	}
 }

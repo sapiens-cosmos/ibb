@@ -3,26 +3,26 @@
 		<div class="borrow-status">
 			<div class="borrow-balance">
 				<div class="title">Borrow Balance</div>
-				<div class="value">$325.52</div>
+				<div class="value">${{ pools.reduce((acc, pool) => (acc += ((pool.AssetBorrow / 1000000) * pool.AssetPrice) / 1000000), 0).toFixed(2) }}</div>
 			</div>
 			<div class="net-apy">
-				<div class="title">Borrow Limit</div>
-				<div class="value">$400.12</div>
+				<div class="title">Net APY</div>
+				<div class="value">*TODO</div>
 			</div>
 		</div>
 		<div class="asset-table">
 			<div class="table-header">
-				<div class="table-cell">Asset</div>
-				<div class="table-cell">APY</div>
-				<div class="table-cell">Balance</div>
-				<div class="table-cell">Borrow Limit</div>
+				<div class="table-cell"><span>Asset</span></div>
+				<div class="table-cell"><span>APY</span></div>
+				<div class="table-cell"><span>Balance</span></div>
+				<div class="table-cell"><span>Borrow Limit</span></div>
 			</div>
-			<div class="table-rows">
-				<div class="table-row" @click="clickAsset">
-					<div class="table-cell">ATOM</div>
-					<div class="table-cell">64.59%</div>
-					<div class="table-cell">26.75</div>
-					<div class="table-cell">34.55</div>
+			<div v-if="Array.isArray(pools)" class="table-rows">
+				<div v-for="pool in pools" v-bind:key="pool.id" class="table-row" @click="clickAsset(pool)">
+					<div class="table-cell">{{ pool.Asset }}</div>
+					<div class="table-cell">{{ pool.BorrowApy / 10000 }}%</div>
+					<div class="table-cell">{{ pool.AssetBorrow / 1000000 }}</div>
+					<div class="table-cell">*TODO</div>
 				</div>
 			</div>
 		</div>
@@ -48,6 +48,7 @@
 	font-size: 26px;
 	font-weight: bold;
 }
+
 .asset-table {
 	margin-top: 20px;
 	padding: 12px;
@@ -60,6 +61,10 @@
 	padding: 8px 12px;
 	color: rgba(255, 255, 255, 0.7);
 	font-size: 14px;
+}
+
+.table-rows {
+	font-weight: bold;
 }
 
 .table-row {
@@ -84,14 +89,40 @@
 .table-cell:first-child {
 	justify-content: flex-start;
 }
+
+.table-cell > span {
+	line-height: 14px;
+}
 </style>
 
 <script>
 export default {
-	name: 'Userborrow',
+	name: 'UserBorrow',
+	computed: {
+		pools() {
+			const loggedAddress = this.$store.getters['common/wallet/address']
+			const userAssets = loggedAddress
+				? this.$store.getters['sapienscosmos.ibb.ibb/getUserLoad']({
+						params: {
+							id: loggedAddress
+						}
+				  })?.LoadUserResponse ?? []
+				: []
+			const assetPools =
+				this.$store.getters['sapienscosmos.ibb.ibb/getPoolLoad']({
+					params: {}
+				})?.LoadPoolResponse ?? []
+			return assetPools
+				.map((pool, index) => ({
+					...pool,
+					...userAssets[index]
+				}))
+				.filter((pool) => pool.AssetBorrow > 0)
+		}
+	},
 	methods: {
-		clickAsset() {
-			this.$emit('click-asset')
+		clickAsset(pool) {
+			this.$emit('click-asset', pool, 'Borrow')
 		}
 	}
 }

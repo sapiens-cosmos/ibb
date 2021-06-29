@@ -3,11 +3,11 @@
 		<div class="deposit-status">
 			<div class="deposit-balance">
 				<div class="title">Deposit Balance</div>
-				<div class="value">$400.12</div>
+				<div class="value">${{ pools.reduce((acc, pool) => (acc += ((pool.AssetDeposit / 1000000) * pool.AssetPrice) / 1000000), 0).toFixed(2) }}</div>
 			</div>
 			<div class="net-apy">
 				<div class="title">Net APY</div>
-				<div class="value">32.59%</div>
+				<div class="value">*TODO</div>
 			</div>
 		</div>
 		<div class="asset-table">
@@ -18,12 +18,12 @@
 				<div class="table-cell"><span>Collateral</span></div>
 				<div class="table-cell"><span>Interest</span></div>
 			</div>
-			<div class="table-rows">
-				<div class="table-row" @click="clickAsset">
-					<div class="table-cell"><span>ATOM</span></div>
-					<div class="table-cell"><span>32.59%</span></div>
-					<div class="table-cell"><span>34.55</span></div>
-					<div class="table-cell"><input type="checkbox" /></div>
+			<div v-if="Array.isArray(pools) && pools.length > 0" class="table-rows">
+				<div v-for="pool in pools" v-bind:key="pool.id" class="table-row" @click="clickAsset(pool)">
+					<div class="table-cell">{{ pool.Asset }}</div>
+					<div class="table-cell">{{ pool.DepositApy / 10000 }}%</div>
+					<div class="table-cell">{{ pool.AssetDeposit / 1000000 }}</div>
+					<div class="table-cell"><input type="checkbox" v-model="pool.Collatoral" /></div>
 					<div class="table-cell"><button>Claim</button></div>
 				</div>
 			</div>
@@ -100,39 +100,32 @@
 <script>
 export default {
 	name: 'UserDeposit',
-	props: {
-		toggleModal: Function
-	},
-	data() {
-		return {
-			userInfo: {}
-		}
-	},
-	async created() {
-		const loggedAddress = this.$store.getters['common/wallet/address']
-		if (loggedAddress) {
-			console.log('loggedAddress', loggedAddress)
-			this.userInfo =
-				this.$store.getters['sapienscosmos.ibb.ibb/getUserLoad']({
-					params: {
-						id: loggedAddress
-					}
-				})?.LoadUserResponse ?? []
-			console.log(this.userInfo)
-		}
-	},
-	methods: {
-		clickAsset() {
+	computed: {
+		pools() {
 			const loggedAddress = this.$store.getters['common/wallet/address']
-			if (loggedAddress) {
-				this.userInfo =
-					this.$store.getters['sapienscosmos.ibb.ibb/getUserLoad']({
+			const userAssets = loggedAddress
+				? this.$store.getters['sapienscosmos.ibb.ibb/getUserLoad']({
 						params: {
 							id: loggedAddress
 						}
-					})?.LoadUserResponse ?? []
-			}
-			this.$emit('click-asset')
+				  })?.LoadUserResponse ?? []
+				: []
+			const assetPools =
+				this.$store.getters['sapienscosmos.ibb.ibb/getPoolLoad']({
+					params: {}
+				})?.LoadPoolResponse ?? []
+
+			return assetPools
+				.map((pool, index) => ({
+					...pool,
+					...userAssets[index]
+				}))
+				.filter((pool) => pool.AssetDeposit > 0)
+		}
+	},
+	methods: {
+		clickAsset(pool) {
+			this.$emit('click-asset', pool, 'Deposit')
 		}
 	}
 }
