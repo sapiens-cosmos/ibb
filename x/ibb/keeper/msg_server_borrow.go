@@ -19,7 +19,36 @@ func (k msgServer) CreateBorrow(goCtx context.Context, msg *types.MsgCreateBorro
 		Amount:      msg.Amount,
 		Denom:       msg.Denom,
 	}
+	feeCoins, err := sdk.ParseCoinsNormalized(fmt.Sprint(msg.Amount, msg.Denom))
+	if err != nil {
+		return nil, err
+	}
+	userList := k.GetAllUser(ctx)
+	var queryUser types.User
+	for _, user := range userList {
+		if user.Creator == msg.Creator {
+			queryUser = user
+		}
+	}
+	queryUser.Borrow = append(queryUser.Borrow, &borrow)
+	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+	if err := k.bankKeeper.AddCoins(ctx, creatorAddress, feeCoins); err != nil {
+		return nil, err
+	}
 
+	poolList := k.GetAllPool(ctx)
+	var queryPool types.Pool
+	for _, pool := range poolList {
+		if pool.Asset == msg.Asset {
+			queryPool = pool
+		}
+	}
+	queryPool.BorrowBalance = queryPool.BorrowBalance + msg.Amount
+	k.SetPool(ctx, queryPool)
+	//TODO : add collateral logic to borrowing
 	id := k.AppendBorrow(
 		ctx,
 		borrow,
