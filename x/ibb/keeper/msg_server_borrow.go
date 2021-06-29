@@ -24,6 +24,7 @@ func (k msgServer) CreateBorrow(goCtx context.Context, msg *types.MsgCreateBorro
 		return nil, err
 	}
 	userList := k.GetAllUser(ctx)
+
 	var queryUser types.User
 	for _, user := range userList {
 		if user.Creator == msg.Creator {
