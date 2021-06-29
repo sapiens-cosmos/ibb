@@ -8,7 +8,7 @@
 			<DepositPools @click-asset="openModal" />
 			<BorrowPools @click-asset="openModal" />
 		</div>
-		<Modal v-bind="pool" v-bind:type="type" v-if="isModalOpen" @click-outside="closeModal" />
+		<Modal v-bind="pool" v-bind:initialType="type" v-if="isModalOpen" @click-outside="closeModal" />
 	</div>
 </template>
 
@@ -41,7 +41,7 @@ export default {
 	},
 	async created() {
 		await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryPoolLoad', {
-			options: { subscribe: true, all: true },
+			options: { all: true },
 			params: {}
 		})
 	},

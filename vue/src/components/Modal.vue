@@ -5,38 +5,42 @@
 				<img class="asset-icon" src="@/assets/images/icons/atom.png" />
 				<div class="asset-name">{{ Asset }}</div>
 			</div>
-			<div class="modes">
-				<div class="mode">Deposit</div>
-				<div class="mode">Borrow</div>
+			<div v-if="type === 'Deposit' || type === 'Withdraw'" class="modes">
+				<div @click="changeType('Deposit')" class="mode" :class="type === 'Deposit' ? 'active-blue' : ''">Deposit</div>
+				<div @click="changeType('Withdraw')" class="mode" :class="type === 'Withdraw' ? 'active-orange' : ''">Withdraw</div>
+			</div>
+			<div v-else-if="type === 'Borrow' || type === 'Repay'" class="modes">
+				<div @click="changeType('Borrow')" class="mode" :class="type === 'Borrow' ? 'active-orange' : ''">Borrow</div>
+				<div @click="changeType('Repay')" class="mode" :class="type === 'Repay' ? 'active-blue' : ''">Repay</div>
 			</div>
 			<div class="body">
 				<div class="amount">
 					<div class="title">
 						<div class="property">{{ type }} Amount</div>
-						<div class="value">Wallet Balance: 334.45 {{ Asset }}</div>
+						<div class="value">Wallet Balance: {{ parseInt(AssetBalance) / 1000000 }} {{ Asset }}</div>
 					</div>
 					<div class="content">
 						<div class="input-wrapper">
 							<div class="input">
 								<div class="balance">
-									<input type="text" />
+									<input ref="balance" type="number" v-model="balance" />
 									<div class="denom">{{ Asset }}</div>
 								</div>
-								<div class="dollar">$0</div>
+								<div class="dollar">${{ parseFloat(Number.isNaN(parseFloat(balance)) ? 0 : balance) * AssetPrice }}</div>
 							</div>
 							<div class="max-button">Max</div>
 						</div>
 					</div>
 					<div class="content">
-						<div class="slide">
-							<div class="slide-bar" />
-							<div class="slide-circle" />
-							<div class="slide-percentages">
-								<div class="slide-percentage">0%</div>
-								<div class="slide-percentage">25%</div>
-								<div class="slide-percentage">50%</div>
-								<div class="slide-percentage">75%</div>
-								<div class="slide-percentage">100%</div>
+						<div class="slider">
+							<input ref="range" type="range" min="0" max="100" value="0" />
+							<output ref="indicator" class="range-indicator" :class="type === 'Deposit' || type === 'Repay' ? 'blue' : 'orange'"></output>
+							<div class="slider-percentages">
+								<div class="slider-percentage">0%</div>
+								<div class="slider-percentage">25%</div>
+								<div class="slider-percentage">50%</div>
+								<div class="slider-percentage">75%</div>
+								<div class="slider-percentage">100%</div>
 							</div>
 						</div>
 					</div>
@@ -45,25 +49,25 @@
 					<div class="title">Stats</div>
 					<div class="content">
 						<div class="property">APY</div>
-						<div class="value">{{ type === 'Deposit' ? DepositApy / 10000 : BorrowApy / 10000 }}%</div>
+						<div class="value">{{ type === 'Deposit' || type === 'Withdraw' ? DepositApy / 10000 : BorrowApy / 10000 }}%</div>
 					</div>
 					<div class="content">
 						<div class="property">Balance</div>
-						<div class="value">20 {{ Asset }}</div>
+						<div class="value">{{ type === 'Deposit' || type === 'Withdraw' ? AssetDeposit / 100000 : AssetBorrow / 100000 }} {{ Asset }}</div>
 					</div>
 				</div>
-				<div class="collateral">
+				<div v-if="type === 'Deposit'" class="collateral">
 					<div class="title">Collateral</div>
 					<div class="content">
 						<div class="property">Collateral Factor</div>
-						<div class="value">75%</div>
+						<div class="value">{{ CollatoralFactor }}%</div>
 					</div>
 					<div class="content">
 						<div class="property">Used as Collateral</div>
-						<div class="value">Yes</div>
+						<div class="value">{{ Collatoral ? 'Yes' : 'No' }}</div>
 					</div>
 				</div>
-				<div class="borrow-limit">
+				<div v-else class="borrow-limit">
 					<div class="title">Borrow Limit</div>
 					<div class="content">
 						<div class="property">Your Limit</div>
@@ -83,6 +87,7 @@
 <style scoped>
 .modal-wrapper {
 	width: 100vw;
+	min-height: 100%;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -140,7 +145,22 @@
 	font-size: 28px;
 	font-weight: bold;
 	text-align: center;
-	border-bottom: 1px solid white;
+	color: #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+.mode.active-blue {
+	color: rgba(9, 67, 121, 1);
+	border-bottom: 1px solid rgba(9, 67, 121, 1);
+}
+
+.mode.active-orange {
+	color: rgba(255, 139, 0, 1);
+	border-bottom: 1px solid rgba(255, 139, 0, 1);
+}
+
+.mode:hover {
+	cursor: pointer;
 }
 
 .body {
@@ -154,10 +174,39 @@
 	width: 100%;
 	display: flex;
 	align-items: center;
+	position: relative;
 }
 
 .input {
 	width: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type='number'] {
+	-moz-appearance: textfield; /* Firefox */
+}
+
+.range-indicator {
+	color: white;
+	font-size: 14px;
+	padding: 5px 12px;
+	position: absolute;
+	border-radius: 4px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.range-indicator.blue {
+	background: rgba(9, 67, 121, 1);
+}
+
+.range-indicator.orange {
+	background: rgba(255, 139, 0, 1);
 }
 
 .balance {
@@ -182,7 +231,7 @@
 }
 
 .denom {
-	font-size: 18px;
+	font-size: 19px;
 }
 
 .dollar {
@@ -193,37 +242,59 @@
 
 .max-button {
 	padding-left: 16px;
+	font-size: 15px;
 }
 
-.slide {
+.slider {
+	margin-top: 4px;
 	position: relative;
 	width: 100%;
 }
 
-.slide-bar {
-	margin-top: 2px;
-	background: rgba(255, 255, 255, 0.7);
-	height: 6px;
-	border-radius: 50px;
+.slider > input {
+	width: 100%;
 }
 
-.slide-circle {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 10px;
-	height: 10px;
-	background: white;
+.slider > input::-webkit-slider-thumb {
+	appearance: none;
 	border-radius: 50%;
+	background: blue;
+	cursor: pointer;
 }
 
-.slide-percentages {
-	margin-top: 12px;
+.slider > input::-webkit-slider-thumb:hover {
+	background: red;
+}
+
+.slider > input:active::-webkit-slider-thumb {
+	background: yellow;
+}
+
+.slider > input::-moz-range-thumb {
+	appearance: none;
+	border-radius: 50%;
+	background: blue;
+	cursor: pointer;
+}
+
+.slider > input::-moz-range-thumb:hover {
+	background: red;
+}
+
+.slider > input:active::-moz-range-thumb {
+	background: yellow;
+}
+
+.slider > input:focus {
+	background: black;
+}
+
+.slider-percentages {
 	display: flex;
 	justify-content: space-between;
 }
 
-.slide-percentage {
+.slider-percentage {
 	font-size: 14px;
 	font-weight: bold;
 }
@@ -264,8 +335,45 @@
 <script>
 export default {
 	name: 'Modal',
-	props: ['type', 'Asset', 'BorrowApy', 'CollatoralFactor', 'DepositApy', 'Liquidity'],
+	props: [
+		'initialType',
+		'Asset',
+		'AssetBalance',
+		'AssetPrice',
+		'AssetDeposit',
+		'Collatoral',
+		'AssetBorrow',
+		'BorrowApy',
+		'CollatoralFactor',
+		'DepositApy',
+		'Liquidity'
+	],
+	data() {
+		return {
+			type: this.initialType,
+			balance: ''
+		}
+	},
+	async mounted() {
+		this.$refs.balance.focus()
+		this.$refs.range.addEventListener('input', () => {
+			this.setRange()
+		})
+		this.setRange()
+	},
 	methods: {
+		setRange() {
+			const range = this.$refs.range
+			const indicator = this.$refs.indicator
+			const val = range.value
+			const min = range.min ? range.min : 0
+			const max = range.max ? range.max : 100
+			const newVal = Number(((val - min) * 100) / (max - min))
+			indicator.innerHTML = `${val}%`
+
+			// Sorta magic numbers based on size of the native UI thumb
+			indicator.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`
+		},
 		checkClickOutside(e) {
 			if (e.target === e.currentTarget) {
 				this.$emit('click-outside')
@@ -284,6 +392,9 @@ export default {
 				value,
 				fee: []
 			})
+		},
+		changeType(type) {
+			this.type = type
 		}
 	}
 }

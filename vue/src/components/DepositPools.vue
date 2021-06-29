@@ -92,6 +92,7 @@ export default {
 	name: 'DepositPools',
 	methods: {
 		clickAsset(pool) {
+			console.log('pool', pool)
 			this.$emit('click-asset', pool, 'Deposit')
 		}
 	},
@@ -109,12 +110,10 @@ export default {
 				this.$store.getters['sapienscosmos.ibb.ibb/getPoolLoad']({
 					params: {}
 				})?.LoadPoolResponse ?? []
-			console.log(userAssets, assetPools)
-			return (
-				this.$store.getters['sapienscosmos.ibb.ibb/getPoolLoad']({
-					params: {}
-				})?.LoadPoolResponse ?? []
-			)
+			return assetPools.map((pool, index) => ({
+				...pool,
+				...userAssets[index]
+			}))
 		}
 	}
 }
