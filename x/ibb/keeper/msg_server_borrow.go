@@ -14,7 +14,7 @@ func (k msgServer) CreateBorrow(goCtx context.Context, msg *types.MsgCreateBorro
 
 	var borrow = types.Borrow{
 		Creator:     msg.Creator,
-		BlockHeight: msg.BlockHeight,
+		BlockHeight: int32(ctx.BlockHeight()),
 		Asset:       msg.Asset,
 		Amount:      msg.Amount,
 		Denom:       msg.Denom,

@@ -54,7 +54,7 @@ func (k msgServer) CreateRepay(goCtx context.Context, msg *types.MsgCreateRepay)
 	id := k.AppendRepay(
 		ctx,
 		msg.Creator,
-		msg.BlockHeight,
+		int32(ctx.BlockHeight()),
 		msg.Asset,
 		msg.Amount,
 		msg.Denom,

@@ -55,7 +55,7 @@ func (k msgServer) CreateWithdraw(goCtx context.Context, msg *types.MsgCreateWit
 	id := k.AppendWithdraw(
 		ctx,
 		msg.Creator,
-		msg.BlockHeight,
+		int32(ctx.BlockHeight()),
 		msg.Asset,
 		msg.Amount,
 		msg.Denom,
