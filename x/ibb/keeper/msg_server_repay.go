@@ -12,6 +12,45 @@ import (
 func (k msgServer) CreateRepay(goCtx context.Context, msg *types.MsgCreateRepay) (*types.MsgCreateRepayResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	feeCoins, err := sdk.ParseCoinsNormalized(fmt.Sprint(msg.Amount, msg.Denom))
+	if err != nil {
+		return nil, err
+	}
+	userList := k.GetAllUser(ctx)
+
+	var queryUser types.User
+	for _, user := range userList {
+		if user.Creator == msg.Creator {
+			queryUser = user
+		}
+	}
+
+	for i, eachBorrow := range queryUser.Borrow {
+		if eachBorrow.Denom == msg.Denom {
+			queryUser.Borrow[i].Amount = queryUser.Borrow[i].Amount - msg.Amount
+		}
+	}
+	k.SetUser(ctx, queryUser)
+
+	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+	if err := k.bankKeeper.SubtractCoins(ctx, creatorAddress, feeCoins); err != nil {
+		return nil, err
+	}
+	poolList := k.GetAllPool(ctx)
+	var queryPool types.Pool
+	for _, pool := range poolList {
+		if pool.Asset == msg.Asset {
+			queryPool = pool
+		}
+	}
+	queryPool.BorrowBalance = queryPool.BorrowBalance - msg.Amount
+	k.SetPool(ctx, queryPool)
+
+	//TODO : add apy logic to repaying
+
 	id := k.AppendRepay(
 		ctx,
 		msg.Creator,

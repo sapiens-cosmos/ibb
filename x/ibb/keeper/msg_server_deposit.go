@@ -9,8 +9,10 @@ import (
 	"github.com/sapiens-cosmos/ibb/x/ibb/types"
 )
 
-//TODO: takes asset out of User, put it in the pool ( maybe use module wallet address)
+//TODO: takes asset out of User, put it in the pool
 func (k msgServer) CreateDeposit(goCtx context.Context, msg *types.MsgCreateDeposit) (*types.MsgCreateDepositResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+
 	var deposit = types.Deposit{
 		Creator:     msg.Creator,
 		BlockHeight: msg.BlockHeight,
@@ -18,7 +20,6 @@ func (k msgServer) CreateDeposit(goCtx context.Context, msg *types.MsgCreateDepo
 		Amount:      msg.Amount,
 		Denom:       msg.Denom,
 	}
-	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	feeCoins, err := sdk.ParseCoinsNormalized(fmt.Sprint(msg.Amount, msg.Denom))
 	if err != nil {
@@ -31,7 +32,14 @@ func (k msgServer) CreateDeposit(goCtx context.Context, msg *types.MsgCreateDepo
 			queryUser = user
 		}
 	}
-	queryUser.Deposit = append(queryUser.Deposit, &deposit)
+
+	for i, eachDeposit := range queryUser.Deposit {
+		if eachDeposit.Denom == msg.Denom {
+			queryUser.Deposit[i].Amount = queryUser.Deposit[i].Amount + msg.Amount
+		}
+	}
+	k.SetUser(ctx, queryUser)
+
 	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return nil, err
