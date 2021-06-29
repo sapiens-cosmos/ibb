@@ -8,7 +8,7 @@
 			<DepositPools @click-asset="openModal" />
 			<BorrowPools @click-asset="openModal" />
 		</div>
-		<Modal v-if="isModalOpen" @click-outside="closeModal" />
+		<Modal v-bind="pool" v-bind:type="type" v-if="isModalOpen" @click-outside="closeModal" />
 	</div>
 </template>
 
@@ -34,13 +34,22 @@ export default {
 	name: 'Index',
 	data() {
 		return {
-			isModalOpen: false
+			isModalOpen: false,
+			pool: null,
+			type: ''
 		}
 	},
 	async created() {
 		await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryPoolLoad', {
 			options: { subscribe: true, all: true },
 			params: {}
+		})
+		console.log('address', this.$store.getters['common/wallet/address'])
+		await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryUserLoad', {
+			options: { subscribe: true, all: true },
+			params: {
+				id: 'cosmos1f5zznu7gp8fx8nftdlg243sw3kx66wl2ma3d46'
+			}
 		})
 	},
 	computed: {
@@ -49,10 +58,14 @@ export default {
 		}
 	},
 	methods: {
-		openModal() {
+		openModal(pool, type) {
+			this.pool = pool
+			this.type = type
 			this.isModalOpen = true
 		},
 		closeModal() {
+			this.pool = null
+			this.type = ''
 			this.isModalOpen = false
 		}
 	},

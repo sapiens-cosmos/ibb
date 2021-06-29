@@ -102,6 +102,13 @@ export default {
 	name: 'UserDeposit',
 	methods: {
 		clickAsset() {
+			console.log(
+				this.$store.getters['sapienscosmos.ibb.ibb/getUserLoad']({
+					params: {
+						id: 'cosmos1f5zznu7gp8fx8nftdlg243sw3kx66wl2ma3d46'
+					}
+				})
+			)
 			this.$emit('click-asset')
 		}
 	},
