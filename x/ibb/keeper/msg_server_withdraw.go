@@ -51,6 +51,7 @@ func (k msgServer) CreateWithdraw(goCtx context.Context, msg *types.MsgCreateWit
 	queryPool.DepositBalance = queryPool.DepositBalance - msg.Amount
 	k.SetPool(ctx, queryPool)
 
+	//TODO: add logic for paying back with interest
 	id := k.AppendWithdraw(
 		ctx,
 		msg.Creator,

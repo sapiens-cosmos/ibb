@@ -34,9 +34,10 @@ func (k msgServer) CreateBorrow(goCtx context.Context, msg *types.MsgCreateBorro
 
 	for i, eachBorrow := range queryUser.Borrow {
 		if eachBorrow.Denom == msg.Denom {
-			queryUser.Deposit[i].Amount = queryUser.Borrow[i].Amount + msg.Amount
+			queryUser.Borrow[i].Amount = queryUser.Borrow[i].Amount + msg.Amount
 		}
 	}
+	k.SetUser(ctx, queryUser)
 
 	// queryUser.Borrow = append(queryUser.Borrow, &borrow)
 	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
@@ -56,7 +57,9 @@ func (k msgServer) CreateBorrow(goCtx context.Context, msg *types.MsgCreateBorro
 	}
 	queryPool.BorrowBalance = queryPool.BorrowBalance + msg.Amount
 	k.SetPool(ctx, queryPool)
+
 	//TODO : add collateral logic to borrowing
+
 	id := k.AppendBorrow(
 		ctx,
 		borrow,
