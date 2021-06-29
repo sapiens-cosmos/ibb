@@ -100,21 +100,17 @@ func CmdCreateAllPool() *cobra.Command {
 			}
 			msgAtom := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "ATOM", "uatom", 75, 812012, 20000, []*types.User{})
 			msgIris := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "IRIS", "uatom", 80, 10000, 8000, []*types.User{})
-			msgOsmo := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "OSMO", "uosmo", 80, 10000, 8000, []*types.User{})
-			msgRegen := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "REGEN", "uregen", 80, 10000, 8000, []*types.User{})
 			msgDvpn := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "DVPN", "udvpn", 70, 10000, 8000, []*types.User{})
 			msgXprt := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "XPRT", "uxprt", 80, 10000, 8000, []*types.User{})
 			msgCro := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "CRO", "ucro", 80, 10000, 8000, []*types.User{})
 			msgAkt := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "AKT", "uakt", 80, 10000, 8000, []*types.User{})
 
+			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgAkt)
 			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgAtom)
-			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgIris)
-			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgOsmo)
-			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgRegen)
-			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgDvpn)
-			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgXprt)
 			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgCro)
-			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgAkt)
+			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgDvpn)
+			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgIris)
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgXprt)
 		},
 	}
 
