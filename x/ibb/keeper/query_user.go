@@ -100,6 +100,10 @@ func loadUser(ctx sdk.Context, walletAddress string, keeper Keeper, legacyQuerie
 		userAsset.BorrowApy = int32(currentDepositApy / currentTargetBorrowRatio * 1000000)
 		userAsset.AssetPrice = int32(assetPrices[i] * 1000000)
 
+		// TODO: Calculate DepositEarned and BorrowAccrued.
+		userAsset.DepositEarned = 123 // Unusual number for debugging purpose.
+		userAsset.BorrowAccrued = 456 // Unusual number for debugging purpose.
+
 		userAssetList = append(userAssetList, userAsset)
 	}
 
