@@ -6,6 +6,7 @@ type LoadPoolRestResponse struct {
 	Liquidity        int32
 	DepositApy       int32
 	BorrowApy        int32
+	AssetPrice       int32
 }
 
 type LoadUserRestResponse struct {

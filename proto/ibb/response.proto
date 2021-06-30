@@ -12,6 +12,7 @@ message LoadPoolResponse {
   int32 Liquidity = 3; 
   int32 DepositApy = 4; 
   int32 BorrowApy = 5; 
+  int32 AssetPrice = 6;
 }
 
 message LoadUserResponse {

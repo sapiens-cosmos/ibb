@@ -7,6 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
+	"github.com/sapiens-cosmos/ibb/x/ibb/oracle"
 	"github.com/sapiens-cosmos/ibb/x/ibb/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -65,9 +66,10 @@ func (k Keeper) PoolLoad(c context.Context, req *types.QueryLoadPoolRequest) (*t
 
 	ctx := sdk.UnwrapSDKContext(c)
 
+	assetPrices := oracle.GetAllPrices()
 	poolList := k.GetAllPool(ctx)
 	var loadPoolList []*types.LoadPoolResponse
-	for _, msg := range poolList {
+	for i, msg := range poolList {
 		var loadPool types.LoadPoolResponse
 		currentTargetBorrowRatio := float64(msg.BorrowBalance) / float64(msg.DepositBalance)
 		currentDepositApy := types.DepositInterest + types.DepositInterest*(currentTargetBorrowRatio-float64(types.TargetBorrowRatio)*0.01)*types.InterestFactor
@@ -79,6 +81,7 @@ func (k Keeper) PoolLoad(c context.Context, req *types.QueryLoadPoolRequest) (*t
 		loadPool.Liquidity = msg.DepositBalance - msg.BorrowBalance
 		loadPool.DepositApy = int32(currentDepositApy * 1000000)
 		loadPool.BorrowApy = int32(currentDepositApy / currentTargetBorrowRatio * 1000000)
+		loadPool.AssetPrice = int32(assetPrices[i] * 1000000)
 
 		loadPoolList = append(loadPoolList, &loadPool)
 	}
