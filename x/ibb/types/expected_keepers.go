@@ -26,4 +26,5 @@ type BankKeeper interface {
 
 type NFTKeeper interface {
 	GetNFT(ctx sdk.Context, denom, id string) (nft exported.NFT, err error)
+	MintNFT(ctx sdk.Context, denomID, tokenID, tokenNm, tokenURI, tokenData string, owner sdk.AccAddress) error
 }
