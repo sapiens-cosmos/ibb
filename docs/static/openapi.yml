@@ -24301,6 +24301,184 @@ paths:
           type: string
       tags:
         - Query
+  /sapiens-cosmos/ibb/ibb/nft:
+    get:
+      summary: Queries a list of nft items.
+      operationId: SapienscosmosIbbIbbNftAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Nft:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    creator:
+                      type: string
+                    id:
+                      type: string
+                      format: uint64
+                    collection:
+                      type: string
+                    ownerAddress:
+                      type: string
+                    imageUrl:
+                      type: string
+                    name:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  nextKey:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/sapiens-cosmos/ibb/ibb/nft/{id}':
+    get:
+      summary: Queries a nft by id.
+      operationId: SapienscosmosIbbIbbNft
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Nft:
+                type: object
+                properties:
+                  creator:
+                    type: string
+                  id:
+                    type: string
+                    format: uint64
+                  collection:
+                    type: string
+                  ownerAddress:
+                    type: string
+                  imageUrl:
+                    type: string
+                  name:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   /sapiens-cosmos/ibb/ibb/pool:
     get:
       summary: Queries a list of pool items.
@@ -24734,7 +24912,6 @@ paths:
         - Query
   '/sapiens-cosmos/ibb/ibb/repay/{id}':
     get:
-      summary: 'this line is used by starport scaffolding # 2'
       operationId: SapienscosmosIbbIbbRepay
       responses:
         '200':
@@ -38434,6 +38611,12 @@ definitions:
       id:
         type: string
         format: uint64
+  sapienscosmos.ibb.ibb.MsgCreateNftResponse:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
   sapienscosmos.ibb.ibb.MsgCreatePoolResponse:
     type: object
     properties:
@@ -38462,6 +38645,8 @@ definitions:
     type: object
   sapienscosmos.ibb.ibb.MsgDeleteDepositResponse:
     type: object
+  sapienscosmos.ibb.ibb.MsgDeleteNftResponse:
+    type: object
   sapienscosmos.ibb.ibb.MsgDeletePoolResponse:
     type: object
   sapienscosmos.ibb.ibb.MsgDeleteRepayResponse:
@@ -38474,6 +38659,8 @@ definitions:
     type: object
   sapienscosmos.ibb.ibb.MsgUpdateDepositResponse:
     type: object
+  sapienscosmos.ibb.ibb.MsgUpdateNftResponse:
+    type: object
   sapienscosmos.ibb.ibb.MsgUpdatePoolResponse:
     type: object
   sapienscosmos.ibb.ibb.MsgUpdateRepayResponse:
@@ -38482,6 +38669,22 @@ definitions:
     type: object
   sapienscosmos.ibb.ibb.MsgUpdateWithdrawResponse:
     type: object
+  sapienscosmos.ibb.ibb.Nft:
+    type: object
+    properties:
+      creator:
+        type: string
+      id:
+        type: string
+        format: uint64
+      collection:
+        type: string
+      ownerAddress:
+        type: string
+      imageUrl:
+        type: string
+      name:
+        type: string
   sapienscosmos.ibb.ibb.Pool:
     type: object
     properties:
@@ -38632,6 +38835,52 @@ definitions:
               type: integer
               format: int32
             denom:
+              type: string
+      pagination:
+        type: object
+        properties:
+          nextKey:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  sapienscosmos.ibb.ibb.QueryAllNftResponse:
+    type: object
+    properties:
+      Nft:
+        type: array
+        items:
+          type: object
+          properties:
+            creator:
+              type: string
+            id:
+              type: string
+              format: uint64
+            collection:
+              type: string
+            ownerAddress:
+              type: string
+            imageUrl:
+              type: string
+            name:
               type: string
       pagination:
         type: object
@@ -39016,6 +39265,25 @@ definitions:
             type: integer
             format: int32
           denom:
+            type: string
+  sapienscosmos.ibb.ibb.QueryGetNftResponse:
+    type: object
+    properties:
+      Nft:
+        type: object
+        properties:
+          creator:
+            type: string
+          id:
+            type: string
+            format: uint64
+          collection:
+            type: string
+          ownerAddress:
+            type: string
+          imageUrl:
+            type: string
+          name:
             type: string
   sapienscosmos.ibb.ibb.QueryGetPoolResponse:
     type: object

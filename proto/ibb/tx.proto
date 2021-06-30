@@ -2,6 +2,7 @@ syntax = "proto3";
 package sapienscosmos.ibb.ibb;
 
 // this line is used by starport scaffolding # proto/tx/import
+import "ibb/nft.proto";
 import "ibb/user.proto";
 import "ibb/borrow.proto";
 import "ibb/deposit.proto";
@@ -12,6 +13,9 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateNft(MsgCreateNft) returns (MsgCreateNftResponse);
+  rpc UpdateNft(MsgUpdateNft) returns (MsgUpdateNftResponse);
+  rpc DeleteNft(MsgDeleteNft) returns (MsgDeleteNftResponse);
   rpc CreateRepay(MsgCreateRepay) returns (MsgCreateRepayResponse);
   rpc UpdateRepay(MsgUpdateRepay) returns (MsgUpdateRepayResponse);
   rpc DeleteRepay(MsgDeleteRepay) returns (MsgDeleteRepayResponse);
@@ -33,6 +37,36 @@ service Msg {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateNft {
+  string creator = 1;
+  string collection = 2;
+  string ownerAddress = 3;
+  string imageUrl = 4;
+  string name = 5;
+}
+
+message MsgCreateNftResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateNft {
+  string creator = 1;
+  uint64 id = 2;
+  string collection = 3;
+  string ownerAddress = 4;
+  string imageUrl = 5;
+  string name = 6;
+}
+
+message MsgUpdateNftResponse { }
+
+message MsgDeleteNft {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteNftResponse { }
+
 message MsgCreateRepay {
   string creator = 1;
   int32 blockHeight = 2;

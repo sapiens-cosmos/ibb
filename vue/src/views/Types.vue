@@ -2,6 +2,7 @@
 	<div>
 		<div class="container">
 			<!-- this line is used by starport scaffolding # 4 -->
+		<SpType modulePath="sapiens-cosmos.ibb.ibb" moduleType="Nft"  />
 		<SpType modulePath="sapiens-cosmos.ibb.ibb" moduleType="Repay"  />
 		<SpType modulePath="sapiens-cosmos.ibb.ibb" moduleType="Withdraw"  />
 		<SpType modulePath="sapiens-cosmos.ibb.ibb" moduleType="InterfaceApr"  />

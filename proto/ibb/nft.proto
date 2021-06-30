@@ -1,0 +1,15 @@
+syntax = "proto3";
+package sapienscosmos.ibb.ibb;
+
+option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
+
+import "gogoproto/gogo.proto";
+
+message Nft {
+  string creator = 1;
+  uint64 id = 2;
+  string collection = 3; 
+  string ownerAddress = 4; 
+  string imageUrl = 5; 
+  string name = 6; 
+}

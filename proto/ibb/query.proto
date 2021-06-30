@@ -4,6 +4,7 @@ package sapienscosmos.ibb.ibb;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "ibb/nft.proto";
 import "ibb/repay.proto";
 import "ibb/withdraw.proto";
 import "ibb/user.proto";
@@ -17,6 +18,17 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a nft by id.
+	rpc Nft(QueryGetNftRequest) returns (QueryGetNftResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/nft/{id}";
+	}
+
+	// Queries a list of nft items.
+	rpc NftAll(QueryAllNftRequest) returns (QueryAllNftResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/nft";
+	}
+
 	rpc Repay(QueryGetRepayRequest) returns (QueryGetRepayResponse) {
 		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/repay/{id}";
 	}
@@ -91,6 +103,22 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetNftRequest {
+	uint64 id = 1;
+}
+
+message QueryGetNftResponse {
+	Nft Nft = 1;
+}
+
+message QueryAllNftRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllNftResponse {
+	repeated Nft Nft = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
 message QueryGetRepayRequest {
 	uint64 id = 1;
 }
