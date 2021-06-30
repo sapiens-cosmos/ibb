@@ -23,6 +23,11 @@ message LoadUserResponse {
 	int32 AssetBorrow = 5;
 	int32 AssetPrice = 6;
 	bool Collateral =7;
+  string Asset = 8;
+  int32 CollatoralFactor = 9;
+  int32 Liquidity = 10;
+  int32 DepositApy = 11;
+  int32 BorrowApy = 12;
 }
 
 message UserAssetBalances {

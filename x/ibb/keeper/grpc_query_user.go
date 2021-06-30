@@ -85,8 +85,9 @@ func (k Keeper) UserLoad(c context.Context, req *types.QueryLoadUserRequest) (*t
 
 	assetBalances := k.bankKeeper.GetAllBalances(ctx, userAddress)[1:]
 	assetPrices := oracle.GetAllPrices()
+	poolList := k.GetAllPool(ctx)
 
-	for i := 0; i < assetBalances.Len(); i++ {
+	for i, msg := range poolList {
 		var userAsset types.LoadUserResponse
 		userAsset.AssetBalance = assetBalances[i].Amount.Int64()
 		userAsset.AssetDenom = assetBalances[i].Denom
@@ -94,6 +95,15 @@ func (k Keeper) UserLoad(c context.Context, req *types.QueryLoadUserRequest) (*t
 		userAsset.Collateral = queryUser.Collateral[i]
 		userAsset.AssetDeposit = queryUser.Deposit[i].Amount
 		userAsset.AssetBorrow = queryUser.Borrow[i].Amount
+
+		currentTargetBorrowRatio := float64(msg.BorrowBalance) / float64(msg.DepositBalance)
+		currentDepositApy := types.DepositInterest + types.DepositInterest*(currentTargetBorrowRatio-float64(types.TargetBorrowRatio)*0.01)*types.InterestFactor
+		userAsset.Asset = msg.Asset
+		userAsset.CollatoralFactor = msg.CollatoralFactor
+		userAsset.Liquidity = msg.DepositBalance - msg.BorrowBalance
+		userAsset.DepositApy = int32(currentDepositApy * 1000000)
+		userAsset.BorrowApy = int32(currentDepositApy / currentTargetBorrowRatio * 1000000)
+		userAsset.AssetPrice = int32(assetPrices[i] * 1000000)
 
 		userAssetList = append(userAssetList, &userAsset)
 	}
