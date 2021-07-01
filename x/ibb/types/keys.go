@@ -64,3 +64,8 @@ const (
 	DepositEarnedKey      = "DepositEarned-value-"
 	DepositEarnedCountKey = "DepositEarned-count-"
 )
+
+const (
+	BorrowAccruedKey      = "BorrowAccrued-value-"
+	BorrowAccruedCountKey = "BorrowAccrued-count-"
+)

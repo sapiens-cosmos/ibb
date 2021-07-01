@@ -2,6 +2,7 @@ syntax = "proto3";
 package sapienscosmos.ibb.ibb;
 
 // this line is used by starport scaffolding # genesis/proto/import
+import "ibb/borrowAccrued.proto";
 import "ibb/depositEarned.proto";
 import "ibb/apr.proto";
 import "ibb/repay.proto";
@@ -16,6 +17,7 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // GenesisState defines the ibb module's genesis state.
 message GenesisState {
     // this line is used by starport scaffolding # genesis/proto/state
+		repeated BorrowAccrued borrowAccruedList = 13; // this line is used by starport scaffolding # genesis/proto/stateField
 		repeated DepositEarned depositEarnedList = 12; // this line is used by starport scaffolding # genesis/proto/stateField
 		repeated Apr aprList = 11; // this line is used by starport scaffolding # genesis/proto/stateField
 		repeated Repay repayList = 10; // this line is used by starport scaffolding # genesis/proto/stateField

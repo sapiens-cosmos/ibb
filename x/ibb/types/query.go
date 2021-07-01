@@ -29,3 +29,8 @@ const (
 	QueryGetDepositEarned  = "get-depositEarned"
 	QueryListDepositEarned = "list-depositEarned"
 )
+
+const (
+	QueryGetBorrowAccrued  = "get-borrowAccrued"
+	QueryListBorrowAccrued = "list-borrowAccrued"
+)
