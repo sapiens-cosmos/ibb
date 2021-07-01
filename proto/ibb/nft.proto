@@ -12,4 +12,5 @@ message Nft {
   string ownerAddress = 4; 
   string imageUrl = 5; 
   string name = 6; 
+  string nftCreatorAddress = 7;
 }

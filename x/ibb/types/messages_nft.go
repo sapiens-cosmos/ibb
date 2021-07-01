@@ -7,13 +7,14 @@ import (
 
 var _ sdk.Msg = &MsgCreateNft{}
 
-func NewMsgCreateNft(creator string, collection string, ownerAddress string, imageUrl string, name string) *MsgCreateNft {
+func NewMsgCreateNft(creator string, collection string, ownerAddress string, imageUrl string, name string, nftCreatorAddress string) *MsgCreateNft {
 	return &MsgCreateNft{
-		Creator:      creator,
-		Collection:   collection,
-		OwnerAddress: ownerAddress,
-		ImageUrl:     imageUrl,
-		Name:         name,
+		Creator:           creator,
+		Collection:        collection,
+		OwnerAddress:      ownerAddress,
+		ImageUrl:          imageUrl,
+		Name:              name,
+		NftCreatorAddress: nftCreatorAddress,
 	}
 }
 

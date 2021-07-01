@@ -56,6 +56,7 @@ message MsgCreateNft {
   string ownerAddress = 3;
   string imageUrl = 4;
   string name = 5;
+  string nftCreatorAddress = 6;
 }
 
 message MsgCreateNftResponse {

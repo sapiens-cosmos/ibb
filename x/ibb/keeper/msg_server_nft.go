@@ -13,11 +13,12 @@ func (k msgServer) CreateNft(goCtx context.Context, msg *types.MsgCreateNft) (*t
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var nft = types.Nft{
-		Creator:      msg.Creator,
-		Collection:   msg.Collection,
-		OwnerAddress: msg.OwnerAddress,
-		ImageUrl:     msg.ImageUrl,
-		Name:         msg.Name,
+		Creator:           msg.Creator,
+		Collection:        msg.Collection,
+		OwnerAddress:      msg.OwnerAddress,
+		ImageUrl:          msg.ImageUrl,
+		Name:              msg.Name,
+		NftCreatorAddress: msg.NftCreatorAddress,
 	}
 
 	id := k.AppendNft(

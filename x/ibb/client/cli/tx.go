@@ -59,5 +59,6 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdDeletePool())
 	cmd.AddCommand(CmdCreateAllPool())
 
+	cmd.AddCommand(CmdCreateMockNft())
 	return cmd
 }
