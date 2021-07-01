@@ -42,11 +42,13 @@ func CmdCreatePool() *cobra.Command {
 
 			argsUsers := []*types.User{}
 
+			argsAprs := []*types.Apr{}
+
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
-			msg := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), argsAsset, argsDenom, argsCollatoralFactor, argsDepositBalance, argsBorrowBalance, argsUsers)
+			msg := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), argsAsset, argsDenom, argsCollatoralFactor, argsDepositBalance, argsBorrowBalance, argsUsers, argsAprs)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -98,12 +100,12 @@ func CmdCreateAllPool() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			msgAtom := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "ATOM", "uatom", 75, 812012, 20000, []*types.User{})
-			msgIris := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "IRIS", "uatom", 80, 10000, 8000, []*types.User{})
-			msgDvpn := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "DVPN", "udvpn", 70, 10000, 8000, []*types.User{})
-			msgXprt := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "XPRT", "uxprt", 80, 10000, 8000, []*types.User{})
-			msgCro := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "CRO", "ucro", 80, 10000, 8000, []*types.User{})
-			msgAkt := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "AKT", "uakt", 80, 10000, 8000, []*types.User{})
+			msgAtom := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "ATOM", "uatom", 75, 812012, 20000, []*types.User{}, []*types.Apr{})
+			msgIris := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "IRIS", "uatom", 80, 10000, 8000, []*types.User{}, []*types.Apr{})
+			msgDvpn := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "DVPN", "udvpn", 70, 10000, 8000, []*types.User{}, []*types.Apr{})
+			msgXprt := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "XPRT", "uxprt", 80, 10000, 8000, []*types.User{}, []*types.Apr{})
+			msgCro := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "CRO", "ucro", 80, 10000, 8000, []*types.User{}, []*types.Apr{})
+			msgAkt := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "AKT", "uakt", 80, 10000, 8000, []*types.User{}, []*types.Apr{})
 
 			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgAkt)
 			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgAtom)

@@ -6,6 +6,7 @@ import "ibb/user.proto";
 import "ibb/borrow.proto";
 import "ibb/deposit.proto";
 import "ibb/pool.proto";
+import "ibb/apr.proto";
 
 option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 
@@ -222,6 +223,7 @@ message MsgCreatePool {
   int32 depositBalance = 5;
   int32 borrowBalance = 6;
   repeated User users = 8;
+  repeated Apr aprs = 9;
 }
 
 message MsgCreatePoolResponse {
@@ -237,6 +239,7 @@ message MsgUpdatePool {
   int32 depositBalance = 6;
   int32 borrowBalance = 7;
   repeated User users = 9;
+  repeated Apr aprs = 10;
 }
 
 message MsgUpdatePoolResponse { }
