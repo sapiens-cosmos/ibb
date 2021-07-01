@@ -19757,6 +19757,9 @@ paths:
                       type: string
                     NftCreatorAddress:
                       type: string
+                    Id:
+                      type: integer
+                      format: int32
               DashboardNft:
                 type: array
                 items:
@@ -19772,6 +19775,9 @@ paths:
                       type: string
                     NftCreatorAddress:
                       type: string
+                    Id:
+                      type: integer
+                      format: int32
         default:
           description: An unexpected error response.
           schema:
@@ -20139,21 +20145,19 @@ paths:
               Nft:
                 type: object
                 properties:
-                  creator:
+                  Collection:
                     type: string
-                  id:
+                  OwnerAddress:
                     type: string
-                    format: uint64
-                  collection:
+                  ImageUrl:
                     type: string
-                  ownerAddress:
+                  Name:
                     type: string
-                  imageUrl:
+                  NftCreatorAddress:
                     type: string
-                  name:
-                    type: string
-                  nftCreatorAddress:
-                    type: string
+                  Id:
+                    type: integer
+                    format: int32
         default:
           description: An unexpected error response.
           schema:
@@ -31597,6 +31601,9 @@ definitions:
         type: string
       NftCreatorAddress:
         type: string
+      Id:
+        type: integer
+        format: int32
   sapienscosmos.ibb.ibb.Pool:
     type: object
     properties:
@@ -32186,21 +32193,19 @@ definitions:
       Nft:
         type: object
         properties:
-          creator:
+          Collection:
             type: string
-          id:
+          OwnerAddress:
             type: string
-            format: uint64
-          collection:
+          ImageUrl:
             type: string
-          ownerAddress:
+          Name:
             type: string
-          imageUrl:
+          NftCreatorAddress:
             type: string
-          name:
-            type: string
-          nftCreatorAddress:
-            type: string
+          Id:
+            type: integer
+            format: int32
   sapienscosmos.ibb.ibb.QueryGetPoolResponse:
     type: object
     properties:
@@ -32424,6 +32429,9 @@ definitions:
               type: string
             NftCreatorAddress:
               type: string
+            Id:
+              type: integer
+              format: int32
       DashboardNft:
         type: array
         items:
@@ -32439,6 +32447,9 @@ definitions:
               type: string
             NftCreatorAddress:
               type: string
+            Id:
+              type: integer
+              format: int32
   sapienscosmos.ibb.ibb.QueryLoadPoolResponse:
     type: object
     properties:

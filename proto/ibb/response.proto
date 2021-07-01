@@ -55,4 +55,5 @@ message NftResponse {
   string ImageUrl = 3;
   string Name = 4;
   string NftCreatorAddress = 5;
+  int32 Id = 6;
 }

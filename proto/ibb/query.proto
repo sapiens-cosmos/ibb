@@ -113,7 +113,7 @@ message QueryGetNftRequest {
 }
 
 message QueryGetNftResponse {
-	Nft Nft = 1;
+	NftResponse Nft = 1;
 }
 
 message QueryAllNftRequest {
