@@ -6,6 +6,16 @@ import (
 	"sync"
 )
 
+const (
+	// Updated around 2021-07-01T10:57:17Z.
+	DefaultAtomPrice float64 = 11.01
+	DefaultIrisPrice float64 = 0.075752
+	DefaultDvpnPrice float64 = 0.01979
+	DefaultXprtPrice float64 = 8.3
+	DefaultCroPrice  float64 = 0.113824
+	DefaultAktPrice  float64 = 3.52
+)
+
 func GetAllPrices() [6]float64 {
 	var waitGroup sync.WaitGroup
 
@@ -41,7 +51,11 @@ func GetAtomPrice(waitGroup *sync.WaitGroup) float64 {
 	defer r.Body.Close()
 	json.NewDecoder(r.Body).Decode(&price)
 
-	return price.Atom.Usd
+	if price.Atom.Usd != 0 {
+		return price.Atom.Usd
+	} else {
+		return DefaultAtomPrice
+	}
 }
 
 func GetIrisPrice(waitGroup *sync.WaitGroup) float64 {
@@ -62,7 +76,11 @@ func GetIrisPrice(waitGroup *sync.WaitGroup) float64 {
 	defer r.Body.Close()
 	json.NewDecoder(r.Body).Decode(&price)
 
-	return price.Iris.Usd
+	if price.Iris.Usd != 0 {
+		return price.Iris.Usd
+	} else {
+		return DefaultIrisPrice
+	}
 }
 
 func GetDvpnPrice(waitGroup *sync.WaitGroup) float64 {
@@ -83,7 +101,11 @@ func GetDvpnPrice(waitGroup *sync.WaitGroup) float64 {
 	defer r.Body.Close()
 	json.NewDecoder(r.Body).Decode(&price)
 
-	return price.Dvpn.Usd
+	if price.Dvpn.Usd != 0 {
+		return price.Dvpn.Usd
+	} else {
+		return DefaultDvpnPrice
+	}
 }
 
 func GetXprtPrice(waitGroup *sync.WaitGroup) float64 {
@@ -104,7 +126,11 @@ func GetXprtPrice(waitGroup *sync.WaitGroup) float64 {
 	defer r.Body.Close()
 	json.NewDecoder(r.Body).Decode(&price)
 
-	return price.Xprt.Usd
+	if price.Xprt.Usd != 0 {
+		return price.Xprt.Usd
+	} else {
+		return DefaultXprtPrice
+	}
 }
 
 func GetCroPrice(waitGroup *sync.WaitGroup) float64 {
@@ -125,7 +151,11 @@ func GetCroPrice(waitGroup *sync.WaitGroup) float64 {
 	defer r.Body.Close()
 	json.NewDecoder(r.Body).Decode(&price)
 
-	return price.Cro.Usd
+	if price.Cro.Usd != 0 {
+		return price.Cro.Usd
+	} else {
+		return DefaultCroPrice
+	}
 }
 
 func GetAktPrice(waitGroup *sync.WaitGroup) float64 {
@@ -146,5 +176,9 @@ func GetAktPrice(waitGroup *sync.WaitGroup) float64 {
 	defer r.Body.Close()
 	json.NewDecoder(r.Body).Decode(&price)
 
-	return price.Akt.Usd
+	if price.Akt.Usd != 0 {
+		return price.Akt.Usd
+	} else {
+		return DefaultAktPrice
+	}
 }
