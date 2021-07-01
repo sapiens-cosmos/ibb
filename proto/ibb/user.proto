@@ -8,6 +8,7 @@ import "ibb/deposit.proto";
 import "ibb/borrow.proto";
 import "ibb/depositEarned.proto";
 import "ibb/borrowAccrued.proto";
+import "ibb/txHistory.proto";
 
 message User {
   string creator = 1;
@@ -18,4 +19,5 @@ message User {
   repeated int32 assetBalances = 6;
   repeated DepositEarned depositEarneds = 7;
   repeated BorrowAccrued borrowAccrueds = 8;
+  repeated TxHistory txHistories = 9;
 }

@@ -55,8 +55,9 @@ func loadUserHandler(clientCtx client.Context) http.HandlerFunc {
 			initialAssetBalances := []int32{0, 0, 0, 0, 0, 0}
 			initialDepositEarneds := []*types.DepositEarned{&initialAktDepositEarned, &initialAtomDepositEarned, &initialCroDepositEarned, &initialDvpnDepositEarned, &initialIrisDepositEarned, &initialXprtDepositEarned}
 			initialBorrowAccrueds := []*types.BorrowAccrued{&initialAktBorrowEarned, &initialAtomBorrowEarned, &initialCroBorrowEarned, &initialDvpnBorrowEarned, &initialIrisBorrowEarned, &initialXprtBorrowEarned}
+			initialTxHistories := []*types.TxHistory{}
 
-			msg := types.NewMsgCreateUser(walletAddress, initialCollateral, initialDepositList, initialBorrowList, initialAssetBalances, initialDepositEarneds, initialBorrowAccrueds)
+			msg := types.NewMsgCreateUser(walletAddress, initialCollateral, initialDepositList, initialBorrowList, initialAssetBalances, initialDepositEarneds, initialBorrowAccrueds, initialTxHistories)
 			tx.WriteGeneratedTxResponse(clientCtx, w, req.BaseReq, msg)
 		}
 

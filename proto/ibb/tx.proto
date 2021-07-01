@@ -9,6 +9,7 @@ import "ibb/pool.proto";
 import "ibb/apr.proto";
 import "ibb/depositEarned.proto";
 import "ibb/borrowAccrued.proto";
+import "ibb/txHistory.proto";
 
 option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 
@@ -236,6 +237,7 @@ message MsgCreateUser {
   repeated int32 assetBalances = 5;
   repeated DepositEarned depositEarneds = 7;
   repeated BorrowAccrued borrowAccrueds = 8;
+  repeated TxHistory txHistories = 9;
 }
 
 message MsgCreateUserResponse {
@@ -251,6 +253,7 @@ message MsgUpdateUser {
   repeated int32 assetBalances = 6;
   repeated DepositEarned depositEarneds = 7;
   repeated BorrowAccrued borrowAccrueds = 8;
+  repeated TxHistory txHistories = 9;
 }
 
 message MsgUpdateUserResponse { }
