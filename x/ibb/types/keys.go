@@ -54,3 +54,8 @@ const (
 	RepayKey      = "Repay-value-"
 	RepayCountKey = "Repay-count-"
 )
+
+const (
+	AprKey      = "Apr-value-"
+	AprCountKey = "Apr-count-"
+)

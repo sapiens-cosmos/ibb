@@ -10,6 +10,14 @@ import (
 // state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
 	// this line is used by starport scaffolding # genesis/module/init
+	// Set all the apr
+	for _, elem := range genState.AprList {
+		k.SetApr(ctx, *elem)
+	}
+
+	// Set apr count
+	k.SetAprCount(ctx, uint64(len(genState.AprList)))
+
 	// Set all the repay
 	for _, elem := range genState.RepayList {
 		k.SetRepay(ctx, *elem)
@@ -66,6 +74,13 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 
 	// this line is used by starport scaffolding # genesis/module/export
+	// Get all apr
+	aprList := k.GetAllApr(ctx)
+	for _, elem := range aprList {
+		elem := elem
+		genesis.AprList = append(genesis.AprList, &elem)
+	}
+
 	// Get all repay
 	repayList := k.GetAllRepay(ctx)
 	for _, elem := range repayList {

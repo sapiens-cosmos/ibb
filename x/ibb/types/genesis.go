@@ -13,6 +13,7 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		// this line is used by starport scaffolding # ibc/genesistype/default
 		// this line is used by starport scaffolding # genesis/types/default
+		AprList:      []*Apr{},
 		RepayList:    []*Repay{},
 		WithdrawList: []*Withdraw{},
 		UserList:     []*User{},
@@ -28,6 +29,15 @@ func (gs GenesisState) Validate() error {
 	// this line is used by starport scaffolding # ibc/genesistype/validate
 
 	// this line is used by starport scaffolding # genesis/types/validate
+	// Check for duplicated ID in apr
+	aprIdMap := make(map[uint64]bool)
+
+	for _, elem := range gs.AprList {
+		if _, ok := aprIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for apr")
+		}
+		aprIdMap[elem.Id] = true
+	}
 	// Check for duplicated ID in repay
 	repayIdMap := make(map[uint64]bool)
 

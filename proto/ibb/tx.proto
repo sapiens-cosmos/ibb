@@ -12,6 +12,9 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateApr(MsgCreateApr) returns (MsgCreateAprResponse);
+  rpc UpdateApr(MsgUpdateApr) returns (MsgUpdateAprResponse);
+  rpc DeleteApr(MsgDeleteApr) returns (MsgDeleteAprResponse);
   rpc CreateRepay(MsgCreateRepay) returns (MsgCreateRepayResponse);
   rpc UpdateRepay(MsgUpdateRepay) returns (MsgUpdateRepayResponse);
   rpc DeleteRepay(MsgDeleteRepay) returns (MsgDeleteRepayResponse);
@@ -33,6 +36,34 @@ service Msg {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateApr {
+  string creator = 1;
+  int32 blockHeight = 2;
+  int32 depositApy = 3;
+  int32 borrowApy = 4;
+}
+
+message MsgCreateAprResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateApr {
+  string creator = 1;
+  uint64 id = 2;
+  int32 blockHeight = 3;
+  int32 depositApy = 4;
+  int32 borrowApy = 5;
+}
+
+message MsgUpdateAprResponse { }
+
+message MsgDeleteApr {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteAprResponse { }
+
 message MsgCreateRepay {
   string creator = 1;
   int32 blockHeight = 2;
