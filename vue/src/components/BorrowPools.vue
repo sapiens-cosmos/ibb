@@ -15,7 +15,7 @@
 				<div v-for="pool in pools" v-bind:key="pool.id" class="table-row" @click="clickAsset(pool)">
 					<div class="table-cell">{{ pool.Asset }}</div>
 					<div class="table-cell">{{ pool.BorrowApy / 10000 }}%</div>
-					<div class="table-cell">{{ `${pool.Liquidity / 1000000}` }}</div>
+					<div class="table-cell">{{ `${parseFloat(pool.Liquidity / 1000000)}` }}</div>
 				</div>
 			</div>
 			<div v-else class="table-rows">
@@ -50,7 +50,7 @@
 }
 
 .asset-table {
-	margin-top: 20px;
+	margin-top: 16px;
 	padding: 12px;
 	border: 1px solid white;
 	border-radius: 10px;

@@ -22,7 +22,7 @@
 					<div class="table-cell">{{ pool.Asset }}</div>
 					<div class="table-cell">{{ pool.BorrowApy / 10000 }}%</div>
 					<div class="table-cell">{{ pool.AssetBorrow / 1000000 }}</div>
-					<div class="table-cell">*TODO</div>
+					<div class="table-cell">{{ getBorrowLimitAssetAmount(pool) }}</div>
 				</div>
 			</div>
 		</div>
@@ -50,7 +50,7 @@
 }
 
 .asset-table {
-	margin-top: 20px;
+	margin-top: 16px;
 	padding: 12px;
 	border: 1px solid white;
 	border-radius: 10px;
@@ -123,6 +123,36 @@ export default {
 	methods: {
 		clickAsset(pool) {
 			this.$emit('click-asset', pool, 'Borrow')
+		},
+		getBorrowLimitAssetAmount(pool) {
+			const loggedAddress = this.$store.getters['common/wallet/address']
+			if (!loggedAddress) {
+				return 0
+			}
+			const userAssets = loggedAddress
+				? this.$store.getters['sapienscosmos.ibb.ibb/getUserLoad']({
+						params: {
+							id: loggedAddress
+						}
+				  })?.LoadUserResponse ?? []
+				: []
+			const assetPools =
+				this.$store.getters['sapienscosmos.ibb.ibb/getPoolLoad']({
+					params: {}
+				})?.LoadPoolResponse ?? []
+			return (
+				(assetPools
+					.map((pool, index) => ({
+						...pool,
+						...userAssets[index]
+					}))
+					.reduce(
+						(acc, userAsset) => (acc += ((((userAsset.AssetDeposit / 1000000) * userAsset.AssetPrice) / 1000000) * userAsset.CollatoralFactor) / 100),
+						0
+					) /
+					pool.AssetPrice) *
+				1000000
+			).toFixed(6)
 		}
 	}
 }

@@ -17,8 +17,16 @@
 				<div class="amount">
 					<div class="title">
 						<div class="property">{{ type }} Amount</div>
-						<div v-if="type === 'Deposit'" class="value">Wallet Balance: {{ parseInt(AssetBalance) / 1000000 }} {{ Asset }}</div>
-						<div v-if="type === 'Withdraw'" class="value">Deposit Balance: {{ parseInt(AssetDeposit) / 1000000 }} {{ Asset }}</div>
+						<div v-if="type === 'Deposit'" class="value">
+							Wallet Balance: {{ Number.isNaN(parseFloat(AssetBalance)) ? 0 : parseFloat(AssetBalance) / 1000000 }} {{ Asset }}
+						</div>
+						<div v-if="type === 'Withdraw'" class="value">
+							Deposit Balance: {{ Number.isNaN(parseFloat(AssetDeposit)) ? 0 : parseFloat(AssetDeposit) / 1000000 }} {{ Asset }}
+						</div>
+						<div v-if="type === 'Borrow'" class="value">Borrow Limit: ${{ parseFloat(currentBollowLimit).toFixed(2) }}</div>
+						<div v-if="type === 'Repay'" class="value">
+							Borrow Balance: {{ Number.isNaN(parseFloat(AssetBorrow)) ? 0 : parseFloat(AssetBorrow) / 1000000 }} {{ Asset }}
+						</div>
 					</div>
 					<div class="content">
 						<div class="input-wrapper">
@@ -27,14 +35,14 @@
 									<input ref="balance" type="number" v-model="balance" />
 									<div class="denom">{{ Asset }}</div>
 								</div>
-								<div class="dollar">${{ (parseFloat(Number.isNaN(parseFloat(balance)) ? 0 : balance) * AssetPrice) / 1000000 }}</div>
+								<div class="dollar">${{ Number.isNaN(parseFloat(balance)) ? 0 : (parseFloat(balance) * AssetPrice) / 1000000 }}</div>
 							</div>
 							<div class="max-button">Max</div>
 						</div>
 					</div>
 					<div class="content">
 						<div class="slider">
-							<input ref="range" type="range" min="0" max="100" value="0" />
+							<input ref="range" type="range" min="0" max="100" v-model="balanceRange" />
 							<output ref="indicator" class="range-indicator" :class="type === 'Deposit' || type === 'Repay' ? 'blue' : 'orange'"></output>
 							<div class="slider-percentages">
 								<div class="slider-percentage">0%</div>
@@ -54,7 +62,10 @@
 					</div>
 					<div class="content">
 						<div class="property">Balance</div>
-						<div class="value">{{ type === 'Deposit' || type === 'Withdraw' ? AssetDeposit / 1000000 : AssetBorrow / 1000000 }} {{ Asset }}</div>
+						<div class="value">
+							{{ type === 'Deposit' || type === 'Withdraw' ? (AssetDeposit ? AssetDeposit / 1000000 : 0) : AssetBorrow ? AssetBorrow / 1000000 : 0 }}
+							{{ Asset }}
+						</div>
 					</div>
 				</div>
 				<div v-if="type === 'Deposit'" class="collateral">
@@ -72,14 +83,14 @@
 					<div class="title">Borrow Limit</div>
 					<div class="content">
 						<div class="property">Your Limit</div>
-						<div class="value">$0 -> $402.54</div>
+						<div class="value">${{ parseFloat(currentBollowLimit).toFixed(2) }} -> $???</div>
 					</div>
 					<div class="content">
 						<div class="property">Limit Used</div>
 						<div class="value">0% -> 0%</div>
 					</div>
 				</div>
-				<div class="cta" @click="submit">{{ isLoading ? 'Loading...' : type }}</div>
+				<div class="cta" :class="isValidated ? 'active' : ''" @click="submit">{{ isLoading ? 'Loading...' : type }}</div>
 			</div>
 		</div>
 	</div>
@@ -323,12 +334,21 @@ input[type='number'] {
 	font-size: 20px;
 	font-weight: bold;
 	text-align: center;
-	border: 1px solid white;
-	background: white;
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	background: rgba(255, 255, 255, 0.5);
 	border-radius: 10px;
 }
 
 .cta:hover {
+	cursor: not-allowed;
+}
+
+.cta.active {
+	background: rgba(255, 255, 255, 1);
+	border: 1px solid rgba(255, 255, 255, 1);
+}
+
+.cta.active:hover {
 	cursor: pointer;
 }
 </style>
@@ -353,7 +373,42 @@ export default {
 		return {
 			type: this.initialType,
 			balance: '',
+			balanceRange: 0,
 			isLoading: false
+		}
+	},
+	computed: {
+		currentBollowLimit() {
+			const loggedAddress = this.$store.getters['common/wallet/address']
+			if (!loggedAddress) {
+				return 0
+			}
+
+			const userAssets = loggedAddress
+				? this.$store.getters['sapienscosmos.ibb.ibb/getUserLoad']({
+						params: {
+							id: loggedAddress
+						}
+				  })?.LoadUserResponse ?? []
+				: []
+			const assetPools =
+				this.$store.getters['sapienscosmos.ibb.ibb/getPoolLoad']({
+					params: {}
+				})?.LoadPoolResponse ?? []
+			return assetPools
+				.map((pool, index) => ({
+					...pool,
+					...userAssets[index]
+				}))
+				.reduce((acc, userAsset) => (acc += ((((userAsset.AssetDeposit / 1000000) * userAsset.AssetPrice) / 1000000) * userAsset.CollatoralFactor) / 100), 0)
+		},
+		currentBollowLimitAssetAmount() {
+			return (this.currentBollowLimit / this.AssetPrice) * 1000000
+		},
+		isValidated() {
+			const balance = parseFloat(this.balance || 0) * 1000000
+			const walletBalance = parseFloat(this.AssetBalance)
+			return balance > 0 && walletBalance >= balance
 		}
 	},
 	async mounted() {
@@ -375,6 +430,8 @@ export default {
 
 			// Sorta magic numbers based on size of the native UI thumb
 			indicator.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`
+
+			this.balance = ((this.balanceRange / 100) * parseFloat(this.AssetBalance || 0)) / 1000000
 		},
 		checkClickOutside(e) {
 			if (e.target === e.currentTarget) {
@@ -382,6 +439,9 @@ export default {
 			}
 		},
 		async submit() {
+			if (!this.isValidated) {
+				return null
+			}
 			const loggedAddress = this.$store.getters['common/wallet/address']
 			const asset = this.Asset.toLocaleLowerCase()
 			const value = {

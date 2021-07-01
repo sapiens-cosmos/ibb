@@ -52,7 +52,7 @@
 }
 
 .asset-table {
-	margin-top: 20px;
+	margin-top: 16px;
 	padding: 12px;
 	border: 1px solid white;
 	border-radius: 10px;
@@ -94,6 +94,18 @@
 
 .table-cell > span {
 	line-height: 14px;
+}
+
+.table-cell > button {
+	background: transparent;
+	border: 1px solid white;
+	border-radius: 3px;
+	color: white;
+	padding: 2px 4px;
+}
+
+.table-cell > button:hover {
+	cursor: pointer;
 }
 </style>
 
