@@ -38,6 +38,15 @@ func (k msgServer) CreateBorrow(goCtx context.Context, msg *types.MsgCreateBorro
 			queryUser.Borrow[i].Amount = queryUser.Borrow[i].Amount + msg.Amount
 		}
 	}
+
+	var txHistory types.TxHistory
+	txHistory.BlockHeight = int32(ctx.BlockHeight())
+	txHistory.Tx = "borrow"
+	txHistory.Asset = msg.Asset
+	txHistory.Amount = msg.Amount
+	txHistory.Denom = msg.Denom
+	queryUser.TxHistories = append(queryUser.TxHistories, &txHistory)
+
 	k.SetUser(ctx, queryUser)
 
 	// queryUser.Borrow = append(queryUser.Borrow, &borrow)
