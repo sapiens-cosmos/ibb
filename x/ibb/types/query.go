@@ -34,3 +34,8 @@ const (
 	QueryGetBorrowAccrued  = "get-borrowAccrued"
 	QueryListBorrowAccrued = "list-borrowAccrued"
 )
+
+const (
+	QueryGetTxHistory  = "get-txHistory"
+	QueryListTxHistory = "list-txHistory"
+)

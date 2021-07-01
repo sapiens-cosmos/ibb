@@ -13,6 +13,7 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		// this line is used by starport scaffolding # ibc/genesistype/default
 		// this line is used by starport scaffolding # genesis/types/default
+		TxHistoryList:     []*TxHistory{},
 		BorrowAccruedList: []*BorrowAccrued{},
 		DepositEarnedList: []*DepositEarned{},
 		AprList:           []*Apr{},
@@ -31,6 +32,15 @@ func (gs GenesisState) Validate() error {
 	// this line is used by starport scaffolding # ibc/genesistype/validate
 
 	// this line is used by starport scaffolding # genesis/types/validate
+	// Check for duplicated ID in txHistory
+	txHistoryIdMap := make(map[uint64]bool)
+
+	for _, elem := range gs.TxHistoryList {
+		if _, ok := txHistoryIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for txHistory")
+		}
+		txHistoryIdMap[elem.Id] = true
+	}
 	// Check for duplicated ID in borrowAccrued
 	borrowAccruedIdMap := make(map[uint64]bool)
 

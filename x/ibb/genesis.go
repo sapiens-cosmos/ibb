@@ -10,6 +10,14 @@ import (
 // state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
 	// this line is used by starport scaffolding # genesis/module/init
+	// Set all the txHistory
+	for _, elem := range genState.TxHistoryList {
+		k.SetTxHistory(ctx, *elem)
+	}
+
+	// Set txHistory count
+	k.SetTxHistoryCount(ctx, uint64(len(genState.TxHistoryList)))
+
 	// Set all the borrowAccrued
 	for _, elem := range genState.BorrowAccruedList {
 		k.SetBorrowAccrued(ctx, *elem)
@@ -90,6 +98,13 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 
 	// this line is used by starport scaffolding # genesis/module/export
+	// Get all txHistory
+	txHistoryList := k.GetAllTxHistory(ctx)
+	for _, elem := range txHistoryList {
+		elem := elem
+		genesis.TxHistoryList = append(genesis.TxHistoryList, &elem)
+	}
+
 	// Get all borrowAccrued
 	borrowAccruedList := k.GetAllBorrowAccrued(ctx)
 	for _, elem := range borrowAccruedList {

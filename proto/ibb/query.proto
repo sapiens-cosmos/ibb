@@ -4,6 +4,7 @@ package sapienscosmos.ibb.ibb;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "ibb/txHistory.proto";
 import "ibb/borrowAccrued.proto";
 import "ibb/depositEarned.proto";
 import "ibb/apr.proto";
@@ -20,6 +21,13 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+	rpc TxHistory(QueryGetTxHistoryRequest) returns (QueryGetTxHistoryResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/txHistory/{id}";
+	}
+	rpc TxHistoryAll(QueryAllTxHistoryRequest) returns (QueryAllTxHistoryResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/txHistory";
+	}
+
 	rpc BorrowAccrued(QueryGetBorrowAccruedRequest) returns (QueryGetBorrowAccruedResponse) {
 		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/borrowAccrued/{id}";
 	}
@@ -115,6 +123,22 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetTxHistoryRequest {
+	uint64 id = 1;
+}
+
+message QueryGetTxHistoryResponse {
+	TxHistory TxHistory = 1;
+}
+
+message QueryAllTxHistoryRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllTxHistoryResponse {
+	repeated TxHistory TxHistory = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
 message QueryGetBorrowAccruedRequest {
 	uint64 id = 1;
 }

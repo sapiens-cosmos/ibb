@@ -69,3 +69,8 @@ const (
 	BorrowAccruedKey      = "BorrowAccrued-value-"
 	BorrowAccruedCountKey = "BorrowAccrued-count-"
 )
+
+const (
+	TxHistoryKey      = "TxHistory-value-"
+	TxHistoryCountKey = "TxHistory-count-"
+)

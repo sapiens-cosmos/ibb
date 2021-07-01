@@ -20,6 +20,12 @@ func NewQuerier(k Keeper, legacyQuerierCdc *codec.LegacyAmino) sdk.Querier {
 
 		switch path[0] {
 		// this line is used by starport scaffolding # 2
+		case types.QueryGetTxHistory:
+			return getTxHistory(ctx, path[1], k, legacyQuerierCdc)
+
+		case types.QueryListTxHistory:
+			return listTxHistory(ctx, k, legacyQuerierCdc)
+
 		case types.QueryGetBorrowAccrued:
 			return getBorrowAccrued(ctx, path[1], k, legacyQuerierCdc)
 

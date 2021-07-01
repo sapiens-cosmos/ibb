@@ -35,10 +35,16 @@ func RegisterRoutes(clientCtx client.Context, r *mux.Router) {
 	registerQueryRoutes(clientCtx, r)
 	registerTxHandlers(clientCtx, r)
 
+	registerQueryRoutes(clientCtx, r)
+	registerTxHandlers(clientCtx, r)
+
 }
 
 func registerQueryRoutes(clientCtx client.Context, r *mux.Router) {
 	// this line is used by starport scaffolding # 3
+	r.HandleFunc("/ibb/txHistories/{id}", getTxHistoryHandler(clientCtx)).Methods("GET")
+	r.HandleFunc("/ibb/txHistories", listTxHistoryHandler(clientCtx)).Methods("GET")
+
 	r.HandleFunc("/ibb/borrowAccrueds/{id}", getBorrowAccruedHandler(clientCtx)).Methods("GET")
 	r.HandleFunc("/ibb/borrowAccrueds", listBorrowAccruedHandler(clientCtx)).Methods("GET")
 
@@ -67,6 +73,10 @@ func registerQueryRoutes(clientCtx client.Context, r *mux.Router) {
 
 func registerTxHandlers(clientCtx client.Context, r *mux.Router) {
 	// this line is used by starport scaffolding # 4
+	r.HandleFunc("/ibb/txHistories", createTxHistoryHandler(clientCtx)).Methods("POST")
+	r.HandleFunc("/ibb/txHistories/{id}", updateTxHistoryHandler(clientCtx)).Methods("POST")
+	r.HandleFunc("/ibb/txHistories/{id}", deleteTxHistoryHandler(clientCtx)).Methods("POST")
+
 	r.HandleFunc("/ibb/borrowAccrueds", createBorrowAccruedHandler(clientCtx)).Methods("POST")
 	r.HandleFunc("/ibb/borrowAccrueds/{id}", updateBorrowAccruedHandler(clientCtx)).Methods("POST")
 	r.HandleFunc("/ibb/borrowAccrueds/{id}", deleteBorrowAccruedHandler(clientCtx)).Methods("POST")

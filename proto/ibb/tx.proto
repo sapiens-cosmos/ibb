@@ -15,6 +15,9 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateTxHistory(MsgCreateTxHistory) returns (MsgCreateTxHistoryResponse);
+  rpc UpdateTxHistory(MsgUpdateTxHistory) returns (MsgUpdateTxHistoryResponse);
+  rpc DeleteTxHistory(MsgDeleteTxHistory) returns (MsgDeleteTxHistoryResponse);
   rpc CreateBorrowAccrued(MsgCreateBorrowAccrued) returns (MsgCreateBorrowAccruedResponse);
   rpc UpdateBorrowAccrued(MsgUpdateBorrowAccrued) returns (MsgUpdateBorrowAccruedResponse);
   rpc DeleteBorrowAccrued(MsgDeleteBorrowAccrued) returns (MsgDeleteBorrowAccruedResponse);
@@ -45,6 +48,38 @@ service Msg {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateTxHistory {
+  string creator = 1;
+  int32 blockHeight = 2;
+  string tx = 3;
+  string asset = 4;
+  int32 amount = 5;
+  string denom = 6;
+}
+
+message MsgCreateTxHistoryResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateTxHistory {
+  string creator = 1;
+  uint64 id = 2;
+  int32 blockHeight = 3;
+  string tx = 4;
+  string asset = 5;
+  int32 amount = 6;
+  string denom = 7;
+}
+
+message MsgUpdateTxHistoryResponse { }
+
+message MsgDeleteTxHistory {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteTxHistoryResponse { }
+
 message MsgCreateBorrowAccrued {
   string creator = 1;
   int32 blockHeight = 2;

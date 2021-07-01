@@ -2,6 +2,7 @@
 	<div>
 		<div class="container">
 			<!-- this line is used by starport scaffolding # 4 -->
+		<SpType modulePath="sapiens-cosmos.ibb.ibb" moduleType="TxHistory"  />
 		<SpType modulePath="sapiens-cosmos.ibb.ibb" moduleType="BorrowAccrued"  />
 		<SpType modulePath="sapiens-cosmos.ibb.ibb" moduleType="DepositEarned"  />
 		<SpType modulePath="sapiens-cosmos.ibb.ibb" moduleType="Apr"  />
