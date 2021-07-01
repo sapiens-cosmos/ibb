@@ -31,6 +31,15 @@ func (k msgServer) CreateWithdraw(goCtx context.Context, msg *types.MsgCreateWit
 			queryUser.Deposit[i].Amount = queryUser.Deposit[i].Amount - msg.Amount
 		}
 	}
+
+	var txHistory types.TxHistory
+	txHistory.BlockHeight = int32(ctx.BlockHeight())
+	txHistory.Tx = "withdraw"
+	txHistory.Asset = msg.Asset
+	txHistory.Amount = msg.Amount
+	txHistory.Denom = msg.Denom
+	queryUser.TxHistories = append(queryUser.TxHistories, &txHistory)
+
 	k.SetUser(ctx, queryUser)
 
 	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
