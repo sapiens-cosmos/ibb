@@ -34,7 +34,6 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdCreateNft())
 	cmd.AddCommand(CmdUpdateNft())
 	cmd.AddCommand(CmdDeleteNft())
-	cmd.AddCommand(CmdMintNft())
 
 	cmd.AddCommand(CmdCreateRepay())
 	cmd.AddCommand(CmdUpdateRepay())

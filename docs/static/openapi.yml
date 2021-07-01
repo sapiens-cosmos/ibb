@@ -38655,8 +38655,6 @@ definitions:
     type: object
   sapienscosmos.ibb.ibb.MsgDeleteWithdrawResponse:
     type: object
-  sapienscosmos.ibb.ibb.MsgMintNftResponse:
-    type: object
   sapienscosmos.ibb.ibb.MsgUpdateBorrowResponse:
     type: object
   sapienscosmos.ibb.ibb.MsgUpdateDepositResponse:

@@ -16,7 +16,6 @@ service Msg {
   rpc CreateNft(MsgCreateNft) returns (MsgCreateNftResponse);
   rpc UpdateNft(MsgUpdateNft) returns (MsgUpdateNftResponse);
   rpc DeleteNft(MsgDeleteNft) returns (MsgDeleteNftResponse);
-  rpc MintNft(MsgMintNft) returns (MsgMintNftResponse);
   rpc CreateRepay(MsgCreateRepay) returns (MsgCreateRepayResponse);
   rpc UpdateRepay(MsgUpdateRepay) returns (MsgUpdateRepayResponse);
   rpc DeleteRepay(MsgDeleteRepay) returns (MsgDeleteRepayResponse);
@@ -49,17 +48,6 @@ message MsgCreateNft {
 message MsgCreateNftResponse {
   uint64 id = 1;
 }
-
-message MsgMintNft {
-  string denomID = 1;
-  string tokenID = 2;
-  string tokenNm = 3;
-  string tokenURI = 4;
-  string tokenData = 5;
-  string recipient = 6;
-}
-
-message MsgMintNftResponse {}
 
 message MsgUpdateNft {
   string creator = 1;
