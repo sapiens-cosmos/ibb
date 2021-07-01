@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"math"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -98,6 +99,7 @@ func (k Keeper) UserLoad(c context.Context, req *types.QueryLoadUserRequest) (*t
 
 		currentTargetBorrowRatio := float64(msg.BorrowBalance) / float64(msg.DepositBalance)
 		currentDepositApy := types.DepositInterest + types.DepositInterest*(currentTargetBorrowRatio-float64(types.TargetBorrowRatio)*0.01)*types.InterestFactor
+		currentDepositApy = math.Max(currentDepositApy, types.MinimumDepositInterest)
 		userAsset.Asset = msg.Asset
 		userAsset.CollatoralFactor = msg.CollatoralFactor
 		userAsset.Liquidity = msg.DepositBalance - msg.BorrowBalance
