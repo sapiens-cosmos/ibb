@@ -19733,6 +19733,72 @@ paths:
           type: boolean
       tags:
         - Query
+  '/sapiens-cosmos/ibb/ibb/loadNft/{id}':
+    get:
+      operationId: SapienscosmosIbbIbbNftLoad
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              UserNft:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Collection:
+                      type: string
+                    OwnerAddress:
+                      type: string
+                    ImageUrl:
+                      type: string
+                    Name:
+                      type: string
+                    NftCreatorAddress:
+                      type: string
+              DashboardNft:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Collection:
+                      type: string
+                    OwnerAddress:
+                      type: string
+                    ImageUrl:
+                      type: string
+                    Name:
+                      type: string
+                    NftCreatorAddress:
+                      type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /sapiens-cosmos/ibb/ibb/loadPools:
     get:
       operationId: SapienscosmosIbbIbbPoolLoad
@@ -31518,6 +31584,19 @@ definitions:
         type: string
       nftCreatorAddress:
         type: string
+  sapienscosmos.ibb.ibb.NftResponse:
+    type: object
+    properties:
+      Collection:
+        type: string
+      OwnerAddress:
+        type: string
+      ImageUrl:
+        type: string
+      Name:
+        type: string
+      NftCreatorAddress:
+        type: string
   sapienscosmos.ibb.ibb.Pool:
     type: object
     properties:
@@ -32327,6 +32406,39 @@ definitions:
                   Amount:
                     type: string
                     format: int64
+  sapienscosmos.ibb.ibb.QueryLoadNftResponse:
+    type: object
+    properties:
+      UserNft:
+        type: array
+        items:
+          type: object
+          properties:
+            Collection:
+              type: string
+            OwnerAddress:
+              type: string
+            ImageUrl:
+              type: string
+            Name:
+              type: string
+            NftCreatorAddress:
+              type: string
+      DashboardNft:
+        type: array
+        items:
+          type: object
+          properties:
+            Collection:
+              type: string
+            OwnerAddress:
+              type: string
+            ImageUrl:
+              type: string
+            Name:
+              type: string
+            NftCreatorAddress:
+              type: string
   sapienscosmos.ibb.ibb.QueryLoadPoolResponse:
     type: object
     properties:

@@ -57,3 +57,32 @@ func (k Keeper) Nft(c context.Context, req *types.QueryGetNftRequest) (*types.Qu
 
 	return &types.QueryGetNftResponse{Nft: &nft}, nil
 }
+
+func (k Keeper) NftLoad(c context.Context, req *types.QueryLoadNftRequest) (*types.QueryLoadNftResponse, error) {
+	if req == nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid request")
+	}
+
+	ctx := sdk.UnwrapSDKContext(c)
+
+	nftList := k.GetAllNft(ctx)
+
+	var userNftList []*types.NftResponse
+	var dashboardNftList []*types.NftResponse
+
+	for _, nft := range nftList {
+		var nftResponse types.NftResponse
+		nftResponse.Collection = nft.Collection
+		nftResponse.OwnerAddress = nft.OwnerAddress
+		nftResponse.ImageUrl = nft.ImageUrl
+		nftResponse.Name = nft.Name
+		nftResponse.NftCreatorAddress = nft.NftCreatorAddress
+		if nft.OwnerAddress == req.Id {
+			userNftList = append(userNftList, &nftResponse)
+		} else {
+			dashboardNftList = append(dashboardNftList, &nftResponse)
+		}
+	}
+
+	return &types.QueryLoadNftResponse{UserNft: userNftList, DashboardNft: dashboardNftList}, nil
+}
