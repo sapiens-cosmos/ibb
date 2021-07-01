@@ -13,6 +13,7 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		// this line is used by starport scaffolding # ibc/genesistype/default
 		// this line is used by starport scaffolding # genesis/types/default
+		NftList:      []*Nft{},
 		RepayList:    []*Repay{},
 		WithdrawList: []*Withdraw{},
 		UserList:     []*User{},
@@ -28,6 +29,15 @@ func (gs GenesisState) Validate() error {
 	// this line is used by starport scaffolding # ibc/genesistype/validate
 
 	// this line is used by starport scaffolding # genesis/types/validate
+	// Check for duplicated ID in nft
+	nftIdMap := make(map[uint64]bool)
+
+	for _, elem := range gs.NftList {
+		if _, ok := nftIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for nft")
+		}
+		nftIdMap[elem.Id] = true
+	}
 	// Check for duplicated ID in repay
 	repayIdMap := make(map[uint64]bool)
 

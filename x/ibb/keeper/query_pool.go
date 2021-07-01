@@ -6,6 +6,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/sapiens-cosmos/ibb/x/ibb/oracle"
 	"github.com/sapiens-cosmos/ibb/x/ibb/types"
 )
 
@@ -41,10 +42,11 @@ func getPool(ctx sdk.Context, key string, keeper Keeper, legacyQuerierCdc *codec
 }
 
 func loadPool(ctx sdk.Context, keeper Keeper, legacyQuerierCdc *codec.LegacyAmino) ([]byte, error) {
+	assetPrices := oracle.GetAllPrices()
 	poolList := keeper.GetAllPool(ctx)
 	var loadPoolList []types.LoadPoolRestResponse
 	var loadPool types.LoadPoolRestResponse
-	for _, msg := range poolList {
+	for i, msg := range poolList {
 		currentTargetBorrowRatio := float64(msg.BorrowBalance) / float64(msg.DepositBalance)
 		currentDepositApy := types.DepositInterest + types.DepositInterest*(currentTargetBorrowRatio-float64(types.TargetBorrowRatio)*0.01)*types.InterestFactor
 		loadPool.Asset = msg.Asset
@@ -52,6 +54,7 @@ func loadPool(ctx sdk.Context, keeper Keeper, legacyQuerierCdc *codec.LegacyAmin
 		loadPool.Liquidity = msg.DepositBalance - msg.BorrowBalance
 		loadPool.DepositApy = int32(currentDepositApy * 1000000)
 		loadPool.BorrowApy = int32(currentDepositApy / currentTargetBorrowRatio * 1000000)
+		loadPool.AssetPrice = int32(assetPrices[i] * 1000000)
 
 		loadPoolList = append(loadPoolList, loadPool)
 	}

@@ -54,3 +54,8 @@ const (
 	RepayKey      = "Repay-value-"
 	RepayCountKey = "Repay-count-"
 )
+
+const (
+	NftKey      = "Nft-value-"
+	NftCountKey = "Nft-count-"
+)

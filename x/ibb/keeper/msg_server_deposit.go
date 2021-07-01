@@ -15,7 +15,7 @@ func (k msgServer) CreateDeposit(goCtx context.Context, msg *types.MsgCreateDepo
 
 	var deposit = types.Deposit{
 		Creator:     msg.Creator,
-		BlockHeight: msg.BlockHeight,
+		BlockHeight: int32(ctx.BlockHeight()),
 		Asset:       msg.Asset,
 		Amount:      msg.Amount,
 		Denom:       msg.Denom,

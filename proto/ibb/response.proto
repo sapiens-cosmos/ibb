@@ -12,6 +12,7 @@ message LoadPoolResponse {
   int32 Liquidity = 3; 
   int32 DepositApy = 4; 
   int32 BorrowApy = 5; 
+  int32 AssetPrice = 6;
 }
 
 message LoadUserResponse {
@@ -22,6 +23,11 @@ message LoadUserResponse {
 	int32 AssetBorrow = 5;
 	int32 AssetPrice = 6;
 	bool Collateral =7;
+  string Asset = 8;
+  int32 CollatoralFactor = 9;
+  int32 Liquidity = 10;
+  int32 DepositApy = 11;
+  int32 BorrowApy = 12;
 }
 
 message UserAssetBalances {
@@ -31,4 +37,14 @@ message UserAssetBalances {
   int64 Udvpn = 4;
   int64 Uiris = 5;
   int64 Uxprt = 6;
+}
+
+message Liquidation {
+  string WalletAddress = 1;
+  repeated LiquidationAsset LiquidationAsset = 2;
+}
+
+message LiquidationAsset {
+  string Asset = 1;
+  int64 Amount = 2;
 }
