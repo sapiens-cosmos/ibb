@@ -147,11 +147,19 @@ func CmdCreateMockNft() *cobra.Command {
 				return err
 			}
 
-			msgNft := types.NewMsgCreateNft(clientCtx.GetFromAddress().String(), "Collection Name", "cosmos1dyr7rmmdxylt3vm62x7z74sdealtv9rpzpsjy0", "google.com", "Nft Name", "nftCreatorAddress")
-			msgNft1 := types.NewMsgCreateNft(clientCtx.GetFromAddress().String(), "Collection Name", "cosmos1dyr7rmmdxylt3vm62x7z74sdealtv9rpzpsjy0", "google.com", "Nft Name", "nftCreatorAddress")
+			msgDogeCollection1 := types.NewMsgCreateNft(clientCtx.GetFromAddress().String(), "Dodge to the Moon Collection", "cosmos1dyr7rmmdxylt3vm62x7z74sdealtv9rpzpsjy0", "https://images.news18.com/ibnlive/uploads/2021/02/1612757177_untitled-design.jpg", "Who let the Doge out", "cosmos1dyr7rmmdxylt3vm62x7z74sdealtv9rpzpsjy0")
+			msgMattCollection1 := types.NewMsgCreateNft(clientCtx.GetFromAddress().String(), "Matt's Favorite Girl", "cosmos1dyr7rmmdxylt3vm62x7z74sdealtv9rpzpsjy0", "https://thumbs.gfycat.com/GiddyEvilAmazondolphin-mobile.mp4", "Body Roll", "cosmos1dyr7rmmdxylt3vm62x7z74sdealtv9rpzpsjy0")
+			msgMattCollection2 := types.NewMsgCreateNft(clientCtx.GetFromAddress().String(), "Matt's Favorite Girl", "cosmos1dyr7rmmdxylt3vm62x7z74sdealtv9rpzpsjy0", "https://thumbs.gfycat.com/DeliriousPossibleLeafcutterant-mobile.mp4", "Wink", "cosmos1dyr7rmmdxylt3vm62x7z74sdealtv9rpzpsjy0")
+			msgPokemonCollection1 := types.NewMsgCreateNft(clientCtx.GetFromAddress().String(), "I wanna be the very best", "cosmos1dyr7rmmdxylt3vm62x7z74sdealtv9rpzpsjy0", "https://secure.img1-fg.wfcdn.com/im/02238154/compr-r85/8470/84707680/pokemon-pikachu-wall-decal.jpg", "Pika Pika", "cosmos1dyr7rmmdxylt3vm62x7z74sdealtv9rpzpsjy0")
+			msgPokemonCollection2 := types.NewMsgCreateNft(clientCtx.GetFromAddress().String(), "I wanna be the very best", "cosmos1dyr7rmmdxylt3vm62x7z74sdealtv9rpzpsjy0", "https://i.pinimg.com/originals/38/bb/a8/38bba86077ca44eebf9faf9220f7466b.png", "Nr 151", "cosmos1dyr7rmmdxylt3vm62x7z74sdealtv9rpzpsjy0")
+			msgPokemonCollection3 := types.NewMsgCreateNft(clientCtx.GetFromAddress().String(), "I wanna be the very best", "cosmos1dyr7rmmdxylt3vm62x7z74sdealtv9rpzpsjy0", "https://sm.ign.com/ign_de/news/p/pokemon-go/pokemon-go-trollt-spieler-mit-shiny-karpador_zwa5.png", "I'm Useless", "cosmos1dyr7rmmdxylt3vm62x7z74sdealtv9rpzpsjy0")
 
-			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgNft)
-			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgNft1)
+			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgDogeCollection1)
+			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgMattCollection1)
+			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgMattCollection2)
+			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgPokemonCollection1)
+			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgPokemonCollection2)
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgPokemonCollection3)
 		},
 	}
 
