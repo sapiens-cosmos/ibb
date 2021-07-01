@@ -13,4 +13,14 @@ message Nft {
   string imageUrl = 5; 
   string name = 6; 
   string nftCreatorAddress = 7;
+  Offer selectedOffer = 8;
+  repeated Offer offers = 9;
+}
+
+message Offer {
+  string asset = 1;
+  int32 amount = 2;
+  int32 paybackAmount = 3;
+  int32 paybackDuration = 4;
+  int32 id = 5;
 }

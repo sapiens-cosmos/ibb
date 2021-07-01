@@ -20036,6 +20036,42 @@ paths:
                       type: string
                     nftCreatorAddress:
                       type: string
+                    selectedOffer:
+                      type: object
+                      properties:
+                        asset:
+                          type: string
+                        amount:
+                          type: integer
+                          format: int32
+                        paybackAmount:
+                          type: integer
+                          format: int32
+                        paybackDuration:
+                          type: integer
+                          format: int32
+                        id:
+                          type: integer
+                          format: int32
+                    offers:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          asset:
+                            type: string
+                          amount:
+                            type: integer
+                            format: int32
+                          paybackAmount:
+                            type: integer
+                            format: int32
+                          paybackDuration:
+                            type: integer
+                            format: int32
+                          id:
+                            type: integer
+                            format: int32
               pagination:
                 type: object
                 properties:
@@ -31588,6 +31624,42 @@ definitions:
         type: string
       nftCreatorAddress:
         type: string
+      selectedOffer:
+        type: object
+        properties:
+          asset:
+            type: string
+          amount:
+            type: integer
+            format: int32
+          paybackAmount:
+            type: integer
+            format: int32
+          paybackDuration:
+            type: integer
+            format: int32
+          id:
+            type: integer
+            format: int32
+      offers:
+        type: array
+        items:
+          type: object
+          properties:
+            asset:
+              type: string
+            amount:
+              type: integer
+              format: int32
+            paybackAmount:
+              type: integer
+              format: int32
+            paybackDuration:
+              type: integer
+              format: int32
+            id:
+              type: integer
+              format: int32
   sapienscosmos.ibb.ibb.NftResponse:
     type: object
     properties:
@@ -31602,6 +31674,23 @@ definitions:
       NftCreatorAddress:
         type: string
       Id:
+        type: integer
+        format: int32
+  sapienscosmos.ibb.ibb.Offer:
+    type: object
+    properties:
+      asset:
+        type: string
+      amount:
+        type: integer
+        format: int32
+      paybackAmount:
+        type: integer
+        format: int32
+      paybackDuration:
+        type: integer
+        format: int32
+      id:
         type: integer
         format: int32
   sapienscosmos.ibb.ibb.Pool:
@@ -31803,6 +31892,42 @@ definitions:
               type: string
             nftCreatorAddress:
               type: string
+            selectedOffer:
+              type: object
+              properties:
+                asset:
+                  type: string
+                amount:
+                  type: integer
+                  format: int32
+                paybackAmount:
+                  type: integer
+                  format: int32
+                paybackDuration:
+                  type: integer
+                  format: int32
+                id:
+                  type: integer
+                  format: int32
+            offers:
+              type: array
+              items:
+                type: object
+                properties:
+                  asset:
+                    type: string
+                  amount:
+                    type: integer
+                    format: int32
+                  paybackAmount:
+                    type: integer
+                    format: int32
+                  paybackDuration:
+                    type: integer
+                    format: int32
+                  id:
+                    type: integer
+                    format: int32
       pagination:
         type: object
         properties:

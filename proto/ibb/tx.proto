@@ -57,6 +57,8 @@ message MsgCreateNft {
   string imageUrl = 4;
   string name = 5;
   string nftCreatorAddress = 6;
+  Offer selectedOffer = 7;
+  repeated Offer offers = 8;
 }
 
 message MsgCreateNftResponse {
