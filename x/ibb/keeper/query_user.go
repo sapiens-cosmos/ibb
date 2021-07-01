@@ -38,16 +38,35 @@ func loadUser(ctx sdk.Context, walletAddress string, keeper Keeper, legacyQuerie
 		initialDvpnBorrow := types.Borrow{Asset: "dvpn", Denom: "udvpn"}
 		initialIrisBorrow := types.Borrow{Asset: "iris", Denom: "uiris"}
 		initialXprtBorrow := types.Borrow{Asset: "xprt", Denom: "uxprt"}
-		initialCollateral := []bool{false, false, false, false, false, false}
-		initialDepositList := []*types.Deposit{&initialAktDeposit, &initialAtomDeposit, &initialCroDeposit, &initialDvpnDeposit, &initialIrisDeposit, &initialXprtDeposit}
-		initialBorrowList := []*types.Borrow{&initialAktBorrow, &initialAtomBorrow, &initialCroBorrow, &initialDvpnBorrow, &initialIrisBorrow, &initialXprtBorrow}
-		// initialAssetBalances := []int32{0, 0, 0, 0, 0, 0}
+		initialAktDepositEarned := types.DepositEarned{Asset: "AKT", Denom: "uakt"}
+		initialAtomDepositEarned := types.DepositEarned{Asset: "ATOM", Denom: "uatom"}
+		initialCroDepositEarned := types.DepositEarned{Asset: "CRO", Denom: "ucro"}
+		initialDvpnDepositEarned := types.DepositEarned{Asset: "IRIS", Denom: "uiris"}
+		initialIrisDepositEarned := types.DepositEarned{Asset: "IRIS", Denom: "uiris"}
+		initialXprtDepositEarned := types.DepositEarned{Asset: "XPRT", Denom: "uxprt"}
+		initialAktBorrowEarned := types.BorrowAccrued{Asset: "AKT", Denom: "uakt"}
+		initialAtomBorrowEarned := types.BorrowAccrued{Asset: "ATOM", Denom: "uatom"}
+		initialCroBorrowEarned := types.BorrowAccrued{Asset: "CRO", Denom: "ucro"}
+		initialDvpnBorrowEarned := types.BorrowAccrued{Asset: "IRIS", Denom: "uiris"}
+		initialIrisBorrowEarned := types.BorrowAccrued{Asset: "IRIS", Denom: "uiris"}
+		initialXprtBorrowEarned := types.BorrowAccrued{Asset: "XPRT", Denom: "uxprt"}
+
+		argsCollateral := []bool{false, false, false, false, false, false}
+		argsDeposit := []*types.Deposit{&initialAktDeposit, &initialAtomDeposit, &initialCroDeposit, &initialDvpnDeposit, &initialIrisDeposit, &initialXprtDeposit}
+		argsBorrow := []*types.Borrow{&initialAktBorrow, &initialAtomBorrow, &initialCroBorrow, &initialDvpnBorrow, &initialIrisBorrow, &initialXprtBorrow}
+		argsAssetBalances := []int32{2000, 1000, 1000, 1000, 1000, 1000, 1000, 1000}
+		argsDepositEarneds := []*types.DepositEarned{&initialAktDepositEarned, &initialAtomDepositEarned, &initialCroDepositEarned, &initialDvpnDepositEarned, &initialIrisDepositEarned, &initialXprtDepositEarned}
+		argsBorrowAccrueds := []*types.BorrowAccrued{&initialAktBorrowEarned, &initialAtomBorrowEarned, &initialCroBorrowEarned, &initialDvpnBorrowEarned, &initialIrisBorrowEarned, &initialXprtBorrowEarned}
 
 		queryUser = types.User{}
 		queryUser.Creator = walletAddress
-		queryUser.Collateral = initialCollateral
-		queryUser.Deposit = initialDepositList
-		queryUser.Borrow = initialBorrowList
+		queryUser.Collateral = argsCollateral
+		queryUser.Deposit = argsDeposit
+		queryUser.Borrow = argsBorrow
+		queryUser.AssetBalances = argsAssetBalances
+		queryUser.DepositEarneds = argsDepositEarneds
+		queryUser.BorrowAccrueds = argsBorrowAccrueds
+
 		// id = keeper.AppendUser(ctx, queryUser)
 
 		return nil, sdkerrors.ErrKeyNotFound

@@ -7,13 +7,15 @@ import (
 
 var _ sdk.Msg = &MsgCreateUser{}
 
-func NewMsgCreateUser(creator string, collateral []bool, deposit []*Deposit, borrow []*Borrow, assetBalances []int32) *MsgCreateUser {
+func NewMsgCreateUser(creator string, collateral []bool, deposit []*Deposit, borrow []*Borrow, assetBalances []int32, depositEarneds []*DepositEarned, borrowAccrueds []*BorrowAccrued) *MsgCreateUser {
 	return &MsgCreateUser{
-		Creator:       creator,
-		Collateral:    collateral,
-		Deposit:       deposit,
-		Borrow:        borrow,
-		AssetBalances: assetBalances,
+		Creator:        creator,
+		Collateral:     collateral,
+		Deposit:        deposit,
+		Borrow:         borrow,
+		AssetBalances:  assetBalances,
+		DepositEarneds: depositEarneds,
+		BorrowAccrueds: borrowAccrueds,
 	}
 }
 
@@ -48,14 +50,16 @@ func (msg *MsgCreateUser) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateUser{}
 
-func NewMsgUpdateUser(creator string, id uint64, collateral []bool, deposit []*Deposit, borrow []*Borrow, assetBalances []int32) *MsgUpdateUser {
+func NewMsgUpdateUser(creator string, id uint64, collateral []bool, deposit []*Deposit, borrow []*Borrow, assetBalances []int32, depositEarneds []*DepositEarned, borrowAccrueds []*BorrowAccrued) *MsgUpdateUser {
 	return &MsgUpdateUser{
-		Id:            id,
-		Creator:       creator,
-		Collateral:    collateral,
-		Deposit:       deposit,
-		Borrow:        borrow,
-		AssetBalances: assetBalances,
+		Id:             id,
+		Creator:        creator,
+		Collateral:     collateral,
+		Deposit:        deposit,
+		Borrow:         borrow,
+		AssetBalances:  assetBalances,
+		DepositEarneds: depositEarneds,
+		BorrowAccrueds: borrowAccrueds,
 	}
 }
 

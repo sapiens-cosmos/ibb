@@ -6,6 +6,8 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 import "gogoproto/gogo.proto";
 import "ibb/deposit.proto";
 import "ibb/borrow.proto";
+import "ibb/depositEarned.proto";
+import "ibb/borrowAccrued.proto";
 
 message User {
   string creator = 1;
@@ -14,4 +16,6 @@ message User {
   repeated Deposit deposit = 4; 
   repeated Borrow borrow = 5;
   repeated int32 assetBalances = 6;
+  repeated DepositEarned depositEarneds = 7;
+  repeated BorrowAccrued borrowAccrueds = 8;
 }
