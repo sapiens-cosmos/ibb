@@ -12,21 +12,21 @@ func (k msgServer) MintNft(goCtx context.Context, msg *types.MsgMintNft) (*types
 
 	// TODO: Handling the message
 	_ = ctx
-	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return nil, err
-	}
-	if err := k.nftKeeper.MintNFT(
-		ctx,
-		msg.DenomID,
-		msg.TokenID,
-		msg.TokenNm,
-		msg.TokenURI,
-		msg.TokenData,
-		creatorAddress,
-	); err != nil {
-		return nil, nil
-	}
+	// creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// // if err := k.nftKeeper.MintNFT(
+	// // 	ctx,
+	// // 	msg.DenomID,
+	// // 	msg.TokenID,
+	// // 	msg.TokenNm,
+	// // 	msg.TokenURI,
+	// // 	msg.TokenData,
+	// // 	creatorAddress,
+	// // ); err != nil {
+	// // 	return nil, nil
+	// // }
 
 	return &types.MsgMintNftResponse{}, nil
 }

@@ -19,3 +19,7 @@ const (
 	QueryGetRepay  = "get-repay"
 	QueryListRepay = "list-repay"
 )
+
+const (
+	QueryListCollection = "list-collection"
+)

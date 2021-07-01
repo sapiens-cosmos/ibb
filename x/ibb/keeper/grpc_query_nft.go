@@ -33,11 +33,6 @@ func (k Keeper) NftAll(c context.Context, req *types.QueryAllNftRequest) (*types
 		return nil
 	})
 
-	if err := k.nftKeeper.GetCollections(ctx); err != nil {
-		return nil, nil
-	}
-	// a := k.nftKeeper.GetCollections(ctx)
-	// fmt.Println(a)
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}

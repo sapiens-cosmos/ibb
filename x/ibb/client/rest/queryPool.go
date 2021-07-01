@@ -46,8 +46,7 @@ func loadPoolHandler(clientCtx client.Context) http.HandlerFunc {
 			rest.WriteErrorResponse(w, http.StatusNotFound, err.Error())
 			return
 		}
-		// testing without using specific block height
-		// clientCtx = clientCtx.WithHeight(height)
+
 		rest.PostProcessResponse(w, clientCtx, res)
 	}
 }

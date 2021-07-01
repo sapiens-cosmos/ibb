@@ -45,6 +45,9 @@ func NewQuerier(k Keeper, legacyQuerierCdc *codec.LegacyAmino) sdk.Querier {
 		//query User
 		case types.QueryLoadUser:
 			return loadUser(ctx, path[1], k, legacyQuerierCdc)
+
+		case types.QueryListCollection:
+			return listCollection(ctx, k, legacyQuerierCdc)
 		default:
 			err = sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "unknown %s query endpoint: %s", types.ModuleName, path[0])
 		}
