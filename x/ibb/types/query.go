@@ -24,3 +24,8 @@ const (
 	QueryGetApr  = "get-apr"
 	QueryListApr = "list-apr"
 )
+
+const (
+	QueryGetDepositEarned  = "get-depositEarned"
+	QueryListDepositEarned = "list-depositEarned"
+)

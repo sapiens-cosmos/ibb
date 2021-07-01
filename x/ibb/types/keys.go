@@ -59,3 +59,8 @@ const (
 	AprKey      = "Apr-value-"
 	AprCountKey = "Apr-count-"
 )
+
+const (
+	DepositEarnedKey      = "DepositEarned-value-"
+	DepositEarnedCountKey = "DepositEarned-count-"
+)

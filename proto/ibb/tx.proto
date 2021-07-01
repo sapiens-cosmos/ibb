@@ -13,6 +13,9 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateDepositEarned(MsgCreateDepositEarned) returns (MsgCreateDepositEarnedResponse);
+  rpc UpdateDepositEarned(MsgUpdateDepositEarned) returns (MsgUpdateDepositEarnedResponse);
+  rpc DeleteDepositEarned(MsgDeleteDepositEarned) returns (MsgDeleteDepositEarnedResponse);
   rpc CreateApr(MsgCreateApr) returns (MsgCreateAprResponse);
   rpc UpdateApr(MsgUpdateApr) returns (MsgUpdateAprResponse);
   rpc DeleteApr(MsgDeleteApr) returns (MsgDeleteAprResponse);
@@ -37,6 +40,36 @@ service Msg {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateDepositEarned {
+  string creator = 1;
+  int32 blockHeight = 2;
+  string asset = 3;
+  int32 amount = 4;
+  string denom = 5;
+}
+
+message MsgCreateDepositEarnedResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateDepositEarned {
+  string creator = 1;
+  uint64 id = 2;
+  int32 blockHeight = 3;
+  string asset = 4;
+  int32 amount = 5;
+  string denom = 6;
+}
+
+message MsgUpdateDepositEarnedResponse { }
+
+message MsgDeleteDepositEarned {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteDepositEarnedResponse { }
+
 message MsgCreateApr {
   string creator = 1;
   int32 blockHeight = 2;
