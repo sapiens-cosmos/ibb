@@ -23,7 +23,7 @@
 						<div v-if="type === 'Withdraw'" class="value">
 							Deposit Balance: {{ Number.isNaN(parseFloat(AssetDeposit)) ? 0 : parseFloat(AssetDeposit) / 1000000 }} {{ Asset }}
 						</div>
-						<div v-if="type === 'Borrow'" class="value">Borrow Limit: ${{ parseFloat(currentBollowLimit).toFixed(2) }}</div>
+						<div v-if="type === 'Borrow'" class="value">Borrow Limit: {{ currentBollowLimitAssetAmount.toFixed(6) }} {{ Asset }}</div>
 						<div v-if="type === 'Repay'" class="value">
 							Borrow Balance: {{ Number.isNaN(parseFloat(AssetBorrow)) ? 0 : parseFloat(AssetBorrow) / 1000000 }} {{ Asset }}
 						</div>
@@ -37,7 +37,7 @@
 								</div>
 								<div class="dollar">${{ Number.isNaN(parseFloat(balance)) ? 0 : (parseFloat(balance) * AssetPrice) / 1000000 }}</div>
 							</div>
-							<div class="max-button">Max</div>
+							<div class="max-button" @click="makeBalanceMax">Max</div>
 						</div>
 					</div>
 					<div class="content">
@@ -79,15 +79,18 @@
 						<div class="value">{{ Collatoral ? 'Yes' : 'No' }}</div>
 					</div>
 				</div>
-				<div v-else class="borrow-limit">
+				<div v-if="type !== 'Deposit' || (type === 'Deposit' && Collatoral)" class="borrow-limit">
 					<div class="title">Borrow Limit</div>
 					<div class="content">
 						<div class="property">Your Limit</div>
-						<div class="value">${{ parseFloat(currentBollowLimit).toFixed(2) }} -> $???</div>
+						<div class="value">${{ parseFloat(currentBollowLimit).toFixed(2) }} -> ${{ nextBollowLimit.toFixed(2) }}</div>
 					</div>
 					<div class="content">
 						<div class="property">Limit Used</div>
-						<div class="value">0% -> 0%</div>
+						<div class="value">
+							{{ (((parseFloat(borrowLimitAsCollateral) - parseFloat(currentBollowLimit)) / parseFloat(borrowLimitAsCollateral)) * 100).toFixed(2) }}% ->
+							{{ (((parseFloat(borrowLimitAsCollateral) - parseFloat(nextBollowLimit)) / parseFloat(borrowLimitAsCollateral)) * 100).toFixed(2) }}%
+						</div>
 					</div>
 				</div>
 				<div class="cta" :class="isValidated ? 'active' : ''" @click="submit">{{ isLoading ? 'Loading...' : type }}</div>
@@ -204,6 +207,7 @@ input[type='number'] {
 }
 
 .range-indicator {
+	display: none;
 	color: white;
 	font-size: 14px;
 	padding: 5px 12px;
@@ -255,6 +259,10 @@ input[type='number'] {
 .max-button {
 	padding-left: 16px;
 	font-size: 15px;
+}
+
+.max-button:hover {
+	cursor: pointer;
 }
 
 .slider {
@@ -378,7 +386,7 @@ export default {
 		}
 	},
 	computed: {
-		currentBollowLimit() {
+		assetPoolsWithUser() {
 			const loggedAddress = this.$store.getters['common/wallet/address']
 			if (!loggedAddress) {
 				return 0
@@ -395,43 +403,126 @@ export default {
 				this.$store.getters['sapienscosmos.ibb.ibb/getPoolLoad']({
 					params: {}
 				})?.LoadPoolResponse ?? []
-			return assetPools
-				.map((pool, index) => ({
-					...pool,
-					...userAssets[index]
-				}))
-				.reduce((acc, userAsset) => (acc += ((((userAsset.AssetDeposit / 1000000) * userAsset.AssetPrice) / 1000000) * userAsset.CollatoralFactor) / 100), 0)
+			return assetPools.map((pool, index) => ({
+				...pool,
+				...userAssets[index]
+			}))
+		},
+		borrowLimitAsCollateral() {
+			return this.assetPoolsWithUser.reduce(
+				(acc, userAsset) => (acc += ((((userAsset.AssetDeposit / 1000000) * userAsset.AssetPrice) / 1000000) * userAsset.CollatoralFactor) / 100),
+				0
+			)
+		},
+		currentBollowLimit() {
+			return (
+				this.borrowLimitAsCollateral -
+				this.assetPoolsWithUser.reduce((acc, userAsset) => (acc += ((userAsset.AssetBorrow / 1000000) * userAsset.AssetPrice) / 1000000), 0)
+			)
 		},
 		currentBollowLimitAssetAmount() {
 			return (this.currentBollowLimit / this.AssetPrice) * 1000000
 		},
+		nextBollowLimit() {
+			const newLimit = (parseFloat(this.balance || 0) * (this.AssetPrice || 0)) / 1000000
+			switch (this.type) {
+				case 'Deposit': {
+					return this.Collatoral ? this.currentBollowLimit + newLimit : this.currentBollowLimit
+				}
+				case 'Withdraw': {
+					return this.Collatoral ? this.currentBollowLimit - newLimit : this.currentBollowLimit
+				}
+				case 'Borrow': {
+					return this.currentBollowLimit - newLimit
+				}
+				case 'Repay': {
+					return this.currentBollowLimit + newLimit
+				}
+				default:
+					return this.currentBollowLimit
+			}
+		},
 		isValidated() {
 			const balance = parseFloat(this.balance || 0) * 1000000
-			const walletBalance = parseFloat(this.AssetBalance)
-			return balance > 0 && walletBalance >= balance
+			switch (this.type) {
+				case 'Deposit': {
+					const walletBalance = parseFloat(this.AssetBalance)
+					return balance > 0 && walletBalance >= balance
+				}
+				case 'Withdraw': {
+					const depositBalance = parseFloat(this.AssetDeposit)
+					return balance > 0 && depositBalance >= balance
+				}
+				case 'Borrow': {
+					const borrowLimit = parseFloat(this.currentBollowLimitAssetAmount * 1000000)
+					return balance > 0 && borrowLimit >= balance
+				}
+				case 'Repay': {
+					const borrowBalance = parseFloat(this.AssetBorrow)
+					return balance > 0 && borrowBalance >= balance
+				}
+				default:
+					return false
+			}
 		}
 	},
 	async mounted() {
 		this.$refs.balance.focus()
-		this.$refs.range.addEventListener('input', () => {
-			this.setRange()
+		this.$refs.balance.addEventListener('input', () => {
+			this.setRangeByBalance()
+			const indicator = this.$refs.indicator
+			indicator.style.display = `none`
 		})
-		this.setRange()
+		this.$refs.range.addEventListener('input', () => {
+			this.setBalanceByRange()
+			this.setIndicator()
+		})
 	},
 	methods: {
-		setRange() {
+		makeBalanceMax() {
+			const rangingBalanceByType =
+				this.type === 'Deposit'
+					? this.AssetBalance
+					: this.type === 'Withdraw'
+					? this.AssetDeposit
+					: this.type === 'Borrow'
+					? this.currentBollowLimitAssetAmount * 1000000
+					: this.AssetBorrow
+			this.balance = parseFloat(rangingBalanceByType || 0) / 1000000
+			this.setRangeByBalance()
+		},
+		setIndicator(rangeValue) {
 			const range = this.$refs.range
 			const indicator = this.$refs.indicator
-			const val = range.value
+			const val = rangeValue ? rangeValue : range.value
 			const min = range.min ? range.min : 0
 			const max = range.max ? range.max : 100
 			const newVal = Number(((val - min) * 100) / (max - min))
 			indicator.innerHTML = `${val}%`
-
-			// Sorta magic numbers based on size of the native UI thumb
+			indicator.style.display = `block`
 			indicator.style.left = `calc(${newVal}% + (${8 - newVal * 0.15}px))`
-
-			this.balance = ((this.balanceRange / 100) * parseFloat(this.AssetBalance || 0)) / 1000000
+		},
+		setRangeByBalance() {
+			const rangingBalanceByType =
+				this.type === 'Deposit'
+					? this.AssetBalance
+					: this.type === 'Withdraw'
+					? this.AssetDeposit
+					: this.type === 'Borrow'
+					? this.currentBollowLimitAssetAmount * 1000000
+					: this.AssetBorrow
+			this.balanceRange = ((this.balance * 1000000) / parseFloat(rangingBalanceByType || 0)) * 100
+		},
+		setBalanceByRange() {
+			const rangingBalanceByType =
+				this.type === 'Deposit'
+					? this.AssetBalance
+					: this.type === 'Withdraw'
+					? this.AssetDeposit
+					: this.type === 'Borrow'
+					? this.currentBollowLimitAssetAmount * 1000000
+					: this.AssetBorrow
+			this.balance = ((this.balanceRange / 100) * parseFloat(rangingBalanceByType || 0)) / 1000000
 		},
 		checkClickOutside(e) {
 			if (e.target === e.currentTarget) {
