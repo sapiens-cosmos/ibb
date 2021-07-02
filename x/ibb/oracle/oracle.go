@@ -6,13 +6,13 @@ import (
 )
 
 const (
-	// Updated around 2021-07-01T10:57:17Z.
-	DefaultAtomPrice float64 = 11.01
-	DefaultIrisPrice float64 = 0.075752
-	DefaultDvpnPrice float64 = 0.01979
-	DefaultXprtPrice float64 = 8.3
-	DefaultCroPrice  float64 = 0.113824
-	DefaultAktPrice  float64 = 3.52
+	// Updated around 2021-07-02T05:38:22Z.
+	DefaultAtomPrice float64 = 10.78
+	DefaultIrisPrice float64 = 0.073045
+	DefaultDvpnPrice float64 = 0.02512019
+	DefaultXprtPrice float64 = 8.17
+	DefaultCroPrice  float64 = 0.111101
+	DefaultAktPrice  float64 = 3.3
 )
 
 func GetAllPrices() [6]float64 {
