@@ -36,7 +36,7 @@ func (k msgServer) CreateRepay(goCtx context.Context, msg *types.MsgCreateRepay)
 		}
 	}
 
-	_, borrowAccrued := interest.GetInterests(int32(ctx.BlockHeight()), queryUser.TxHistories, queryPool.Aprs)
+	_, borrowAccrued := interest.GetInterests(msg.Asset, int32(ctx.BlockHeight()), queryUser.TxHistories, queryPool.Aprs)
 	var repayInterest int32 = 0
 	var repayBorrow int32 = 0
 	if borrowAccrued < msg.Amount {

@@ -6,7 +6,7 @@ import (
 	"github.com/sapiens-cosmos/ibb/x/ibb/types"
 )
 
-func GetInterests(blockHeight int32, txHistories []*types.TxHistory, aprs []*types.Apr) (int32, int32) {
+func GetInterests(asset string, blockHeight int32, txHistories []*types.TxHistory, aprs []*types.Apr) (int32, int32) {
 	var checkpoint int32 = 0
 	var currentBlockHeight = checkpoint
 	var totalDeposit int32 = 0
@@ -14,6 +14,10 @@ func GetInterests(blockHeight int32, txHistories []*types.TxHistory, aprs []*typ
 	var totalBorrow int32 = 0
 	var totalBorrows []int32
 	for _, txHistory := range txHistories {
+		if txHistory.Asset != asset {
+			continue
+		}
+
 		if txHistory.BlockHeight < currentBlockHeight {
 			switch txHistory.Tx {
 			case "deposit":
@@ -94,6 +98,10 @@ func GetInterests(blockHeight int32, txHistories []*types.TxHistory, aprs []*typ
 	}
 
 	for _, txHistory := range txHistories {
+		if txHistory.Asset != asset {
+			continue
+		}
+
 		switch txHistory.Tx {
 		case "repay":
 			borrowAccruedAmount -= float64(txHistory.Amount)
