@@ -17,7 +17,6 @@ type (
 		storeKey   sdk.StoreKey
 		memKey     sdk.StoreKey
 		bankKeeper types.BankKeeper
-		nftKeeper  types.NFTKeeper
 		// this line is used by starport scaffolding # ibc/keeper/attribute
 	}
 )
@@ -27,7 +26,6 @@ func NewKeeper(
 	storeKey,
 	memKey sdk.StoreKey,
 	bankKeeper types.BankKeeper,
-	nftKeeper types.NFTKeeper,
 	// this line is used by starport scaffolding # ibc/keeper/parameter
 ) *Keeper {
 	return &Keeper{
@@ -35,7 +33,6 @@ func NewKeeper(
 		storeKey:   storeKey,
 		memKey:     memKey,
 		bankKeeper: bankKeeper,
-		nftKeeper:  nftKeeper,
 		// this line is used by starport scaffolding # ibc/keeper/return
 	}
 }

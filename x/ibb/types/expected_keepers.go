@@ -3,7 +3,6 @@ package types
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/bank/types"
-	exported "github.com/irisnet/irismod/modules/nft/exported"
 )
 
 // ViewKeeper defines a module interface that facilitates read only access to
@@ -22,9 +21,4 @@ type BankKeeper interface {
 
 	IterateAccountBalances(ctx sdk.Context, addr sdk.AccAddress, cb func(coin sdk.Coin) (stop bool))
 	IterateAllBalances(ctx sdk.Context, cb func(address sdk.AccAddress, coin sdk.Coin) (stop bool))
-}
-
-type NFTKeeper interface {
-	GetNFT(ctx sdk.Context, denom, id string) (nft exported.NFT, err error)
-	MintNFT(ctx sdk.Context, denomID, tokenID, tokenNm, tokenURI, tokenData string, owner sdk.AccAddress) error
 }

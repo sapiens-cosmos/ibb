@@ -80,8 +80,6 @@ import (
 	upgradeclient "github.com/cosmos/cosmos-sdk/x/upgrade/client"
 	upgradekeeper "github.com/cosmos/cosmos-sdk/x/upgrade/keeper"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
-	nftkeeper "github.com/irisnet/irismod/modules/nft/keeper"
-	nfttypes "github.com/irisnet/irismod/modules/nft/types"
 	appparams "github.com/sapiens-cosmos/ibb/app/params"
 	"github.com/sapiens-cosmos/ibb/docs"
 	tmjson "github.com/tendermint/tendermint/libs/json"
@@ -198,7 +196,6 @@ type App struct {
 	IBCKeeper        *ibckeeper.Keeper // IBC Keeper must be a pointer in the app, so we can SetRouter on it correctly
 	EvidenceKeeper   evidencekeeper.Keeper
 	TransferKeeper   ibctransferkeeper.Keeper
-	NFTKeeper        nftkeeper.Keeper
 
 	// make scoped keepers public for test purposes
 	ScopedIBCKeeper      capabilitykeeper.ScopedKeeper
@@ -290,7 +287,6 @@ func New(
 		app.GetSubspace(crisistypes.ModuleName), invCheckPeriod, app.BankKeeper, authtypes.FeeCollectorName,
 	)
 	app.UpgradeKeeper = upgradekeeper.NewKeeper(skipUpgradeHeights, keys[upgradetypes.StoreKey], appCodec, homePath)
-	app.NFTKeeper = nftkeeper.NewKeeper(appCodec, keys[nfttypes.StoreKey])
 	// register the staking hooks
 	// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
 	app.StakingKeeper = *stakingKeeper.SetHooks(
@@ -334,7 +330,6 @@ func New(
 		keys[ibbtypes.StoreKey],
 		keys[ibbtypes.MemStoreKey],
 		app.BankKeeper,
-		app.NFTKeeper,
 	)
 	ibbModule := ibb.NewAppModule(appCodec, app.IbbKeeper)
 

@@ -36,14 +36,13 @@ func registerQueryRoutes(clientCtx client.Context, r *mux.Router) {
 	r.HandleFunc("/ibb/withdraws/{id}", getWithdrawHandler(clientCtx)).Methods("GET")
 	r.HandleFunc("/ibb/withdraws", listWithdrawHandler(clientCtx)).Methods("GET")
 
-	// r.HandleFunc("/voter/votes/{id}", getVoteHandler(clientCtx)).Methods("GET")
-	// r.HandleFunc("/voter/votes", listVoteHandler(clientCtx)).Methods("GET")
-
 	r.HandleFunc("/ibb/pools/{id}", getPoolHandler(clientCtx)).Methods("GET")
 	r.HandleFunc("/ibb/pools", listPoolHandler(clientCtx)).Methods("GET")
 	r.HandleFunc("/ibb/loadPools", loadPoolHandler(clientCtx)).Methods("GET")
 
 	r.HandleFunc("/ibb/loadUser/{id}", loadUserHandler(clientCtx)).Methods("GET")
+
+	r.HandleFunc("/ibb/collections", listCollectionHandler(clientCtx)).Methods("GET")
 
 }
 
@@ -57,13 +56,6 @@ func registerTxHandlers(clientCtx client.Context, r *mux.Router) {
 	r.HandleFunc("/ibb/withdraws/{id}", updateWithdrawHandler(clientCtx)).Methods("POST")
 	r.HandleFunc("/ibb/withdraws/{id}", deleteWithdrawHandler(clientCtx)).Methods("POST")
 
-	// r.HandleFunc("/voter/votes", createVoteHandler(clientCtx)).Methods("POST")
-	// r.HandleFunc("/voter/votes/{id}", updateVoteHandler(clientCtx)).Methods("POST")
-	// r.HandleFunc("/voter/votes/{id}", deleteVoteHandler(clientCtx)).Methods("POST")
-
-	// r.HandleFunc("/voter/polls", createPollHandler(clientCtx)).Methods("POST")
-	// r.HandleFunc("/voter/polls/{id}", updatePollHandler(clientCtx)).Methods("POST")
-	// r.HandleFunc("/voter/polls/{id}", deletePollHandler(clientCtx)).Methods("POST")
 	r.HandleFunc("/ibb/createDeposit", createDepositHandler(clientCtx)).Methods("POST")
 	r.HandleFunc("/ibb/createBorrow", createBorrowHandler(clientCtx)).Methods("POST")
 	r.HandleFunc("/ibb/createWithdraw", createWithdrawHandler(clientCtx)).Methods("POST")

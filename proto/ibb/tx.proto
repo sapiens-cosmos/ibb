@@ -13,10 +13,10 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc MintNft(MsgMintNft) returns (MsgMintNftResponse);
   rpc CreateNft(MsgCreateNft) returns (MsgCreateNftResponse);
   rpc UpdateNft(MsgUpdateNft) returns (MsgUpdateNftResponse);
   rpc DeleteNft(MsgDeleteNft) returns (MsgDeleteNftResponse);
-  rpc MintNft(MsgMintNft) returns (MsgMintNftResponse);
   rpc CreateRepay(MsgCreateRepay) returns (MsgCreateRepayResponse);
   rpc UpdateRepay(MsgUpdateRepay) returns (MsgUpdateRepayResponse);
   rpc DeleteRepay(MsgDeleteRepay) returns (MsgDeleteRepayResponse);
@@ -38,28 +38,32 @@ service Msg {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgMintNft {
+  string creator = 1;
+  string denomID = 2;
+  string tokenID = 3;
+  string tokenNm = 4;
+  string tokenURI = 5;
+  string tokenData = 6;
+}
+
+message MsgMintNftResponse {
+}
+
 message MsgCreateNft {
   string creator = 1;
   string collection = 2;
   string ownerAddress = 3;
   string imageUrl = 4;
   string name = 5;
+  string nftCreatorAddress = 6;
+  Offer selectedOffer = 7;
+  repeated Offer offers = 8;
 }
 
 message MsgCreateNftResponse {
   uint64 id = 1;
 }
-
-message MsgMintNft {
-  string denomID = 1;
-  string tokenID = 2;
-  string tokenNm = 3;
-  string tokenURI = 4;
-  string tokenData = 5;
-  string recipient = 6;
-}
-
-message MsgMintNftResponse {}
 
 message MsgUpdateNft {
   string creator = 1;

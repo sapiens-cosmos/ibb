@@ -48,3 +48,12 @@ message LiquidationAsset {
   string Asset = 1;
   int64 Amount = 2;
 }
+
+message NftResponse {
+  string Collection = 1;
+  string OwnerAddress = 2;
+  string ImageUrl = 3;
+  string Name = 4;
+  string NftCreatorAddress = 5;
+  int32 Id = 6;
+}

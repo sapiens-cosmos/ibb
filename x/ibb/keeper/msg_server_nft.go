@@ -13,11 +13,12 @@ func (k msgServer) CreateNft(goCtx context.Context, msg *types.MsgCreateNft) (*t
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var nft = types.Nft{
-		Creator:      msg.Creator,
-		Collection:   msg.Collection,
-		OwnerAddress: msg.OwnerAddress,
-		ImageUrl:     msg.ImageUrl,
-		Name:         msg.Name,
+		Creator:           msg.Creator,
+		Collection:        msg.Collection,
+		OwnerAddress:      msg.OwnerAddress,
+		ImageUrl:          msg.ImageUrl,
+		Name:              msg.Name,
+		NftCreatorAddress: msg.NftCreatorAddress,
 	}
 
 	id := k.AppendNft(
@@ -70,23 +71,4 @@ func (k msgServer) DeleteNft(goCtx context.Context, msg *types.MsgDeleteNft) (*t
 	k.RemoveNft(ctx, msg.Id)
 
 	return &types.MsgDeleteNftResponse{}, nil
-}
-
-func (k msgServer) MintNft(goCtx context.Context, msg *types.MsgMintNft) (*types.MsgMintNftResponse, error) {
-	recipient, err := sdk.AccAddressFromBech32(msg.Recipient)
-	if err != nil {
-		return nil, err
-	}
-
-	ctx := sdk.UnwrapSDKContext(goCtx)
-	if err := k.nftKeeper.MintNFT(ctx, msg.DenomID, msg.TokenID,
-		msg.TokenNm,
-		msg.TokenURI,
-		msg.TokenData,
-		recipient,
-	); err != nil {
-		return nil, err
-	}
-
-	return &types.MsgMintNftResponse{}, nil
 }

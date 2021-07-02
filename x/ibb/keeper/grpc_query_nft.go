@@ -46,6 +46,8 @@ func (k Keeper) Nft(c context.Context, req *types.QueryGetNftRequest) (*types.Qu
 	}
 
 	var nft types.Nft
+	var queryNft types.NftResponse
+
 	ctx := sdk.UnwrapSDKContext(c)
 
 	if !k.HasNft(ctx, req.Id) {
@@ -55,5 +57,42 @@ func (k Keeper) Nft(c context.Context, req *types.QueryGetNftRequest) (*types.Qu
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.NftKey))
 	k.cdc.MustUnmarshalBinaryBare(store.Get(GetNftIDBytes(req.Id)), &nft)
 
-	return &types.QueryGetNftResponse{Nft: &nft}, nil
+	queryNft.Collection = nft.Collection
+	queryNft.Id = int32(nft.Id)
+	queryNft.ImageUrl = nft.ImageUrl
+	queryNft.Name = nft.Name
+	queryNft.NftCreatorAddress = nft.NftCreatorAddress
+	queryNft.OwnerAddress = nft.OwnerAddress
+
+	return &types.QueryGetNftResponse{Nft: &queryNft}, nil
+}
+
+func (k Keeper) NftLoad(c context.Context, req *types.QueryLoadNftRequest) (*types.QueryLoadNftResponse, error) {
+	if req == nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid request")
+	}
+
+	ctx := sdk.UnwrapSDKContext(c)
+
+	nftList := k.GetAllNft(ctx)
+
+	var userNftList []*types.NftResponse
+	var dashboardNftList []*types.NftResponse
+
+	for _, nft := range nftList {
+		var nftResponse types.NftResponse
+		nftResponse.Collection = nft.Collection
+		nftResponse.OwnerAddress = nft.OwnerAddress
+		nftResponse.ImageUrl = nft.ImageUrl
+		nftResponse.Name = nft.Name
+		nftResponse.NftCreatorAddress = nft.NftCreatorAddress
+		nftResponse.Id = int32(nft.Id)
+		if nft.OwnerAddress == req.Id {
+			userNftList = append(userNftList, &nftResponse)
+		} else {
+			dashboardNftList = append(dashboardNftList, &nftResponse)
+		}
+	}
+
+	return &types.QueryLoadNftResponse{UserNft: userNftList, DashboardNft: dashboardNftList}, nil
 }

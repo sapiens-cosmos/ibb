@@ -7,6 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/sapiens-cosmos/ibb/x/ibb/types"
+	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )
 
@@ -71,6 +72,40 @@ func CmdShowNft() *cobra.Command {
 		},
 	}
 
+	flags.AddQueryFlagsToCmd(cmd)
+
+	return cmd
+}
+
+func CmdLoadNft() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "load-nft [id]",
+		Short: "Load Nfts in Endpoint format",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx := client.GetClientContextFromCmd(cmd)
+
+			queryClient := types.NewQueryClient(clientCtx)
+
+			walletAddress, err := cast.ToStringE(args[0])
+			if err != nil {
+				return err
+			}
+
+			params := &types.QueryLoadNftRequest{
+				Id: walletAddress,
+			}
+
+			res, err := queryClient.NftLoad(context.Background(), params)
+			if err != nil {
+				return err
+			}
+
+			return clientCtx.PrintProto(res)
+		},
+	}
+
+	flags.AddPaginationFlagsToCmd(cmd, cmd.Use)
 	flags.AddQueryFlagsToCmd(cmd)
 
 	return cmd

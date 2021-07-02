@@ -7,13 +7,16 @@ import (
 
 var _ sdk.Msg = &MsgCreateNft{}
 
-func NewMsgCreateNft(creator string, collection string, ownerAddress string, imageUrl string, name string) *MsgCreateNft {
+func NewMsgCreateNft(creator string, collection string, ownerAddress string, imageUrl string, name string, nftCreatorAddress string, selectedOffer Offer, offers []*Offer) *MsgCreateNft {
 	return &MsgCreateNft{
-		Creator:      creator,
-		Collection:   collection,
-		OwnerAddress: ownerAddress,
-		ImageUrl:     imageUrl,
-		Name:         name,
+		Creator:           creator,
+		Collection:        collection,
+		OwnerAddress:      ownerAddress,
+		ImageUrl:          imageUrl,
+		Name:              name,
+		NftCreatorAddress: nftCreatorAddress,
+		SelectedOffer:     &selectedOffer,
+		Offers:            offers,
 	}
 }
 
@@ -119,48 +122,6 @@ func (msg *MsgDeleteNft) GetSignBytes() []byte {
 
 func (msg *MsgDeleteNft) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
-	}
-	return nil
-}
-
-var _ sdk.Msg = &MsgMintNft{}
-
-func NewMsgMintNft(denomID string, tokenID string, tokenNm string, tokenURI string, tokenData string, recipient string) *MsgMintNft {
-	return &MsgMintNft{
-		DenomID:   denomID,
-		TokenID:   tokenID,
-		TokenNm:   tokenNm,
-		TokenURI:  tokenURI,
-		TokenData: tokenData,
-		Recipient: recipient,
-	}
-}
-
-func (msg *MsgMintNft) Route() string {
-	return RouterKey
-}
-
-func (msg *MsgMintNft) Type() string {
-	return "CreateNft"
-}
-
-func (msg *MsgMintNft) GetSigners() []sdk.AccAddress {
-	creator, err := sdk.AccAddressFromBech32(msg.Recipient)
-	if err != nil {
-		panic(err)
-	}
-	return []sdk.AccAddress{creator}
-}
-
-func (msg *MsgMintNft) GetSignBytes() []byte {
-	bz := ModuleCdc.MustMarshalJSON(msg)
-	return sdk.MustSortJSON(bz)
-}
-
-func (msg *MsgMintNft) ValidateBasic() error {
-	_, err := sdk.AccAddressFromBech32(msg.Recipient)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
