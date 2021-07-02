@@ -102,13 +102,8 @@ func GetInterests(asset string, blockHeight int32, txHistories []*types.TxHistor
 			continue
 		}
 
-		switch txHistory.Tx {
-		case "repay":
-			borrowAccruedAmount -= float64(txHistory.Amount)
-		case "claim":
+		if txHistory.Tx == "claim" {
 			depositEarnedAmount -= float64(txHistory.Amount)
-		default:
-			// Do nothing.
 		}
 	}
 

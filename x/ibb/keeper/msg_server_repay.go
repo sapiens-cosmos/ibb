@@ -36,15 +36,23 @@ func (k msgServer) CreateRepay(goCtx context.Context, msg *types.MsgCreateRepay)
 		}
 	}
 
+	var userDeposit int32 = 0
+	for _, deposit := range queryUser.Deposit {
+		if deposit.Asset == msg.Asset {
+			userDeposit = deposit.Amount
+			break
+		}
+	}
+
 	_, borrowAccrued := interest.GetInterests(msg.Asset, int32(ctx.BlockHeight()), queryUser.TxHistories, queryPool.Aprs)
-	var repayInterest int32 = 0
 	var repayBorrow int32 = 0
-	if borrowAccrued < msg.Amount {
-		repayInterest = borrowAccrued
-		repayBorrow = msg.Amount - borrowAccrued
+	var repayInterest int32 = 0
+	if userDeposit < msg.Amount {
+		repayBorrow = userDeposit
+		repayInterest = int32(math.Min(float64(msg.Amount-userDeposit), float64(borrowAccrued)))
 	} else {
-		repayInterest = msg.Amount
-		repayBorrow = 0
+		repayBorrow = msg.Amount
+		repayInterest = 0
 	}
 
 	for i, eachBorrow := range queryUser.Borrow {
@@ -57,7 +65,7 @@ func (k msgServer) CreateRepay(goCtx context.Context, msg *types.MsgCreateRepay)
 	txHistory.BlockHeight = int32(ctx.BlockHeight())
 	txHistory.Tx = "repay"
 	txHistory.Asset = msg.Asset
-	txHistory.Amount = repayInterest
+	txHistory.Amount = repayBorrow + repayInterest
 	txHistory.Denom = msg.Denom
 	queryUser.TxHistories = append(queryUser.TxHistories, &txHistory)
 
@@ -89,7 +97,7 @@ func (k msgServer) CreateRepay(goCtx context.Context, msg *types.MsgCreateRepay)
 		msg.Creator,
 		int32(ctx.BlockHeight()),
 		msg.Asset,
-		repayBorrow,
+		repayBorrow+repayInterest,
 		msg.Denom,
 	)
 
