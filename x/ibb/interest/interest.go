@@ -93,5 +93,16 @@ func GetInterests(blockHeight int32, txHistories []*types.TxHistory, aprs []*typ
 		borrowAccruedAmount += float64(totalBorrows[j]) * float64(borrowApys[j]) * 1e-6 * 0.00000190258
 	}
 
+	for _, txHistory := range txHistories {
+		switch txHistory.Tx {
+		case "repay":
+			borrowAccruedAmount -= float64(txHistory.Amount)
+		case "claim":
+			depositEarnedAmount -= float64(txHistory.Amount)
+		default:
+			// Do nothing.
+		}
+	}
+
 	return int32(depositEarnedAmount), int32(borrowAccruedAmount)
 }
