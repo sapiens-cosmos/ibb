@@ -79,3 +79,8 @@ const (
 	TxHistoryKey      = "TxHistory-value-"
 	TxHistoryCountKey = "TxHistory-count-"
 )
+
+const (
+	ClaimKey      = "Claim-value-"
+	ClaimCountKey = "Claim-count-"
+)

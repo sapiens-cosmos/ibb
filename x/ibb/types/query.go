@@ -43,3 +43,8 @@ const (
 	QueryGetTxHistory  = "get-txHistory"
 	QueryListTxHistory = "list-txHistory"
 )
+
+const (
+	QueryGetClaim  = "get-claim"
+	QueryListClaim = "list-claim"
+)
