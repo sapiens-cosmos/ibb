@@ -6,7 +6,8 @@ import (
 )
 
 const (
-	// Updated around 2021-07-02T05:38:22Z.
+	// Updated at 2021-07-02T05:38:22Z.
+	// Temporarily Used when request to Coin Gecko Fails due to ip problem as fall back
 	DefaultAtomPrice float64 = 10.78
 	DefaultIrisPrice float64 = 0.073045
 	DefaultDvpnPrice float64 = 0.02512019
@@ -17,12 +18,12 @@ const (
 
 func GetAllPrices() [6]float64 {
 	prices := [6]float64{
-		GetAtomPrice(),
-		GetIrisPrice(),
-		GetDvpnPrice(),
-		GetXprtPrice(),
-		GetCroPrice(),
 		GetAktPrice(),
+		GetAtomPrice(),
+		GetDvpnPrice(),
+		GetCroPrice(),
+		GetIrisPrice(),
+		GetXprtPrice(),
 	}
 
 	return prices
