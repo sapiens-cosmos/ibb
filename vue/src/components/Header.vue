@@ -2,7 +2,7 @@
 	<div class="header-wrapper">
 		<div class="logo">
 			<img src="@/assets/images/icons/logo.svg" />
-			<span>Interstella</span>
+			<span>Interstellar</span>
 		</div>
 		<Wallet />
 	</div>

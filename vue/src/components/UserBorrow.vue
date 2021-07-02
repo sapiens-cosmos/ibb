@@ -3,7 +3,9 @@
 		<div class="borrow-status">
 			<div class="borrow-balance">
 				<div class="title">Borrow Balance</div>
-				<div class="value">${{ pools.reduce((acc, pool) => (acc += ((pool.AssetBorrow / 1000000) * pool.AssetPrice) / 1000000), 0).toFixed(2) }}</div>
+				<div class="value">
+					${{ Array.isArray(pools) ? pools.reduce((acc, pool) => (acc += ((pool.AssetBorrow / 1000000) * pool.AssetPrice) / 1000000), 0).toFixed(2) : 0 }}
+				</div>
 			</div>
 			<div class="net-apy">
 				<div class="title">Borrow Limit</div>
@@ -15,14 +17,14 @@
 				<div class="table-cell"><span>Asset</span></div>
 				<div class="table-cell"><span>APY</span></div>
 				<div class="table-cell"><span>Balance</span></div>
-				<div class="table-cell"><span>Borrow Limit</span></div>
+				<div class="table-cell"><span>Interest</span></div>
 			</div>
 			<div v-if="Array.isArray(pools)" class="table-rows">
 				<div v-for="pool in pools" v-bind:key="pool.id" class="table-row" @click="clickAsset(pool)">
 					<div class="table-cell">{{ pool.Asset }}</div>
 					<div class="table-cell">{{ pool.BorrowApy / 10000 }}%</div>
 					<div class="table-cell">{{ pool.AssetBorrow / 1000000 }}</div>
-					<div class="table-cell">{{ getBorrowLimitAssetAmount(pool) }}</div>
+					<div class="table-cell">{{ pool.BorrowAccrued / 100000 }}</div>
 				</div>
 			</div>
 		</div>
@@ -87,6 +89,7 @@
 }
 
 .table-cell:first-child {
+	width: 10px;
 	justify-content: flex-start;
 }
 
@@ -102,7 +105,7 @@ export default {
 		assetPoolsWithUser() {
 			const loggedAddress = this.$store.getters['common/wallet/address']
 			if (!loggedAddress) {
-				return 0
+				return []
 			}
 
 			const userAssets = loggedAddress
@@ -143,7 +146,7 @@ export default {
 					...pool,
 					...userAssets[index]
 				}))
-				.filter((pool) => pool.AssetBorrow > 0)
+				.filter((pool) => pool.AssetBorrow + pool.BorrowAccrued > 0)
 		},
 		borrowLimitAsCollateral() {
 			return this.assetPoolsWithUser.reduce(

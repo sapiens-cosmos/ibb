@@ -128,7 +128,7 @@ export default {
 			const nftList =
 				this.$store.getters['sapienscosmos.ibb.ibb/getNftLoad']({
 					params: {
-						id: this.loggedAddress
+						...(this.loggedAddress && { id: this.loggedAddress })
 					}
 				})?.DashboardNft ?? []
 			return nftList

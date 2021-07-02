@@ -294,7 +294,7 @@ export default {
 	},
 	computed: {
 		isValidated() {
-			return true
+			return !!this.loggedAddress
 		},
 		paybackValue() {
 			return parseFloat((this.loanValue * this.interest) / 100 + parseFloat(this.loanValue || 0) || 0)
@@ -303,13 +303,6 @@ export default {
 			return this.$store.getters['common/wallet/address']
 		},
 		offers() {
-			console.log(
-				this.$store.getters['sapienscosmos.ibb.ibb/getNftOfferList']({
-					params: {
-						id: this.Id
-					}
-				})?.OfferList ?? []
-			)
 			return (
 				this.$store.getters['sapienscosmos.ibb.ibb/getNftOfferList']({
 					params: {

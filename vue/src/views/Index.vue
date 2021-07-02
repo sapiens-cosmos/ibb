@@ -57,6 +57,10 @@ export default {
 			options: { all: true },
 			params: {}
 		})
+		await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryNftLoad', {
+			options: { all: true },
+			params: {}
+		})
 	},
 	computed: {
 		address() {

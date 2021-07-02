@@ -100,12 +100,12 @@ func CmdCreateAllPool() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			msgAtom := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "ATOM", "uatom", 75, 812012, 20000, []*types.User{}, []*types.Apr{})
-			msgIris := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "IRIS", "uatom", 80, 10000, 8000, []*types.User{}, []*types.Apr{})
-			msgDvpn := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "DVPN", "udvpn", 70, 10000, 8000, []*types.User{}, []*types.Apr{})
-			msgXprt := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "XPRT", "uxprt", 80, 10000, 8000, []*types.User{}, []*types.Apr{})
-			msgCro := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "CRO", "ucro", 80, 10000, 8000, []*types.User{}, []*types.Apr{})
-			msgAkt := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "AKT", "uakt", 80, 10000, 8000, []*types.User{}, []*types.Apr{})
+			msgAtom := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "ATOM", "uatom", 75, 1000000000, 80000000, []*types.User{}, []*types.Apr{})
+			msgIris := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "IRIS", "uatom", 80, 1000000000, 80000000, []*types.User{}, []*types.Apr{})
+			msgDvpn := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "DVPN", "udvpn", 70, 1000000000, 80000000, []*types.User{}, []*types.Apr{})
+			msgXprt := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "XPRT", "uxprt", 80, 1000000000, 80000000, []*types.User{}, []*types.Apr{})
+			msgCro := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "CRO", "ucro", 80, 1000000000, 80000000, []*types.User{}, []*types.Apr{})
+			msgAkt := types.NewMsgCreatePool(clientCtx.GetFromAddress().String(), "AKT", "uakt", 80, 1000000000, 80000000, []*types.User{}, []*types.Apr{})
 
 			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgAkt)
 			tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgAtom)

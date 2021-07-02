@@ -84,6 +84,7 @@
 
 .table-cell:first-child {
 	justify-content: flex-start;
+	width: 10px;
 }
 </style>
 
