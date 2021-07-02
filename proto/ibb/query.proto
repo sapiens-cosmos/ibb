@@ -4,6 +4,7 @@ package sapienscosmos.ibb.ibb;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "ibb/claim.proto";
 import "ibb/nft.proto";
 import "ibb/txHistory.proto";
 import "ibb/borrowAccrued.proto";
@@ -22,6 +23,13 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+	rpc Claim(QueryGetClaimRequest) returns (QueryGetClaimResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/claim/{id}";
+	}
+	rpc ClaimAll(QueryAllClaimRequest) returns (QueryAllClaimResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/claim";
+	}
+
 
 	// Queries a nft by id.
 	rpc Nft(QueryGetNftRequest) returns (QueryGetNftResponse) {
@@ -144,6 +152,22 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetClaimRequest {
+	uint64 id = 1;
+}
+
+message QueryGetClaimResponse {
+	Claim Claim = 1;
+}
+
+message QueryAllClaimRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllClaimResponse {
+	repeated Claim Claim = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
 message QueryGetNftRequest {
 	uint64 id = 1;
 }
