@@ -20039,7 +20039,7 @@ paths:
                     selectedOffer:
                       type: object
                       properties:
-                        asset:
+                        denom:
                           type: string
                         amount:
                           type: integer
@@ -20058,7 +20058,7 @@ paths:
                       items:
                         type: object
                         properties:
-                          asset:
+                          denom:
                             type: string
                           amount:
                             type: integer
@@ -31627,7 +31627,7 @@ definitions:
       selectedOffer:
         type: object
         properties:
-          asset:
+          denom:
             type: string
           amount:
             type: integer
@@ -31646,7 +31646,7 @@ definitions:
         items:
           type: object
           properties:
-            asset:
+            denom:
               type: string
             amount:
               type: integer
@@ -31679,7 +31679,7 @@ definitions:
   sapienscosmos.ibb.ibb.Offer:
     type: object
     properties:
-      asset:
+      denom:
         type: string
       amount:
         type: integer
@@ -31895,7 +31895,7 @@ definitions:
             selectedOffer:
               type: object
               properties:
-                asset:
+                denom:
                   type: string
                 amount:
                   type: integer
@@ -31914,7 +31914,7 @@ definitions:
               items:
                 type: object
                 properties:
-                  asset:
+                  denom:
                     type: string
                   amount:
                     type: integer

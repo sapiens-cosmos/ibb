@@ -18,7 +18,7 @@ message Nft {
 }
 
 message Offer {
-  string asset = 1;
+  string denom = 1;
   int32 amount = 2;
   int32 paybackAmount = 3;
   int32 paybackDuration = 4;
