@@ -31,7 +31,7 @@ func (k msgServer) CreateClaim(goCtx context.Context, msg *types.MsgCreateClaim)
 		}
 	}
 
-	depositEarned, _ := interest.GetInterests(int32(ctx.BlockHeight()), queryUser.TxHistories, queryPool.Aprs)
+	depositEarned, _ := interest.GetInterests(msg.Asset, int32(ctx.BlockHeight()), queryUser.TxHistories, queryPool.Aprs)
 
 	var txHistory types.TxHistory
 	txHistory.BlockHeight = int32(ctx.BlockHeight())
