@@ -421,7 +421,7 @@ export default {
 			)
 		},
 		currentBollowLimitAssetAmount() {
-			return (this.currentBollowLimit / this.AssetPrice) * 1000000
+			return (this.currentBollowLimit / (this.AssetPrice || 1)) * 1000000
 		},
 		nextBollowLimit() {
 			const newLimit = (parseFloat(this.balance || 0) * (this.AssetPrice || 0)) / 1000000

@@ -12,22 +12,39 @@
 			<div class="loan">
 				<div class="input-group">
 					<div class="label">Loan Value</div>
-					<input v-model="loanValue" />
+					<div class="loan-input">
+						<input type="number" v-model="loanValue" />
+						<select v-model="loanAsset">
+							<option>ATOM</option>
+							<option>AKT</option>
+							<option>CRO</option>
+							<option>DVPN</option>
+							<option>IRIS</option>
+							<option>XPRT</option>
+						</select>
+					</div>
 				</div>
 				<div class="input-group">
 					<div class="label">Interest</div>
-					<input v-model="interest" />
+					<div class="interest-input">
+						<input type="number" v-model="interest" />
+						<span>%</span>
+					</div>
 				</div>
+			</div>
+			<div class="payback">
 				<div class="input-group">
 					<div class="label">Payback Value</div>
-					<div>10.1 ATOM</div>
+					<div>
+						<b>{{ parseFloat((loanValue * interest) / 100 + parseFloat(loanValue || 0) || 0) }} {{ loanAsset }}</b>
+					</div>
 				</div>
 				<div class="input-group">
 					<div class="label">Payback Duration</div>
-					<input v-model="paybackDuration" />
+					<div><b>14 Days</b></div>
 				</div>
-				<div class="cta" :class="isValidated ? 'active' : ''" @click="submit">{{ isLoading ? 'Loading...' : 'Make an Offer' }}</div>
 			</div>
+			<div class="cta" :class="isValidated ? 'active' : ''" @click="submit">{{ isLoading ? 'Loading...' : 'Make an Offer' }}</div>
 		</div>
 	</div>
 </template>
@@ -93,11 +110,59 @@ body {
 	margin-top: 24px;
 }
 
+.payback {
+	margin-top: 28px;
+}
+
 .input-group {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	margin-top: 12px;
 	font-size: 18px;
+}
+
+input {
+	text-align: right;
+	background: transparent;
+	border: 1px solid white;
+	padding: 2px;
+	border-radius: 5px;
+	color: white;
+	font-size: 16px;
+	width: 100px;
+}
+
+select {
+	padding: 2px;
+	background: transparent;
+	border: 1px solid white;
+	border-radius: 5px;
+	color: white;
+	font-size: 16px;
+}
+
+.loan-input {
+	display: flex;
+}
+
+.loan-input > input {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	border-right: unset;
+}
+
+.loan-input > select {
+	background: transparent;
+	border: 1px solid white;
+	border-left: unset;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.interest-input > input {
+	margin-right: 4px;
+	width: 40px;
 }
 
 .cta {
@@ -132,7 +197,10 @@ export default {
 	props: [],
 	data() {
 		return {
-			isLoading: false
+			isLoading: false,
+			loanValue: 0,
+			loanAsset: 'ATOM',
+			interest: 0
 		}
 	},
 	computed: {
