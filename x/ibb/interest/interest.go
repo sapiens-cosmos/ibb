@@ -89,8 +89,8 @@ func GetInterests(blockHeight int32, txHistories []*types.TxHistory, aprs []*typ
 	for j := 0; j < int(math.Min(float64(len(totalDeposits)), float64(len(depositApys)))); j++ {
 		// On assumption that 1 block is 1 miniute, 525600 blocks are 1 year.
 		// Then, 1 block is 1 / 525600 == 0.00000190258 year.
-		depositEarnedAmount += float64(totalDeposits[j]) * float64(depositApys[j]) * 0.00000190258
-		borrowAccruedAmount += float64(totalBorrows[j]) * float64(borrowApys[j]) * 0.00000190258
+		depositEarnedAmount += float64(totalDeposits[j]) * float64(depositApys[j]) * 1e-6 * 0.00000190258
+		borrowAccruedAmount += float64(totalBorrows[j]) * float64(borrowApys[j]) * 1e-6 * 0.00000190258
 	}
 
 	return int32(depositEarnedAmount), int32(borrowAccruedAmount)
