@@ -17,6 +17,7 @@ func (k msgServer) CreateOffer(goCtx context.Context, msg *types.MsgCreateOffer)
 		PaybackAmount:   msg.PaybackAmount,
 		PaybackDuration: msg.PaybackDuration,
 		OfferStartAt:    time.Now().Unix(),
+		NftId:           int32(msg.NftId),
 	}
 	queryNft := k.GetNft(ctx, msg.NftId)
 
