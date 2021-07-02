@@ -41,7 +41,7 @@
 }
 
 .title {
-	font-size: 18px;
+	font-size: 20px;
 }
 
 .value {
@@ -84,6 +84,7 @@
 
 .table-cell:first-child {
 	justify-content: flex-start;
+	width: 10px;
 }
 </style>
 

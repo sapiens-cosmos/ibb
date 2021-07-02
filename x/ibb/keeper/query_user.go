@@ -103,7 +103,7 @@ func loadUser(ctx sdk.Context, walletAddress string, keeper Keeper, legacyQuerie
 		userAsset.DepositApy = int32(currentDepositApy * 1000000)
 		userAsset.BorrowApy = int32(currentDepositApy / currentTargetBorrowRatio * 1000000)
 		userAsset.AssetPrice = int32(assetPrices[i] * 1000000)
-		userAsset.DepositEarned, userAsset.BorrowAccrued = interest.GetInterests(int32(ctx.BlockHeight()), queryUser.TxHistories, msg.Aprs)
+		userAsset.DepositEarned, userAsset.BorrowAccrued = interest.GetInterests(msg.Asset, int32(ctx.BlockHeight()), queryUser.TxHistories, msg.Aprs)
 
 		userAssetList = append(userAssetList, userAsset)
 	}

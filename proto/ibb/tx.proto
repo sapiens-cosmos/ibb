@@ -18,6 +18,9 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
   rpc AcceptOffer(MsgAcceptOffer) returns (MsgAcceptOfferResponse);
+  rpc CreateClaim(MsgCreateClaim) returns (MsgCreateClaimResponse);
+  rpc UpdateClaim(MsgUpdateClaim) returns (MsgUpdateClaimResponse);
+  rpc DeleteClaim(MsgDeleteClaim) returns (MsgDeleteClaimResponse);
   rpc CreateOffer(MsgCreateOffer) returns (MsgCreateOfferResponse);
   rpc MintNft(MsgMintNft) returns (MsgMintNftResponse);
   rpc CreateNft(MsgCreateNft) returns (MsgCreateNftResponse);
@@ -64,6 +67,36 @@ message MsgAcceptOffer {
 
 message MsgAcceptOfferResponse {
 }
+
+message MsgCreateClaim {
+  string creator = 1;
+  int32 blockHeight = 2;
+  string asset = 3;
+  int32 amount = 4;
+  string denom = 5;
+}
+
+message MsgCreateClaimResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateClaim {
+  string creator = 1;
+  uint64 id = 2;
+  int32 blockHeight = 3;
+  string asset = 4;
+  int32 amount = 5;
+  string denom = 6;
+}
+
+message MsgUpdateClaimResponse { }
+
+message MsgDeleteClaim {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteClaimResponse { }
 
 message MsgCreateOffer {
   string creator = 1;

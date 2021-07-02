@@ -25,7 +25,7 @@
 						</div>
 						<div v-if="type === 'Borrow'" class="value">Borrow Limit: {{ currentBollowLimitAssetAmount.toFixed(6) }} {{ Asset }}</div>
 						<div v-if="type === 'Repay'" class="value">
-							Borrow Balance: {{ Number.isNaN(parseFloat(AssetBorrow)) ? 0 : parseFloat(AssetBorrow) / 1000000 }} {{ Asset }}
+							Repay Balance : {{ Number.isNaN(parseFloat(AssetBorrow)) ? 0 : parseFloat(AssetBorrow) / 1000000 }} + {{ BorrowAccrued / 1000000 }} {{ Asset }}
 						</div>
 					</div>
 					<div class="content">
@@ -373,6 +373,8 @@ export default {
 		'Collatoral',
 		'AssetBorrow',
 		'BorrowApy',
+		'BorrowAccrued',
+		'DepositEarned',
 		'CollatoralFactor',
 		'DepositApy',
 		'Liquidity'
@@ -421,7 +423,7 @@ export default {
 			)
 		},
 		currentBollowLimitAssetAmount() {
-			return (this.currentBollowLimit / this.AssetPrice) * 1000000
+			return (this.currentBollowLimit / (this.AssetPrice || 1)) * 1000000
 		},
 		nextBollowLimit() {
 			const newLimit = (parseFloat(this.balance || 0) * (this.AssetPrice || 0)) / 1000000
@@ -459,7 +461,7 @@ export default {
 				}
 				case 'Repay': {
 					const borrowBalance = parseFloat(this.AssetBorrow)
-					return balance > 0 && borrowBalance >= balance
+					return balance > 0 && borrowBalance + this.BorrowAccrued >= balance
 				}
 				default:
 					return false
@@ -487,7 +489,7 @@ export default {
 					? this.AssetDeposit
 					: this.type === 'Borrow'
 					? this.currentBollowLimitAssetAmount * 1000000
-					: this.AssetBorrow
+					: this.AssetBorrow + this.BorrowAccrued
 			this.balance = parseFloat(rangingBalanceByType || 0) / 1000000
 			this.setRangeByBalance()
 		},
@@ -510,7 +512,7 @@ export default {
 					? this.AssetDeposit
 					: this.type === 'Borrow'
 					? this.currentBollowLimitAssetAmount * 1000000
-					: this.AssetBorrow
+					: this.AssetBorrow + this.BorrowAccrued
 			this.balanceRange = ((this.balance * 1000000) / parseFloat(rangingBalanceByType || 0)) * 100
 		},
 		setBalanceByRange() {
@@ -521,7 +523,7 @@ export default {
 					? this.AssetDeposit
 					: this.type === 'Borrow'
 					? this.currentBollowLimitAssetAmount * 1000000
-					: this.AssetBorrow
+					: this.AssetBorrow + +this.BorrowAccrued
 			this.balance = ((this.balanceRange / 100) * parseFloat(rangingBalanceByType || 0)) / 1000000
 		},
 		checkClickOutside(e) {

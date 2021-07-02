@@ -12,7 +12,7 @@
 			<NftList @click-nft-card="openNftModal" />
 		</div>
 		<Modal v-bind="pool" v-bind:initialType="type" v-if="isModalOpen" @click-outside="closeModal" />
-		<NftModal v-bind="pool" v-bind:initialType="type" v-if="isNftModalOpen" @click-outside="closeNftModal" />
+		<NftModal v-bind="nft" v-bind:initialType="type" v-if="isNftModalOpen" @click-outside="closeNftModal" />
 	</div>
 </template>
 
@@ -54,6 +54,10 @@ export default {
 	},
 	async created() {
 		await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryPoolLoad', {
+			options: { all: true },
+			params: {}
+		})
+		await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryNftLoad', {
 			options: { all: true },
 			params: {}
 		})

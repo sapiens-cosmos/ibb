@@ -7,7 +7,7 @@
 			</div>
 			<div class="net-apy">
 				<div class="title">Net APY</div>
-				<div class="value">*TODO</div>
+				<div class="value">{{ pools.reduce((acc, pool) => (acc += pool.AssetDeposit ? pool.DepositApy / 10000 : 0), 0) }}%</div>
 			</div>
 		</div>
 		<div class="asset-table">
@@ -15,16 +15,18 @@
 				<div class="table-cell"><span>Asset</span></div>
 				<div class="table-cell"><span>APY</span></div>
 				<div class="table-cell"><span>Balance</span></div>
-				<div class="table-cell"><span>Collateral</span></div>
-				<div class="table-cell"><span>Interest</span></div>
+				<!-- <div class="table-cell"><span>Collateral</span></div> -->
+				<div class="table-cell"><span>Claim Interest</span></div>
 			</div>
 			<div v-if="Array.isArray(pools) && pools.length > 0" class="table-rows">
 				<div v-for="pool in pools" v-bind:key="pool.id" class="table-row" @click="clickAsset(pool)">
 					<div class="table-cell">{{ pool.Asset }}</div>
 					<div class="table-cell">{{ pool.DepositApy / 10000 }}%</div>
 					<div class="table-cell">{{ pool.AssetDeposit / 1000000 }}</div>
-					<div class="table-cell"><input type="checkbox" v-model="pool.Collatoral" /></div>
-					<div class="table-cell"><button>Claim</button></div>
+					<!-- <div class="table-cell"><input type="checkbox" v-model="pool.Collatoral" /></div> -->
+					<div class="table-cell">
+						<button @click="clickClaim(pool, $event)">Claim {{ pool.DepositEarned / 1000000 }}</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -43,7 +45,7 @@
 }
 
 .title {
-	font-size: 18px;
+	font-size: 20px;
 }
 
 .value {
@@ -89,6 +91,7 @@
 }
 
 .table-cell:first-child {
+	width: 10px;
 	justify-content: flex-start;
 }
 
@@ -112,6 +115,11 @@
 <script>
 export default {
 	name: 'UserDeposit',
+	data() {
+		return {
+			isClaimLoading: false
+		}
+	},
 	computed: {
 		pools() {
 			const loggedAddress = this.$store.getters['common/wallet/address']
@@ -138,6 +146,25 @@ export default {
 	methods: {
 		clickAsset(pool) {
 			this.$emit('click-asset', pool, 'Deposit')
+		},
+		async clickClaim(pool, e) {
+			e.stopPropagation()
+			this.isClaimLoading = true
+			const value = {
+				creator: this.$store.getters['common/wallet/address'],
+				asset: pool.Asset
+			}
+			await this.$store.dispatch(`sapienscosmos.ibb.ibb/sendMsgCreateClaim`, {
+				value,
+				fee: []
+			})
+			this.isClaimLoading = false
+			await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryUserLoad', {
+				options: { all: true },
+				params: {
+					id: this.$store.getters['common/wallet/address']
+				}
+			})
 		}
 	}
 }

@@ -41,7 +41,7 @@
 }
 
 .title {
-	font-size: 18px;
+	font-size: 20px;
 }
 
 .value {
@@ -84,6 +84,7 @@
 
 .table-cell:first-child {
 	justify-content: flex-start;
+	width: 10px;
 }
 </style>
 
@@ -112,7 +113,6 @@ export default {
 	},
 	methods: {
 		clickAsset(pool) {
-			console.log(pool)
 			this.$emit('click-asset', pool, 'Borrow')
 		}
 	}

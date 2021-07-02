@@ -6,7 +6,7 @@ import (
 	"github.com/sapiens-cosmos/ibb/x/ibb/types"
 )
 
-func GetInterests(blockHeight int32, txHistories []*types.TxHistory, aprs []*types.Apr) (int32, int32) {
+func GetInterests(asset string, blockHeight int32, txHistories []*types.TxHistory, aprs []*types.Apr) (int32, int32) {
 	var checkpoint int32 = 0
 	var currentBlockHeight = checkpoint
 	var totalDeposit int32 = 0
@@ -14,6 +14,10 @@ func GetInterests(blockHeight int32, txHistories []*types.TxHistory, aprs []*typ
 	var totalBorrow int32 = 0
 	var totalBorrows []int32
 	for _, txHistory := range txHistories {
+		if txHistory.Asset != asset {
+			continue
+		}
+
 		if txHistory.BlockHeight < currentBlockHeight {
 			switch txHistory.Tx {
 			case "deposit":
@@ -87,11 +91,30 @@ func GetInterests(blockHeight int32, txHistories []*types.TxHistory, aprs []*typ
 	var depositEarnedAmount float64 = 0
 	var borrowAccruedAmount float64 = 0
 	for j := 0; j < int(math.Min(float64(len(totalDeposits)), float64(len(depositApys)))); j++ {
-		// On assumption that 1 block is 1 miniute, 525600 blocks are 1 year.
-		// Then, 1 block is 1 / 525600 == 0.00000190258 year.
-		depositEarnedAmount += float64(totalDeposits[j]) * float64(depositApys[j]) * 0.00000190258
-		borrowAccruedAmount += float64(totalBorrows[j]) * float64(borrowApys[j]) * 0.00000190258
+		// On assumption that 1 block is 1 second, 31536000 blocks are 1 year.
+		// Then, 1 block is 1 / 31536000 == 3.1709792e-8 year.
+		depositEarnedAmount += float64(totalDeposits[j]) * float64(depositApys[j]) * 1e-6 * 3.1709792e-8
+		borrowAccruedAmount += float64(totalBorrows[j]) * float64(borrowApys[j]) * 1e-6 * 3.1709792e-8
 	}
 
+	for _, txHistory := range txHistories {
+		if txHistory.Asset != asset {
+			continue
+		}
+
+		if txHistory.Tx == "claim" {
+			depositEarnedAmount -= float64(txHistory.Amount)
+		}
+		if txHistory.Tx == "repay_interest" {
+			borrowAccruedAmount -= float64(txHistory.Amount)
+		}
+	}
+
+	if depositEarnedAmount < 0 {
+		depositEarnedAmount = 0
+	}
+	if borrowAccruedAmount < 0 {
+		borrowAccruedAmount = 0
+	}
 	return int32(depositEarnedAmount), int32(borrowAccruedAmount)
 }
