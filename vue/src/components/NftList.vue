@@ -4,7 +4,7 @@
 		<div class="all-nfts">
 			<div v-if="Array.isArray(userNftList) && userNftList.length > 0" class="sub-title">My NFTs</div>
 			<div v-if="Array.isArray(userNftList) && userNftList.length > 0" class="my-nfts">
-				<div v-for="nft in userNftList" v-bind:key="nft.id" class="card" @click="clickNftCard(nft)">
+				<div v-for="nft in userNftList" v-bind:key="nft.id" class="card" :class="nft.OwnerAddress === 'in escrow' ? 'escrow' : ''" @click="clickNftCard(nft)">
 					<div class="media">
 						<video v-if="nft.ImageUrl.split('.').pop() === 'mp4'" :src="nft.ImageUrl" autoplay="true" loop="true" mute="true" playsinline="true" />
 						<img v-else :src="nft.ImageUrl" />
@@ -71,6 +71,10 @@
 	margin-bottom: 24px;
 	border: 1px solid rgba(255, 255, 255, 0.6);
 	border-radius: 10px;
+}
+
+.card.escrow {
+	opacity: 0.3;
 }
 
 .card:hover {

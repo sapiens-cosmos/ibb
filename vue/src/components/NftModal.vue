@@ -1,6 +1,6 @@
 <template>
 	<div class="modal-wrapper" @click="checkClickOutside">
-		<div class="modal">
+		<div class="modal" :class="OwnerAddress === 'in escrow' ? 'escrow' : ''">
 			<video v-if="ImageUrl.split('.').pop() === 'mp4'" class="media" :src="ImageUrl" autoplay="true" loop="true" mute="true" playsinline="true" />
 			<img v-else class="media" :src="ImageUrl" />
 			<div class="nft">
@@ -8,7 +8,7 @@
 					<div class="collection">{{ Collection }}</div>
 					<div class="name">{{ Name }}</div>
 				</div>
-				<div class="status">Owned by {{ OwnerAddress.slice(0, 10) + '...' + OwnerAddress.slice(-4) }}</div>
+				<div class="status">Owned by {{ OwnerAddress === 'in escrow' ? OwnerAddress : OwnerAddress.slice(0, 10) + '...' + OwnerAddress.slice(-4) }}</div>
 			</div>
 			<div class="title">Offers</div>
 			<div class="offer-table">
@@ -22,10 +22,12 @@
 				<div v-if="Array.isArray(offers) && offers.length > 0" class="table-rows">
 					<div v-for="offer in offers" v-bind:key="offer.offerStartAt" class="table-row">
 						<div class="table-cell">{{ offer.amount / 1000000 }} {{ offer.denom.toLocaleUpperCase().split('U').pop() }}</div>
-						<div class="table-cell">??%</div>
+						<div class="table-cell">{{ offer.interest / 1000000 }}</div>
 						<div class="table-cell">{{ offer.paybackAmount / 1000000 }} {{ offer.denom.toLocaleUpperCase().split('U').pop() }}</div>
 						<div class="table-cell">{{ offer.paybackDuration }} Days</div>
-						<div v-if="loggedAddress === OwnerAddress" class="table-cell"><button>Accept</button></div>
+						<div v-if="loggedAddress === OwnerAddress" class="table-cell">
+							<button @click="acceptOffer(offer)">{{ isAcceptLoading ? 'Loading...' : 'Accept' }}</button>
+						</div>
 					</div>
 				</div>
 				<div v-else class="table-rows"><div class="table-row">No Offer</div></div>
@@ -98,6 +100,10 @@ body {
 	max-width: 420px;
 	width: 100%;
 	padding: 40px;
+}
+
+.modal.escrow {
+	opacity: 0.3;
 }
 
 .media {
@@ -287,6 +293,7 @@ export default {
 	data() {
 		return {
 			isLoading: false,
+			isAcceptLoading: false,
 			loanValue: 0,
 			loanAsset: 'ATOM',
 			interest: 0
@@ -326,6 +333,41 @@ export default {
 				this.$emit('click-outside')
 			}
 		},
+		async acceptOffer(offer) {
+			this.isAcceptLoading = true
+			console.log(offer)
+			const loggedAddress = this.$store.getters['common/wallet/address']
+			const asset = offer.denom.toLocaleUpperCase().split('U').pop()
+			const value = {
+				creator: loggedAddress,
+				blockHeight: 0,
+				asset: asset,
+				amount: offer.amount,
+				denom: offer.denom
+			}
+
+			await this.$store.dispatch(`sapienscosmos.ibb.ibb/sendMsgCreateBorrow`, {
+				value,
+				fee: []
+			})
+			await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryPoolLoad', {
+				options: { all: true },
+				params: {}
+			})
+			await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryUserLoad', {
+				options: { all: true },
+				params: {
+					id: this.$store.getters['common/wallet/address']
+				}
+			})
+			await this.$store.dispatch('sapienscosmos.ibb.ibb/sendMsgChooseOffer', {
+				value: {
+					nftId: offer.nftId
+				},
+				fee: []
+			})
+			this.$emit('click-outside')
+		},
 		async submit() {
 			if (!this.isValidated || !this.loggedAddress) {
 				return null
@@ -341,7 +383,6 @@ export default {
 				paybackDuration: 14,
 				nftId: parseInt(this.Id)
 			}
-			console.log('value', value)
 
 			await this.$store.dispatch(`sapienscosmos.ibb.ibb/sendMsgCreateOffer`, {
 				value,
