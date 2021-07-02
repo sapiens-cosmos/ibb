@@ -1,6 +1,20 @@
-# ibb
+# Interstellar
 
-**ibb** is a blockchain built using Cosmos SDK and Tendermint and created with [Starport](https://github.com/tendermint/starport).
+**Interstellar** is a blockchain built using Cosmos SDK and Tendermint and created with [Starport](https://github.com/tendermint/starport).
+
+Interstellar provides **borrowing** services for any asset on a chain that supports the **IBC protocol** - both fungible tokens as well as non-fungible tokens are supported.
+
+For fungible tokens, the protocol uses a **single-asset pool logic:**
+
+- A depositor can deposit an asset to the pool, earning interest
+- A borrower can borrow that asset from the pool, paying interest to the depositors
+- A liquidator can liquidate loans once the LTV ratio has been reached
+
+For NFTs, an **auction-based system** is used:
+
+- The owner of an NFT can put the NFT up for a "collateral auction", in which potential lenders can make loan bids
+- Once a loan bid has been accepted by the NFT owner, the NFT owner receives the collateral and puts the NFT into escrow
+- Upon payback of the loan (plus interest) the NFT is released back to the original owner. If the loan is not payed back within the specified timeframe, the NFT is sent to the collateral lender
 
 ## Get started
 
