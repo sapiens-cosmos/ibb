@@ -32696,6 +32696,8 @@ definitions:
       BorrowApy:
         type: integer
         format: int32
+  sapienscosmos.ibb.ibb.MsgAcceptOfferResponse:
+    type: object
   sapienscosmos.ibb.ibb.MsgCreateAprResponse:
     type: object
     properties:

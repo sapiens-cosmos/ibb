@@ -77,7 +77,7 @@ func (k Keeper) UserLoad(c context.Context, req *types.QueryLoadUserRequest) (*t
 			queryUser = user
 		}
 	}
-	//TODO: keynotfound error when user has not been found
+	//TODO: omit keynotfound error when user has not been found
 	var userAssetList []*types.LoadUserResponse
 
 	userAddress, err := sdk.AccAddressFromBech32(req.Id)

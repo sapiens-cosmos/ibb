@@ -80,7 +80,7 @@ func CmdShowNft() *cobra.Command {
 func CmdLoadNft() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "load-nft [id]",
-		Short: "Load Nfts in Endpoint format",
+		Short: "Load Nfts for certain address",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
