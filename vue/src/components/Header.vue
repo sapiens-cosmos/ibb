@@ -1,6 +1,9 @@
 <template>
 	<div class="header-wrapper">
-		<div class="logo">IBB</div>
+		<div class="logo">
+			<img src="@/assets/images/icons/logo.svg" />
+			<span>Interstella</span>
+		</div>
 		<Wallet />
 	</div>
 </template>
@@ -14,12 +17,21 @@
 }
 
 .logo {
-	font-size: 48px;
+	font-size: 36px;
 	font-weight: bold;
+	display: flex;
+}
+
+.logo > img {
+	margin-top: 3px;
+	width: 40px;
+	height: 40px;
+	margin-right: 2px;
 }
 </style>
 
 <script>
+import IconLogo from './IconLogo.vue'
 import Wallet from './Wallet'
 
 export default {

@@ -7,7 +7,7 @@
 			</div>
 			<div class="net-apy">
 				<div class="title">Net APY</div>
-				<div class="value">*TODO</div>
+				<div class="value">{{ pools.reduce((acc, pool) => (acc += pool.AssetDeposit ? pool.DepositApy / 10000 : 0), 0) }}%</div>
 			</div>
 		</div>
 		<div class="asset-table">
@@ -43,7 +43,7 @@
 }
 
 .title {
-	font-size: 18px;
+	font-size: 20px;
 }
 
 .value {

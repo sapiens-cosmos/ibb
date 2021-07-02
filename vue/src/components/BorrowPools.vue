@@ -41,7 +41,7 @@
 }
 
 .title {
-	font-size: 18px;
+	font-size: 20px;
 }
 
 .value {
@@ -112,7 +112,6 @@ export default {
 	},
 	methods: {
 		clickAsset(pool) {
-			console.log(pool)
 			this.$emit('click-asset', pool, 'Borrow')
 		}
 	}

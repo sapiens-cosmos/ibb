@@ -92,6 +92,12 @@ export default {
 					id: this.loggedAddress
 				}
 			})
+			await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryNftLoad', {
+				options: { all: true },
+				params: {
+					id: this.loggedAddress
+				}
+			})
 		}
 	},
 	methods: {
@@ -116,6 +122,12 @@ export default {
 			this.isSigning = false
 			this.loggedAddress = this.$store.getters['common/wallet/address']
 			await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryUserLoad', {
+				options: { all: true },
+				params: {
+					id: this.loggedAddress
+				}
+			})
+			await this.$store.dispatch('sapienscosmos.ibb.ibb/QueryNftLoad', {
 				options: { all: true },
 				params: {
 					id: this.loggedAddress

@@ -12,7 +12,7 @@
 			<NftList @click-nft-card="openNftModal" />
 		</div>
 		<Modal v-bind="pool" v-bind:initialType="type" v-if="isModalOpen" @click-outside="closeModal" />
-		<NftModal v-bind="pool" v-bind:initialType="type" v-if="isNftModalOpen" @click-outside="closeNftModal" />
+		<NftModal v-bind="nft" v-bind:initialType="type" v-if="isNftModalOpen" @click-outside="closeNftModal" />
 	</div>
 </template>
 

@@ -6,8 +6,8 @@
 				<div class="value">${{ pools.reduce((acc, pool) => (acc += ((pool.AssetBorrow / 1000000) * pool.AssetPrice) / 1000000), 0).toFixed(2) }}</div>
 			</div>
 			<div class="net-apy">
-				<div class="title">Net APY</div>
-				<div class="value">*TODO</div>
+				<div class="title">Borrow Limit</div>
+				<div class="value">${{ parseFloat(currentBollowLimit).toFixed(2) }}</div>
 			</div>
 		</div>
 		<div class="asset-table">
@@ -41,7 +41,7 @@
 }
 
 .title {
-	font-size: 18px;
+	font-size: 20px;
 }
 
 .value {
@@ -99,8 +99,34 @@
 export default {
 	name: 'UserBorrow',
 	computed: {
+		assetPoolsWithUser() {
+			const loggedAddress = this.$store.getters['common/wallet/address']
+			if (!loggedAddress) {
+				return 0
+			}
+
+			const userAssets = loggedAddress
+				? this.$store.getters['sapienscosmos.ibb.ibb/getUserLoad']({
+						params: {
+							id: loggedAddress
+						}
+				  })?.LoadUserResponse ?? []
+				: []
+			const assetPools =
+				this.$store.getters['sapienscosmos.ibb.ibb/getPoolLoad']({
+					params: {}
+				})?.LoadPoolResponse ?? []
+			return assetPools.map((pool, index) => ({
+				...pool,
+				...userAssets[index]
+			}))
+		},
 		pools() {
 			const loggedAddress = this.$store.getters['common/wallet/address']
+			if (!loggedAddress) {
+				return 0
+			}
+
 			const userAssets = loggedAddress
 				? this.$store.getters['sapienscosmos.ibb.ibb/getUserLoad']({
 						params: {
@@ -118,6 +144,18 @@ export default {
 					...userAssets[index]
 				}))
 				.filter((pool) => pool.AssetBorrow > 0)
+		},
+		borrowLimitAsCollateral() {
+			return this.assetPoolsWithUser.reduce(
+				(acc, userAsset) => (acc += ((((userAsset.AssetDeposit / 1000000) * userAsset.AssetPrice) / 1000000) * userAsset.CollatoralFactor) / 100),
+				0
+			)
+		},
+		currentBollowLimit() {
+			return (
+				this.borrowLimitAsCollateral -
+				this.assetPoolsWithUser.reduce((acc, userAsset) => (acc += ((userAsset.AssetBorrow / 1000000) * userAsset.AssetPrice) / 1000000), 0)
+			)
 		}
 	},
 	methods: {
