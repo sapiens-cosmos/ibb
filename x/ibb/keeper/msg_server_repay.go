@@ -3,9 +3,11 @@ package keeper
 import (
 	"context"
 	"fmt"
+	"math"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/sapiens-cosmos/ibb/x/ibb/interest"
 	"github.com/sapiens-cosmos/ibb/x/ibb/types"
 )
 
@@ -25,11 +27,40 @@ func (k msgServer) CreateRepay(goCtx context.Context, msg *types.MsgCreateRepay)
 		}
 	}
 
-	for i, eachBorrow := range queryUser.Borrow {
-		if eachBorrow.Denom == msg.Denom {
-			queryUser.Borrow[i].Amount = queryUser.Borrow[i].Amount - msg.Amount
+	poolList := k.GetAllPool(ctx)
+	var queryPool types.Pool
+	for _, pool := range poolList {
+		if pool.Asset == msg.Asset {
+			queryPool = pool
+			break
 		}
 	}
+
+	_, borrowAccrued := interest.GetInterests(int32(ctx.BlockHeight()), queryUser.TxHistories, queryPool.Aprs)
+	var repayInterest int32 = 0
+	var repayBorrow int32 = 0
+	if borrowAccrued < msg.Amount {
+		repayInterest = borrowAccrued
+		repayBorrow = msg.Amount - borrowAccrued
+	} else {
+		repayInterest = msg.Amount
+		repayBorrow = 0
+	}
+
+	for i, eachBorrow := range queryUser.Borrow {
+		if eachBorrow.Denom == msg.Denom {
+			queryUser.Borrow[i].Amount = queryUser.Borrow[i].Amount - repayBorrow
+		}
+	}
+
+	var txHistory types.TxHistory
+	txHistory.BlockHeight = int32(ctx.BlockHeight())
+	txHistory.Tx = "repay"
+	txHistory.Asset = msg.Asset
+	txHistory.Amount = repayInterest
+	txHistory.Denom = msg.Denom
+	queryUser.TxHistories = append(queryUser.TxHistories, &txHistory)
+
 	k.SetUser(ctx, queryUser)
 
 	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
@@ -39,24 +70,26 @@ func (k msgServer) CreateRepay(goCtx context.Context, msg *types.MsgCreateRepay)
 	if err := k.bankKeeper.SubtractCoins(ctx, creatorAddress, feeCoins); err != nil {
 		return nil, err
 	}
-	poolList := k.GetAllPool(ctx)
-	var queryPool types.Pool
-	for _, pool := range poolList {
-		if pool.Asset == msg.Asset {
-			queryPool = pool
-		}
-	}
-	queryPool.BorrowBalance = queryPool.BorrowBalance - msg.Amount
-	k.SetPool(ctx, queryPool)
+	queryPool.BorrowBalance = queryPool.BorrowBalance - repayBorrow
 
-	//TODO : add apy logic to repaying
+	currentTargetBorrowRatio := float64(queryPool.BorrowBalance) / float64(queryPool.DepositBalance)
+	currentDepositApy := types.DepositInterest + types.DepositInterest*(currentTargetBorrowRatio-float64(types.TargetBorrowRatio)*0.01)*types.InterestFactor
+	currentDepositApy = math.Max(currentDepositApy, types.MinimumDepositInterest)
+	var apr types.Apr
+	apr.BlockHeight = int32(ctx.BlockHeight())
+	apr.DepositApy = int32(currentDepositApy * 1000000)
+	apr.BorrowApy = int32(currentDepositApy / currentTargetBorrowRatio * 1000000)
+
+	queryPool.Aprs = append(queryPool.Aprs, &apr)
+
+	k.SetPool(ctx, queryPool)
 
 	id := k.AppendRepay(
 		ctx,
 		msg.Creator,
 		int32(ctx.BlockHeight()),
 		msg.Asset,
-		msg.Amount,
+		repayBorrow,
 		msg.Denom,
 	)
 
