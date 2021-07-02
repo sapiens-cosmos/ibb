@@ -17,6 +17,7 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc ChooseOffer(MsgChooseOffer) returns (MsgChooseOfferResponse);
   rpc AcceptOffer(MsgAcceptOffer) returns (MsgAcceptOfferResponse);
   rpc CreateClaim(MsgCreateClaim) returns (MsgCreateClaimResponse);
   rpc UpdateClaim(MsgUpdateClaim) returns (MsgUpdateClaimResponse);
@@ -59,6 +60,15 @@ service Msg {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgChooseOffer {
+  string creator = 1;
+  int32 nftId = 2;
+  int32 offerId = 3;
+}
+
+message MsgChooseOfferResponse {
+}
+
 message MsgAcceptOffer {
   string creator = 1;
   int32 nftId = 2;

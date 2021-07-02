@@ -30,6 +30,7 @@ func GetTxCmd() *cobra.Command {
 	}
 
 	// this line is used by starport scaffolding # 1
+	cmd.AddCommand(CmdChooseOffer())
 
 	cmd.AddCommand(CmdCreateClaim())
 	cmd.AddCommand(CmdUpdateClaim())
@@ -83,5 +84,6 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdCreateAllPool())
 
 	cmd.AddCommand(CmdCreateMockNft())
+	cmd.AddCommand(CmdAcceptOffer())
 	return cmd
 }

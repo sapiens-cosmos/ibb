@@ -9,6 +9,8 @@ import (
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	// this line is used by starport scaffolding # 2
+	cdc.RegisterConcrete(&MsgChooseOffer{}, "ibb/ChooseOffer", nil)
+
 	cdc.RegisterConcrete(&MsgAcceptOffer{}, "ibb/AcceptOffer", nil)
 
 	cdc.RegisterConcrete(&MsgCreateOffer{}, "ibb/CreateOffer", nil)
@@ -62,6 +64,9 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	// this line is used by starport scaffolding # 3
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgChooseOffer{},
+	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgAcceptOffer{},
 	)

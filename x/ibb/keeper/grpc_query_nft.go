@@ -118,10 +118,10 @@ func (k Keeper) NftOfferList(c context.Context, req *types.QueryNftOfferListRequ
 			OfferStartAt:    offer.OfferStartAt,
 			NftId:           offer.NftId,
 			OfferCreator:    offer.OfferCreator,
+			Id:              offer.Id,
 		}
 		offerList = append(offerList, &pinnedOffer)
 	}
-	offerList = append(offerList, nft.Offers...)
 
 	return &types.QueryNftOfferListResponse{OfferList: offerList}, nil
 }
