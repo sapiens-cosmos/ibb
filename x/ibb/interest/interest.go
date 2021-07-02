@@ -105,7 +105,16 @@ func GetInterests(asset string, blockHeight int32, txHistories []*types.TxHistor
 		if txHistory.Tx == "claim" {
 			depositEarnedAmount -= float64(txHistory.Amount)
 		}
+		if txHistory.Tx == "repay_interest" {
+			borrowAccruedAmount -= float64(txHistory.Amount)
+		}
 	}
 
+	if depositEarnedAmount < 0 {
+		depositEarnedAmount = 0
+	}
+	if borrowAccruedAmount < 0 {
+		borrowAccruedAmount = 0
+	}
 	return int32(depositEarnedAmount), int32(borrowAccruedAmount)
 }
