@@ -96,3 +96,19 @@ func (k Keeper) NftLoad(c context.Context, req *types.QueryLoadNftRequest) (*typ
 
 	return &types.QueryLoadNftResponse{UserNft: userNftList, DashboardNft: dashboardNftList}, nil
 }
+
+func (k Keeper) NftOfferList(c context.Context, req *types.QueryNftOfferListRequest) (*types.QueryNftOfferListResponse, error) {
+	if req == nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid request")
+	}
+	ctx := sdk.UnwrapSDKContext(c)
+
+	var nft types.Nft
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.NftKey))
+	k.cdc.MustUnmarshalBinaryBare(store.Get(GetNftIDBytes(req.Id)), &nft)
+
+	var offerList []*types.Offer
+	offerList = append(offerList, nft.Offers...)
+
+	return &types.QueryNftOfferListResponse{OfferList: offerList}, nil
+}

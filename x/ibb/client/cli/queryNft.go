@@ -110,3 +110,36 @@ func CmdLoadNft() *cobra.Command {
 
 	return cmd
 }
+
+func CmdNftOfferList() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "nft-offer-list [id]",
+		Short: "shows the list of offers for a specific nft",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx := client.GetClientContextFromCmd(cmd)
+
+			queryClient := types.NewQueryClient(clientCtx)
+
+			id, err := strconv.ParseUint(args[0], 10, 64)
+			if err != nil {
+				return err
+			}
+
+			params := &types.QueryNftOfferListRequest{
+				Id: id,
+			}
+
+			res, err := queryClient.NftOfferList(context.Background(), params)
+			if err != nil {
+				return err
+			}
+
+			return clientCtx.PrintProto(res)
+		},
+	}
+
+	flags.AddQueryFlagsToCmd(cmd)
+
+	return cmd
+}

@@ -37,6 +37,10 @@ service Query {
 		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/loadNft/{id}";
 	}
 
+	rpc NftOfferList(QueryNftOfferListRequest) returns (QueryNftOfferListResponse) {
+		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/nftOfferList/{id}";
+	}
+
 	rpc TxHistory(QueryGetTxHistoryRequest) returns (QueryGetTxHistoryResponse) {
 		option (google.api.http).get = "/sapiens-cosmos/ibb/ibb/txHistory/{id}";
 	}
@@ -165,6 +169,15 @@ message QueryLoadNftResponse {
 	repeated NftResponse UserNft = 1;
 	repeated NftResponse DashboardNft = 2;
 }
+
+message QueryNftOfferListRequest {
+	uint64 id = 1;
+}
+
+message QueryNftOfferListResponse {
+	repeated Offer OfferList = 1;
+}
+
 message QueryGetTxHistoryRequest {
 	uint64 id = 1;
 }

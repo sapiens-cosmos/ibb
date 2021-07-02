@@ -20772,6 +20772,65 @@ paths:
           format: uint64
       tags:
         - Query
+  '/sapiens-cosmos/ibb/ibb/nftOfferList/{id}':
+    get:
+      operationId: SapienscosmosIbbIbbNftOfferList
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              OfferList:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    denom:
+                      type: string
+                    amount:
+                      type: integer
+                      format: int32
+                    paybackAmount:
+                      type: integer
+                      format: int32
+                    paybackDuration:
+                      type: integer
+                      format: int32
+                    offerStartAt:
+                      type: string
+                      format: int64
+                    nftId:
+                      type: integer
+                      format: int32
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   /sapiens-cosmos/ibb/ibb/pool:
     get:
       summary: Queries a list of pool items.
@@ -34451,6 +34510,31 @@ definitions:
               type: integer
               format: int32
             BorrowApy:
+              type: integer
+              format: int32
+  sapienscosmos.ibb.ibb.QueryNftOfferListResponse:
+    type: object
+    properties:
+      OfferList:
+        type: array
+        items:
+          type: object
+          properties:
+            denom:
+              type: string
+            amount:
+              type: integer
+              format: int32
+            paybackAmount:
+              type: integer
+              format: int32
+            paybackDuration:
+              type: integer
+              format: int32
+            offerStartAt:
+              type: string
+              format: int64
+            nftId:
               type: integer
               format: int32
   sapienscosmos.ibb.ibb.Repay:
