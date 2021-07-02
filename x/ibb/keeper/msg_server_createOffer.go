@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/sapiens-cosmos/ibb/x/ibb/types"
@@ -10,8 +11,17 @@ import (
 func (k msgServer) CreateOffer(goCtx context.Context, msg *types.MsgCreateOffer) (*types.MsgCreateOfferResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	var newOffer = types.Offer{
+		Amount:          msg.Amount,
+		Denom:           msg.Denom,
+		PaybackAmount:   msg.PaybackAmount,
+		PaybackDuration: msg.PaybackDuration,
+		OfferStartAt:    time.Now().Unix(),
+	}
+	queryNft := k.GetNft(ctx, msg.NftId)
+
+	queryNft.Offers = append(queryNft.Offers, &newOffer)
+	k.SetNft(ctx, queryNft)
 
 	return &types.MsgCreateOfferResponse{}, nil
 }

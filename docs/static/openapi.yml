@@ -20053,7 +20053,7 @@ paths:
                         offerStartAt:
                           type: string
                           format: int64
-                        id:
+                        nftId:
                           type: integer
                           format: int32
                     offers:
@@ -20075,7 +20075,7 @@ paths:
                           offerStartAt:
                             type: string
                             format: int64
-                          id:
+                          nftId:
                             type: integer
                             format: int32
               pagination:
@@ -31649,7 +31649,7 @@ definitions:
           offerStartAt:
             type: string
             format: int64
-          id:
+          nftId:
             type: integer
             format: int32
       offers:
@@ -31671,7 +31671,7 @@ definitions:
             offerStartAt:
               type: string
               format: int64
-            id:
+            nftId:
               type: integer
               format: int32
   sapienscosmos.ibb.ibb.NftResponse:
@@ -31707,7 +31707,7 @@ definitions:
       offerStartAt:
         type: string
         format: int64
-      id:
+      nftId:
         type: integer
         format: int32
   sapienscosmos.ibb.ibb.Pool:
@@ -31926,7 +31926,7 @@ definitions:
                 offerStartAt:
                   type: string
                   format: int64
-                id:
+                nftId:
                   type: integer
                   format: int32
             offers:
@@ -31948,7 +31948,7 @@ definitions:
                   offerStartAt:
                     type: string
                     format: int64
-                  id:
+                  nftId:
                     type: integer
                     format: int32
       pagination:

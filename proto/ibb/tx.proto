@@ -42,11 +42,11 @@ service Msg {
 message MsgCreateOffer {
   string creator = 1;
   string denom = 2;
-  string amount = 3;
-  string paybackAmount = 4;
-  string paybackDuration = 5;
-  string offerStartAt = 6;
-  string id = 7;
+  int32 amount = 3;
+  int32 paybackAmount = 4;
+  int32 paybackDuration = 5;
+  int64 offerStartAt = 6;
+  uint64 nftId = 7;
 }
 
 message MsgCreateOfferResponse {

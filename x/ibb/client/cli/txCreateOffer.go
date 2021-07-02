@@ -1,8 +1,10 @@
 package cli
 
 import (
-	"github.com/spf13/cobra"
 	"strconv"
+
+	"github.com/spf13/cast"
+	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -19,18 +21,18 @@ func CmdCreateOffer() *cobra.Command {
 		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsDenom := string(args[0])
-			argsAmount := string(args[1])
-			argsPaybackAmount := string(args[2])
-			argsPaybackDuration := string(args[3])
-			argsOfferStartAt := string(args[4])
-			argsId := string(args[5])
+			argsAmount, _ := cast.ToInt32E(args[1])
+			argsPaybackAmount, _ := cast.ToInt32E(args[2])
+			argsPaybackDuration, _ := cast.ToInt32E(args[3])
+			argsOfferStartAt, _ := cast.ToInt64E(args[4])
+			argsId, _ := strconv.ParseUint(args[5], 10, 64)
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgCreateOffer(clientCtx.GetFromAddress().String(), string(argsDenom), string(argsAmount), string(argsPaybackAmount), string(argsPaybackDuration), string(argsOfferStartAt), string(argsId))
+			msg := types.NewMsgCreateOffer(clientCtx.GetFromAddress().String(), string(argsDenom), argsAmount, argsPaybackAmount, argsPaybackDuration, argsOfferStartAt, argsId)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

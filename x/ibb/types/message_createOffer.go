@@ -7,7 +7,7 @@ import (
 
 var _ sdk.Msg = &MsgCreateOffer{}
 
-func NewMsgCreateOffer(creator string, denom string, amount string, paybackAmount string, paybackDuration string, offerStartAt string, id string) *MsgCreateOffer {
+func NewMsgCreateOffer(creator string, denom string, amount int32, paybackAmount int32, paybackDuration int32, offerStartAt int64, nftId uint64) *MsgCreateOffer {
 	return &MsgCreateOffer{
 		Creator:         creator,
 		Denom:           denom,
@@ -15,7 +15,7 @@ func NewMsgCreateOffer(creator string, denom string, amount string, paybackAmoun
 		PaybackAmount:   paybackAmount,
 		PaybackDuration: paybackDuration,
 		OfferStartAt:    offerStartAt,
-		Id:              id,
+		NftId:           nftId,
 	}
 }
 
