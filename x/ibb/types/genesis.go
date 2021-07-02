@@ -13,13 +13,18 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		// this line is used by starport scaffolding # ibc/genesistype/default
 		// this line is used by starport scaffolding # genesis/types/default
-		NftList:      []*Nft{},
-		RepayList:    []*Repay{},
-		WithdrawList: []*Withdraw{},
-		UserList:     []*User{},
-		BorrowList:   []*Borrow{},
-		DepositList:  []*Deposit{},
-		PoolList:     []*Pool{},
+
+		NftList:           []*Nft{},
+		TxHistoryList:     []*TxHistory{},
+		BorrowAccruedList: []*BorrowAccrued{},
+		DepositEarnedList: []*DepositEarned{},
+		AprList:           []*Apr{},
+		RepayList:         []*Repay{},
+		WithdrawList:      []*Withdraw{},
+		UserList:          []*User{},
+		BorrowList:        []*Borrow{},
+		DepositList:       []*Deposit{},
+		PoolList:          []*Pool{},
 	}
 }
 
@@ -37,6 +42,43 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("duplicated id for nft")
 		}
 		nftIdMap[elem.Id] = true
+	}
+
+	// Check for duplicated ID in txHistory
+	txHistoryIdMap := make(map[uint64]bool)
+
+	for _, elem := range gs.TxHistoryList {
+		if _, ok := txHistoryIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for txHistory")
+		}
+		txHistoryIdMap[elem.Id] = true
+	}
+	// Check for duplicated ID in borrowAccrued
+	borrowAccruedIdMap := make(map[uint64]bool)
+
+	for _, elem := range gs.BorrowAccruedList {
+		if _, ok := borrowAccruedIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for borrowAccrued")
+		}
+		borrowAccruedIdMap[elem.Id] = true
+	}
+	// Check for duplicated ID in depositEarned
+	depositEarnedIdMap := make(map[uint64]bool)
+
+	for _, elem := range gs.DepositEarnedList {
+		if _, ok := depositEarnedIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for depositEarned")
+		}
+		depositEarnedIdMap[elem.Id] = true
+	}
+	// Check for duplicated ID in apr
+	aprIdMap := make(map[uint64]bool)
+
+	for _, elem := range gs.AprList {
+		if _, ok := aprIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for apr")
+		}
+		aprIdMap[elem.Id] = true
 	}
 	// Check for duplicated ID in repay
 	repayIdMap := make(map[uint64]bool)

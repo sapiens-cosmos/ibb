@@ -3,44 +3,37 @@ package oracle
 import (
 	"encoding/json"
 	"net/http"
-	"sync"
 )
 
 const (
-	// Updated around 2021-07-01T10:57:17Z.
-	DefaultAtomPrice float64 = 11.01
-	DefaultIrisPrice float64 = 0.075752
-	DefaultDvpnPrice float64 = 0.01979
-	DefaultXprtPrice float64 = 8.3
-	DefaultCroPrice  float64 = 0.113824
-	DefaultAktPrice  float64 = 3.52
+	// Updated around 2021-07-02T05:38:22Z.
+	DefaultAtomPrice float64 = 10.78
+	DefaultIrisPrice float64 = 0.073045
+	DefaultDvpnPrice float64 = 0.02512019
+	DefaultXprtPrice float64 = 8.17
+	DefaultCroPrice  float64 = 0.111101
+	DefaultAktPrice  float64 = 3.3
 )
 
 func GetAllPrices() [6]float64 {
-	var waitGroup sync.WaitGroup
-
-	waitGroup.Add(6)
 	prices := [6]float64{
-		GetAtomPrice(&waitGroup),
-		GetIrisPrice(&waitGroup),
-		GetDvpnPrice(&waitGroup),
-		GetXprtPrice(&waitGroup),
-		GetCroPrice(&waitGroup),
-		GetAktPrice(&waitGroup),
+		GetAtomPrice(),
+		GetIrisPrice(),
+		GetDvpnPrice(),
+		GetXprtPrice(),
+		GetCroPrice(),
+		GetAktPrice(),
 	}
-	waitGroup.Wait()
 
 	return prices
 }
 
-func GetAtomPrice(waitGroup *sync.WaitGroup) float64 {
+func GetAtomPrice() float64 {
 	type AtomPrice struct {
 		Atom struct {
 			Usd float64 `json:"usd"`
 		} `json:"cosmos"`
 	}
-
-	defer waitGroup.Done()
 
 	var price = AtomPrice{}
 	r, err := http.Get("https://api.coingecko.com/api/v3/simple/price?ids=cosmos&vs_currencies=usd")
@@ -58,14 +51,12 @@ func GetAtomPrice(waitGroup *sync.WaitGroup) float64 {
 	}
 }
 
-func GetIrisPrice(waitGroup *sync.WaitGroup) float64 {
+func GetIrisPrice() float64 {
 	type IrisPrice struct {
 		Iris struct {
 			Usd float64 `json:"usd"`
 		} `json:"iris-network"`
 	}
-
-	defer waitGroup.Done()
 
 	var price = IrisPrice{}
 	r, err := http.Get("https://api.coingecko.com/api/v3/simple/price?ids=iris-network&vs_currencies=usd")
@@ -83,14 +74,12 @@ func GetIrisPrice(waitGroup *sync.WaitGroup) float64 {
 	}
 }
 
-func GetDvpnPrice(waitGroup *sync.WaitGroup) float64 {
+func GetDvpnPrice() float64 {
 	type DvpnPrice struct {
 		Dvpn struct {
 			Usd float64 `json:"usd"`
 		} `json:"sentinel"`
 	}
-
-	defer waitGroup.Done()
 
 	var price = DvpnPrice{}
 	r, err := http.Get("https://api.coingecko.com/api/v3/simple/price?ids=sentinel&vs_currencies=usd")
@@ -108,14 +97,12 @@ func GetDvpnPrice(waitGroup *sync.WaitGroup) float64 {
 	}
 }
 
-func GetXprtPrice(waitGroup *sync.WaitGroup) float64 {
+func GetXprtPrice() float64 {
 	type XprtPrice struct {
 		Xprt struct {
 			Usd float64 `json:"usd"`
 		} `json:"persistence"`
 	}
-
-	defer waitGroup.Done()
 
 	var price = XprtPrice{}
 	r, err := http.Get("https://api.coingecko.com/api/v3/simple/price?ids=persistence&vs_currencies=usd")
@@ -133,14 +120,12 @@ func GetXprtPrice(waitGroup *sync.WaitGroup) float64 {
 	}
 }
 
-func GetCroPrice(waitGroup *sync.WaitGroup) float64 {
+func GetCroPrice() float64 {
 	type CroPrice struct {
 		Cro struct {
 			Usd float64 `json:"usd"`
 		} `json:"crypto-com-chain"`
 	}
-
-	defer waitGroup.Done()
 
 	var price = CroPrice{}
 	r, err := http.Get("https://api.coingecko.com/api/v3/simple/price?ids=crypto-com-chain&vs_currencies=usd")
@@ -158,14 +143,12 @@ func GetCroPrice(waitGroup *sync.WaitGroup) float64 {
 	}
 }
 
-func GetAktPrice(waitGroup *sync.WaitGroup) float64 {
+func GetAktPrice() float64 {
 	type AktPrice struct {
 		Akt struct {
 			Usd float64 `json:"usd"`
 		} `json:"akash-network"`
 	}
-
-	defer waitGroup.Done()
 
 	var price = AktPrice{}
 	r, err := http.Get("https://api.coingecko.com/api/v3/simple/price?ids=akash-network&vs_currencies=usd")

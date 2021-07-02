@@ -59,3 +59,23 @@ const (
 	NftKey      = "Nft-value-"
 	NftCountKey = "Nft-count-"
 )
+
+const (
+	AprKey      = "Apr-value-"
+	AprCountKey = "Apr-count-"
+)
+
+const (
+	DepositEarnedKey      = "DepositEarned-value-"
+	DepositEarnedCountKey = "DepositEarned-count-"
+)
+
+const (
+	BorrowAccruedKey      = "BorrowAccrued-value-"
+	BorrowAccruedCountKey = "BorrowAccrued-count-"
+)
+
+const (
+	TxHistoryKey      = "TxHistory-value-"
+	TxHistoryCountKey = "TxHistory-count-"
+)

@@ -23,3 +23,23 @@ const (
 const (
 	QueryListCollection = "list-collection"
 )
+
+const (
+	QueryGetApr  = "get-apr"
+	QueryListApr = "list-apr"
+)
+
+const (
+	QueryGetDepositEarned  = "get-depositEarned"
+	QueryListDepositEarned = "list-depositEarned"
+)
+
+const (
+	QueryGetBorrowAccrued  = "get-borrowAccrued"
+	QueryListBorrowAccrued = "list-borrowAccrued"
+)
+
+const (
+	QueryGetTxHistory  = "get-txHistory"
+	QueryListTxHistory = "list-txHistory"
+)

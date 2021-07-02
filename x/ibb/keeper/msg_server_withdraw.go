@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 	"fmt"
+	"math"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -30,6 +31,15 @@ func (k msgServer) CreateWithdraw(goCtx context.Context, msg *types.MsgCreateWit
 			queryUser.Deposit[i].Amount = queryUser.Deposit[i].Amount - msg.Amount
 		}
 	}
+
+	var txHistory types.TxHistory
+	txHistory.BlockHeight = int32(ctx.BlockHeight())
+	txHistory.Tx = "withdraw"
+	txHistory.Asset = msg.Asset
+	txHistory.Amount = msg.Amount
+	txHistory.Denom = msg.Denom
+	queryUser.TxHistories = append(queryUser.TxHistories, &txHistory)
+
 	k.SetUser(ctx, queryUser)
 
 	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
@@ -49,6 +59,17 @@ func (k msgServer) CreateWithdraw(goCtx context.Context, msg *types.MsgCreateWit
 		}
 	}
 	queryPool.DepositBalance = queryPool.DepositBalance - msg.Amount
+
+	currentTargetBorrowRatio := float64(queryPool.BorrowBalance) / float64(queryPool.DepositBalance)
+	currentDepositApy := types.DepositInterest + types.DepositInterest*(currentTargetBorrowRatio-float64(types.TargetBorrowRatio)*0.01)*types.InterestFactor
+	currentDepositApy = math.Max(currentDepositApy, types.MinimumDepositInterest)
+	var apr types.Apr
+	apr.BlockHeight = int32(ctx.BlockHeight())
+	apr.DepositApy = int32(currentDepositApy * 1000000)
+	apr.BorrowApy = int32(currentDepositApy / currentTargetBorrowRatio * 1000000)
+
+	queryPool.Aprs = append(queryPool.Aprs, &apr)
+
 	k.SetPool(ctx, queryPool)
 
 	//TODO: add logic for paying back with interest

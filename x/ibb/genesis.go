@@ -17,6 +17,37 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 
 	// Set nft count
 	k.SetNftCount(ctx, genState.NftCount)
+	// Set all the txHistory
+	for _, elem := range genState.TxHistoryList {
+		k.SetTxHistory(ctx, *elem)
+	}
+
+	// Set txHistory count
+	k.SetTxHistoryCount(ctx, uint64(len(genState.TxHistoryList)))
+
+	// Set all the borrowAccrued
+	for _, elem := range genState.BorrowAccruedList {
+		k.SetBorrowAccrued(ctx, *elem)
+	}
+
+	// Set borrowAccrued count
+	k.SetBorrowAccruedCount(ctx, uint64(len(genState.BorrowAccruedList)))
+
+	// Set all the depositEarned
+	for _, elem := range genState.DepositEarnedList {
+		k.SetDepositEarned(ctx, *elem)
+	}
+
+	// Set depositEarned count
+	k.SetDepositEarnedCount(ctx, uint64(len(genState.DepositEarnedList)))
+
+	// Set all the apr
+	for _, elem := range genState.AprList {
+		k.SetApr(ctx, *elem)
+	}
+
+	// Set apr count
+	k.SetAprCount(ctx, uint64(len(genState.AprList)))
 
 	// Set all the repay
 	for _, elem := range genState.RepayList {
@@ -83,6 +114,34 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 
 	// Set the current count
 	genesis.NftCount = k.GetNftCount(ctx)
+
+	// Get all txHistory
+	txHistoryList := k.GetAllTxHistory(ctx)
+	for _, elem := range txHistoryList {
+		elem := elem
+		genesis.TxHistoryList = append(genesis.TxHistoryList, &elem)
+	}
+
+	// Get all borrowAccrued
+	borrowAccruedList := k.GetAllBorrowAccrued(ctx)
+	for _, elem := range borrowAccruedList {
+		elem := elem
+		genesis.BorrowAccruedList = append(genesis.BorrowAccruedList, &elem)
+	}
+
+	// Get all depositEarned
+	depositEarnedList := k.GetAllDepositEarned(ctx)
+	for _, elem := range depositEarnedList {
+		elem := elem
+		genesis.DepositEarnedList = append(genesis.DepositEarnedList, &elem)
+	}
+
+	// Get all apr
+	aprList := k.GetAllApr(ctx)
+	for _, elem := range aprList {
+		elem := elem
+		genesis.AprList = append(genesis.AprList, &elem)
+	}
 
 	// Get all repay
 	repayList := k.GetAllRepay(ctx)

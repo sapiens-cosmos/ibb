@@ -30,6 +30,18 @@ func GetQueryCmd(queryRoute string) *cobra.Command {
 	cmd.AddCommand(CmdShowNft())
 	cmd.AddCommand(CmdLoadNft())
 
+	cmd.AddCommand(CmdListTxHistory())
+	cmd.AddCommand(CmdShowTxHistory())
+
+	cmd.AddCommand(CmdListBorrowAccrued())
+	cmd.AddCommand(CmdShowBorrowAccrued())
+
+	cmd.AddCommand(CmdListDepositEarned())
+	cmd.AddCommand(CmdShowDepositEarned())
+
+	cmd.AddCommand(CmdListApr())
+	cmd.AddCommand(CmdShowApr())
+
 	cmd.AddCommand(CmdListRepay())
 	cmd.AddCommand(CmdShowRepay())
 
