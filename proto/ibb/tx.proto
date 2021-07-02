@@ -63,6 +63,7 @@ message MsgCreateOffer {
   int32 paybackDuration = 5;
   int64 offerStartAt = 6;
   uint64 nftId = 7;
+  int32 interest = 8;
 }
 
 message MsgCreateOfferResponse {

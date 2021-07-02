@@ -108,6 +108,19 @@ func (k Keeper) NftOfferList(c context.Context, req *types.QueryNftOfferListRequ
 	k.cdc.MustUnmarshalBinaryBare(store.Get(GetNftIDBytes(req.Id)), &nft)
 
 	var offerList []*types.Offer
+
+	for _, offer := range nft.Offers {
+		var pinnedOffer = types.Offer{
+			Denom:           offer.Denom,
+			Amount:          offer.Amount,
+			PaybackAmount:   offer.PaybackAmount,
+			PaybackDuration: offer.PaybackDuration,
+			OfferStartAt:    offer.OfferStartAt,
+			NftId:           offer.NftId,
+			OfferCreator:    offer.OfferCreator,
+		}
+		offerList = append(offerList, &pinnedOffer)
+	}
 	offerList = append(offerList, nft.Offers...)
 
 	return &types.QueryNftOfferListResponse{OfferList: offerList}, nil
