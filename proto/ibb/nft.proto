@@ -24,4 +24,7 @@ message Offer {
   int32 paybackDuration = 4;
   int64 offerStartAt = 5;
   int32 nftId = 6;
+  string offerCreator = 7;
+  uint64 id = 8;
+  int32 interest = 9;
 }

@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"math"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -73,9 +74,7 @@ func (k Keeper) PoolLoad(c context.Context, req *types.QueryLoadPoolRequest) (*t
 		var loadPool types.LoadPoolResponse
 		currentTargetBorrowRatio := float64(msg.BorrowBalance) / float64(msg.DepositBalance)
 		currentDepositApy := types.DepositInterest + types.DepositInterest*(currentTargetBorrowRatio-float64(types.TargetBorrowRatio)*0.01)*types.InterestFactor
-		//TODO: Add following logic
-		// if currentDepositApy < minDepositApy
-		// currentDepositApy = minDepositApy
+		currentDepositApy = math.Max(currentDepositApy, types.MinimumDepositInterest)
 		loadPool.Asset = msg.Asset
 		loadPool.CollatoralFactor = msg.CollatoralFactor
 		loadPool.Liquidity = msg.DepositBalance - msg.BorrowBalance

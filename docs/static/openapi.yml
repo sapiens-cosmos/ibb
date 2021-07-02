@@ -20600,6 +20600,14 @@ paths:
                         nftId:
                           type: integer
                           format: int32
+                        offerCreator:
+                          type: string
+                        id:
+                          type: string
+                          format: uint64
+                        interest:
+                          type: integer
+                          format: int32
                     offers:
                       type: array
                       items:
@@ -20620,6 +20628,14 @@ paths:
                             type: string
                             format: int64
                           nftId:
+                            type: integer
+                            format: int32
+                          offerCreator:
+                            type: string
+                          id:
+                            type: string
+                            format: uint64
+                          interest:
                             type: integer
                             format: int32
               pagination:
@@ -20801,6 +20817,14 @@ paths:
                       type: string
                       format: int64
                     nftId:
+                      type: integer
+                      format: int32
+                    offerCreator:
+                      type: string
+                    id:
+                      type: string
+                      format: uint64
+                    interest:
                       type: integer
                       format: int32
         default:
@@ -32824,6 +32848,14 @@ definitions:
           nftId:
             type: integer
             format: int32
+          offerCreator:
+            type: string
+          id:
+            type: string
+            format: uint64
+          interest:
+            type: integer
+            format: int32
       offers:
         type: array
         items:
@@ -32844,6 +32876,14 @@ definitions:
               type: string
               format: int64
             nftId:
+              type: integer
+              format: int32
+            offerCreator:
+              type: string
+            id:
+              type: string
+              format: uint64
+            interest:
               type: integer
               format: int32
   sapienscosmos.ibb.ibb.NftResponse:
@@ -32880,6 +32920,14 @@ definitions:
         type: string
         format: int64
       nftId:
+        type: integer
+        format: int32
+      offerCreator:
+        type: string
+      id:
+        type: string
+        format: uint64
+      interest:
         type: integer
         format: int32
   sapienscosmos.ibb.ibb.Pool:
@@ -33325,6 +33373,14 @@ definitions:
                 nftId:
                   type: integer
                   format: int32
+                offerCreator:
+                  type: string
+                id:
+                  type: string
+                  format: uint64
+                interest:
+                  type: integer
+                  format: int32
             offers:
               type: array
               items:
@@ -33345,6 +33401,14 @@ definitions:
                     type: string
                     format: int64
                   nftId:
+                    type: integer
+                    format: int32
+                  offerCreator:
+                    type: string
+                  id:
+                    type: string
+                    format: uint64
+                  interest:
                     type: integer
                     format: int32
       pagination:
@@ -34535,6 +34599,14 @@ definitions:
               type: string
               format: int64
             nftId:
+              type: integer
+              format: int32
+            offerCreator:
+              type: string
+            id:
+              type: string
+              format: uint64
+            interest:
               type: integer
               format: int32
   sapienscosmos.ibb.ibb.Repay:
