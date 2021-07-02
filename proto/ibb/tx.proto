@@ -13,6 +13,7 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateOffer(MsgCreateOffer) returns (MsgCreateOfferResponse);
   rpc MintNft(MsgMintNft) returns (MsgMintNftResponse);
   rpc CreateNft(MsgCreateNft) returns (MsgCreateNftResponse);
   rpc UpdateNft(MsgUpdateNft) returns (MsgUpdateNftResponse);
@@ -38,6 +39,19 @@ service Msg {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateOffer {
+  string creator = 1;
+  string denom = 2;
+  string amount = 3;
+  string paybackAmount = 4;
+  string paybackDuration = 5;
+  string offerStartAt = 6;
+  string id = 7;
+}
+
+message MsgCreateOfferResponse {
+}
+
 message MsgMintNft {
   string creator = 1;
   string denomID = 2;

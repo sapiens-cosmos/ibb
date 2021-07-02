@@ -20050,6 +20050,9 @@ paths:
                         paybackDuration:
                           type: integer
                           format: int32
+                        offerStartAt:
+                          type: string
+                          format: int64
                         id:
                           type: integer
                           format: int32
@@ -20069,6 +20072,9 @@ paths:
                           paybackDuration:
                             type: integer
                             format: int32
+                          offerStartAt:
+                            type: string
+                            format: int64
                           id:
                             type: integer
                             format: int32
@@ -31552,6 +31558,8 @@ definitions:
       id:
         type: string
         format: uint64
+  sapienscosmos.ibb.ibb.MsgCreateOfferResponse:
+    type: object
   sapienscosmos.ibb.ibb.MsgCreatePoolResponse:
     type: object
     properties:
@@ -31638,6 +31646,9 @@ definitions:
           paybackDuration:
             type: integer
             format: int32
+          offerStartAt:
+            type: string
+            format: int64
           id:
             type: integer
             format: int32
@@ -31657,6 +31668,9 @@ definitions:
             paybackDuration:
               type: integer
               format: int32
+            offerStartAt:
+              type: string
+              format: int64
             id:
               type: integer
               format: int32
@@ -31690,6 +31704,9 @@ definitions:
       paybackDuration:
         type: integer
         format: int32
+      offerStartAt:
+        type: string
+        format: int64
       id:
         type: integer
         format: int32
@@ -31906,6 +31923,9 @@ definitions:
                 paybackDuration:
                   type: integer
                   format: int32
+                offerStartAt:
+                  type: string
+                  format: int64
                 id:
                   type: integer
                   format: int32
@@ -31925,6 +31945,9 @@ definitions:
                   paybackDuration:
                     type: integer
                     format: int32
+                  offerStartAt:
+                    type: string
+                    format: int64
                   id:
                     type: integer
                     format: int32
