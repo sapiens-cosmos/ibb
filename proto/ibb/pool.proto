@@ -5,6 +5,7 @@ option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 
 import "gogoproto/gogo.proto";
 import "ibb/user.proto";
+import "ibb/apr.proto";
 
 message Pool {
   string creator = 1;
@@ -15,4 +16,5 @@ message Pool {
   int32 depositBalance = 6;
   int32 borrowBalance = 7;
   repeated User users = 9;
+  repeated Apr aprs = 10;
 }

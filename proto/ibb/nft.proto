@@ -22,5 +22,6 @@ message Offer {
   int32 amount = 2;
   int32 paybackAmount = 3;
   int32 paybackDuration = 4;
-  int32 id = 5;
+  int64 offerStartAt = 5;
+  int32 nftId = 6;
 }
