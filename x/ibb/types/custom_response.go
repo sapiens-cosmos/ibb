@@ -17,6 +17,8 @@ type LoadUserRestResponse struct {
 	AssetBorrow      int32
 	AssetPrice       int32
 	Collateral       bool
+	DepositEarned    int32
+	BorrowAccrued    int32
 	Asset            string
 	CollatoralFactor int32
 	Liquidity        int32

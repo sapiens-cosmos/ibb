@@ -7,6 +7,10 @@ import "ibb/user.proto";
 import "ibb/borrow.proto";
 import "ibb/deposit.proto";
 import "ibb/pool.proto";
+import "ibb/apr.proto";
+import "ibb/depositEarned.proto";
+import "ibb/borrowAccrued.proto";
+import "ibb/txHistory.proto";
 
 option go_package = "github.com/sapiens-cosmos/ibb/x/ibb/types";
 
@@ -18,6 +22,18 @@ service Msg {
   rpc CreateNft(MsgCreateNft) returns (MsgCreateNftResponse);
   rpc UpdateNft(MsgUpdateNft) returns (MsgUpdateNftResponse);
   rpc DeleteNft(MsgDeleteNft) returns (MsgDeleteNftResponse);
+  rpc CreateTxHistory(MsgCreateTxHistory) returns (MsgCreateTxHistoryResponse);
+  rpc UpdateTxHistory(MsgUpdateTxHistory) returns (MsgUpdateTxHistoryResponse);
+  rpc DeleteTxHistory(MsgDeleteTxHistory) returns (MsgDeleteTxHistoryResponse);
+  rpc CreateBorrowAccrued(MsgCreateBorrowAccrued) returns (MsgCreateBorrowAccruedResponse);
+  rpc UpdateBorrowAccrued(MsgUpdateBorrowAccrued) returns (MsgUpdateBorrowAccruedResponse);
+  rpc DeleteBorrowAccrued(MsgDeleteBorrowAccrued) returns (MsgDeleteBorrowAccruedResponse);
+  rpc CreateDepositEarned(MsgCreateDepositEarned) returns (MsgCreateDepositEarnedResponse);
+  rpc UpdateDepositEarned(MsgUpdateDepositEarned) returns (MsgUpdateDepositEarnedResponse);
+  rpc DeleteDepositEarned(MsgDeleteDepositEarned) returns (MsgDeleteDepositEarnedResponse);
+  rpc CreateApr(MsgCreateApr) returns (MsgCreateAprResponse);
+  rpc UpdateApr(MsgUpdateApr) returns (MsgUpdateAprResponse);
+  rpc DeleteApr(MsgDeleteApr) returns (MsgDeleteAprResponse);
   rpc CreateRepay(MsgCreateRepay) returns (MsgCreateRepayResponse);
   rpc UpdateRepay(MsgUpdateRepay) returns (MsgUpdateRepayResponse);
   rpc DeleteRepay(MsgDeleteRepay) returns (MsgDeleteRepayResponse);
@@ -95,7 +111,126 @@ message MsgDeleteNft {
   uint64 id = 2;
 }
 
+message MsgCreateTxHistory {
+  string creator = 1;
+  int32 blockHeight = 2;
+  string tx = 3;
+  string asset = 4;
+  int32 amount = 5;
+  string denom = 6;
+}
+
+message MsgCreateTxHistoryResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateTxHistory {
+  string creator = 1;
+  uint64 id = 2;
+  int32 blockHeight = 3;
+  string tx = 4;
+  string asset = 5;
+  int32 amount = 6;
+  string denom = 7;
+}
+
+message MsgUpdateTxHistoryResponse { }
+
+message MsgDeleteTxHistory {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteTxHistoryResponse { }
+
+message MsgCreateBorrowAccrued {
+  string creator = 1;
+  int32 blockHeight = 2;
+  string asset = 3;
+  int32 amount = 4;
+  string denom = 5;
+}
+
+message MsgCreateBorrowAccruedResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateBorrowAccrued {
+  string creator = 1;
+  uint64 id = 2;
+  int32 blockHeight = 3;
+  string asset = 4;
+  int32 amount = 5;
+  string denom = 6;
+}
+
+message MsgUpdateBorrowAccruedResponse { }
+
+message MsgDeleteBorrowAccrued {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteBorrowAccruedResponse { }
+
+message MsgCreateDepositEarned {
+  string creator = 1;
+  int32 blockHeight = 2;
+  string asset = 3;
+  int32 amount = 4;
+  string denom = 5;
+}
+
+message MsgCreateDepositEarnedResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateDepositEarned {
+  string creator = 1;
+  uint64 id = 2;
+  int32 blockHeight = 3;
+  string asset = 4;
+  int32 amount = 5;
+  string denom = 6;
+}
+
+message MsgUpdateDepositEarnedResponse { }
+
+message MsgDeleteDepositEarned {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteDepositEarnedResponse { }
+
+message MsgCreateApr {
+  string creator = 1;
+  int32 blockHeight = 2;
+  int32 depositApy = 3;
+  int32 borrowApy = 4;
+}
+
+message MsgCreateAprResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateApr {
+  string creator = 1;
+  uint64 id = 2;
+  int32 blockHeight = 3;
+  int32 depositApy = 4;
+  int32 borrowApy = 5;
+}
+
+message MsgUpdateAprResponse { }
+
+message MsgDeleteApr {
+  string creator = 1;
+  uint64 id = 2;
+}
+
 message MsgDeleteNftResponse { }
+message MsgDeleteAprResponse { }
 
 message MsgCreateRepay {
   string creator = 1;
@@ -163,6 +298,9 @@ message MsgCreateUser {
   repeated Deposit deposit = 3;
   repeated Borrow borrow = 4;
   repeated int32 assetBalances = 5;
+  repeated DepositEarned depositEarneds = 7;
+  repeated BorrowAccrued borrowAccrueds = 8;
+  repeated TxHistory txHistories = 9;
 }
 
 message MsgCreateUserResponse {
@@ -176,6 +314,9 @@ message MsgUpdateUser {
   repeated Deposit deposit = 4;
   repeated Borrow borrow = 5;
   repeated int32 assetBalances = 6;
+  repeated DepositEarned depositEarneds = 7;
+  repeated BorrowAccrued borrowAccrueds = 8;
+  repeated TxHistory txHistories = 9;
 }
 
 message MsgUpdateUserResponse { }
@@ -255,6 +396,7 @@ message MsgCreatePool {
   int32 depositBalance = 5;
   int32 borrowBalance = 6;
   repeated User users = 8;
+  repeated Apr aprs = 9;
 }
 
 message MsgCreatePoolResponse {
@@ -270,6 +412,7 @@ message MsgUpdatePool {
   int32 depositBalance = 6;
   int32 borrowBalance = 7;
   repeated User users = 9;
+  repeated Apr aprs = 10;
 }
 
 message MsgUpdatePoolResponse { }

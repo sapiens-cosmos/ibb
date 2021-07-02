@@ -16,6 +16,21 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCreateNft{}, "ibb/CreateNft", nil)
 	cdc.RegisterConcrete(&MsgUpdateNft{}, "ibb/UpdateNft", nil)
 	cdc.RegisterConcrete(&MsgDeleteNft{}, "ibb/DeleteNft", nil)
+	cdc.RegisterConcrete(&MsgCreateTxHistory{}, "ibb/CreateTxHistory", nil)
+	cdc.RegisterConcrete(&MsgUpdateTxHistory{}, "ibb/UpdateTxHistory", nil)
+	cdc.RegisterConcrete(&MsgDeleteTxHistory{}, "ibb/DeleteTxHistory", nil)
+
+	cdc.RegisterConcrete(&MsgCreateBorrowAccrued{}, "ibb/CreateBorrowAccrued", nil)
+	cdc.RegisterConcrete(&MsgUpdateBorrowAccrued{}, "ibb/UpdateBorrowAccrued", nil)
+	cdc.RegisterConcrete(&MsgDeleteBorrowAccrued{}, "ibb/DeleteBorrowAccrued", nil)
+
+	cdc.RegisterConcrete(&MsgCreateDepositEarned{}, "ibb/CreateDepositEarned", nil)
+	cdc.RegisterConcrete(&MsgUpdateDepositEarned{}, "ibb/UpdateDepositEarned", nil)
+	cdc.RegisterConcrete(&MsgDeleteDepositEarned{}, "ibb/DeleteDepositEarned", nil)
+
+	cdc.RegisterConcrete(&MsgCreateApr{}, "ibb/CreateApr", nil)
+	cdc.RegisterConcrete(&MsgUpdateApr{}, "ibb/UpdateApr", nil)
+	cdc.RegisterConcrete(&MsgDeleteApr{}, "ibb/DeleteApr", nil)
 
 	cdc.RegisterConcrete(&MsgCreateRepay{}, "ibb/CreateRepay", nil)
 	cdc.RegisterConcrete(&MsgUpdateRepay{}, "ibb/UpdateRepay", nil)
@@ -55,6 +70,26 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgCreateNft{},
 		&MsgUpdateNft{},
 		&MsgDeleteNft{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreateTxHistory{},
+		&MsgUpdateTxHistory{},
+		&MsgDeleteTxHistory{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreateBorrowAccrued{},
+		&MsgUpdateBorrowAccrued{},
+		&MsgDeleteBorrowAccrued{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreateDepositEarned{},
+		&MsgUpdateDepositEarned{},
+		&MsgDeleteDepositEarned{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreateApr{},
+		&MsgUpdateApr{},
+		&MsgDeleteApr{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateRepay{},

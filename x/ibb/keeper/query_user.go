@@ -1,6 +1,8 @@
 package keeper
 
 import (
+	"math"
+
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
@@ -38,16 +40,35 @@ func loadUser(ctx sdk.Context, walletAddress string, keeper Keeper, legacyQuerie
 		initialDvpnBorrow := types.Borrow{Asset: "dvpn", Denom: "udvpn"}
 		initialIrisBorrow := types.Borrow{Asset: "iris", Denom: "uiris"}
 		initialXprtBorrow := types.Borrow{Asset: "xprt", Denom: "uxprt"}
-		initialCollateral := []bool{false, false, false, false, false, false}
-		initialDepositList := []*types.Deposit{&initialAktDeposit, &initialAtomDeposit, &initialCroDeposit, &initialDvpnDeposit, &initialIrisDeposit, &initialXprtDeposit}
-		initialBorrowList := []*types.Borrow{&initialAktBorrow, &initialAtomBorrow, &initialCroBorrow, &initialDvpnBorrow, &initialIrisBorrow, &initialXprtBorrow}
-		// initialAssetBalances := []int32{0, 0, 0, 0, 0, 0}
+		initialAktDepositEarned := types.DepositEarned{Asset: "AKT", Denom: "uakt"}
+		initialAtomDepositEarned := types.DepositEarned{Asset: "ATOM", Denom: "uatom"}
+		initialCroDepositEarned := types.DepositEarned{Asset: "CRO", Denom: "ucro"}
+		initialDvpnDepositEarned := types.DepositEarned{Asset: "IRIS", Denom: "uiris"}
+		initialIrisDepositEarned := types.DepositEarned{Asset: "IRIS", Denom: "uiris"}
+		initialXprtDepositEarned := types.DepositEarned{Asset: "XPRT", Denom: "uxprt"}
+		initialAktBorrowEarned := types.BorrowAccrued{Asset: "AKT", Denom: "uakt"}
+		initialAtomBorrowEarned := types.BorrowAccrued{Asset: "ATOM", Denom: "uatom"}
+		initialCroBorrowEarned := types.BorrowAccrued{Asset: "CRO", Denom: "ucro"}
+		initialDvpnBorrowEarned := types.BorrowAccrued{Asset: "IRIS", Denom: "uiris"}
+		initialIrisBorrowEarned := types.BorrowAccrued{Asset: "IRIS", Denom: "uiris"}
+		initialXprtBorrowEarned := types.BorrowAccrued{Asset: "XPRT", Denom: "uxprt"}
+
+		argsCollateral := []bool{false, false, false, false, false, false}
+		argsDeposit := []*types.Deposit{&initialAktDeposit, &initialAtomDeposit, &initialCroDeposit, &initialDvpnDeposit, &initialIrisDeposit, &initialXprtDeposit}
+		argsBorrow := []*types.Borrow{&initialAktBorrow, &initialAtomBorrow, &initialCroBorrow, &initialDvpnBorrow, &initialIrisBorrow, &initialXprtBorrow}
+		argsAssetBalances := []int32{2000, 1000, 1000, 1000, 1000, 1000, 1000, 1000}
+		argsDepositEarneds := []*types.DepositEarned{&initialAktDepositEarned, &initialAtomDepositEarned, &initialCroDepositEarned, &initialDvpnDepositEarned, &initialIrisDepositEarned, &initialXprtDepositEarned}
+		argsBorrowAccrueds := []*types.BorrowAccrued{&initialAktBorrowEarned, &initialAtomBorrowEarned, &initialCroBorrowEarned, &initialDvpnBorrowEarned, &initialIrisBorrowEarned, &initialXprtBorrowEarned}
 
 		queryUser = types.User{}
 		queryUser.Creator = walletAddress
-		queryUser.Collateral = initialCollateral
-		queryUser.Deposit = initialDepositList
-		queryUser.Borrow = initialBorrowList
+		queryUser.Collateral = argsCollateral
+		queryUser.Deposit = argsDeposit
+		queryUser.Borrow = argsBorrow
+		queryUser.AssetBalances = argsAssetBalances
+		queryUser.DepositEarneds = argsDepositEarneds
+		queryUser.BorrowAccrueds = argsBorrowAccrueds
+
 		// id = keeper.AppendUser(ctx, queryUser)
 
 		return nil, sdkerrors.ErrKeyNotFound
@@ -80,6 +101,95 @@ func loadUser(ctx sdk.Context, walletAddress string, keeper Keeper, legacyQuerie
 		userAsset.DepositApy = int32(currentDepositApy * 1000000)
 		userAsset.BorrowApy = int32(currentDepositApy / currentTargetBorrowRatio * 1000000)
 		userAsset.AssetPrice = int32(assetPrices[i] * 1000000)
+
+		checkpoint := queryUser.DepositEarneds[i].BlockHeight
+		var currentBlockHeight = checkpoint
+		var totalDeposit int32 = 0
+		var totalDeposits []int32
+		var totalBorrow int32 = 0
+		var totalBorrows []int32
+		for _, txHistory := range queryUser.TxHistories {
+			if txHistory.BlockHeight < currentBlockHeight {
+				switch txHistory.Tx {
+				case "deposit":
+					totalDeposit += txHistory.Amount
+				case "withdraw":
+					totalDeposit -= txHistory.Amount
+				case "borrow":
+					totalBorrow += txHistory.Amount
+				case "repay":
+					totalBorrow -= txHistory.Amount
+				default:
+					// Do nothing.
+				}
+			} else {
+				for currentBlockHeight <= txHistory.BlockHeight {
+					totalDeposits = append(totalDeposits, totalDeposit)
+					totalBorrows = append(totalBorrows, totalBorrow)
+
+					currentBlockHeight++
+				}
+				switch txHistory.Tx {
+				case "deposit":
+					totalDeposit += txHistory.Amount
+				case "withdraw":
+					totalDeposit -= txHistory.Amount
+				case "borrow":
+					totalBorrow += txHistory.Amount
+				case "repay":
+					totalBorrow -= txHistory.Amount
+				default:
+					// Do nothing.
+				}
+			}
+		}
+		for currentBlockHeight <= int32(ctx.BlockHeight()) {
+			totalDeposits = append(totalDeposits, totalDeposit)
+			totalBorrows = append(totalBorrows, totalBorrow)
+
+			currentBlockHeight++
+		}
+
+		currentBlockHeight = checkpoint
+		var depositApy int32 = 0
+		var depositApys []int32
+		var borrowApy int32 = 0
+		var borrowApys []int32
+		for _, apr := range msg.Aprs {
+			if apr.BlockHeight < currentBlockHeight {
+				depositApy = apr.DepositApy
+				borrowApy = apr.BorrowApy
+			} else {
+				for currentBlockHeight <= apr.BlockHeight {
+					depositApys = append(depositApys, depositApy)
+					borrowApys = append(borrowApys, borrowApy)
+
+					currentBlockHeight++
+				}
+				depositApy = apr.DepositApy
+				borrowApy = apr.BorrowApy
+				depositApys = append(depositApys, depositApy)
+				borrowApys = append(borrowApys, borrowApy)
+			}
+		}
+		for currentBlockHeight <= int32(ctx.BlockHeight()) {
+			depositApys = append(depositApys, depositApy)
+			borrowApys = append(borrowApys, borrowApy)
+
+			currentBlockHeight++
+		}
+
+		var depositEarnedAmount float64 = 0
+		var borrowAccruedAmount float64 = 0
+		for j := 0; j < int(math.Min(float64(len(totalDeposits)), float64(len(depositApys)))); j++ {
+			// On assumption that 1 block is 1 miniute, 525600 blocks are 1 year.
+			// Then, 1 block is 1 / 525600 == 0.00000190258 year.
+			depositEarnedAmount += float64(totalDeposits[j]) * float64(depositApys[j]) * 0.00000190258
+			borrowAccruedAmount += float64(totalBorrows[j]) * float64(borrowApys[j]) * 0.00000190258
+		}
+
+		userAsset.DepositEarned = int32(depositEarnedAmount)
+		userAsset.BorrowAccrued = int32(borrowAccruedAmount)
 
 		userAssetList = append(userAssetList, userAsset)
 	}

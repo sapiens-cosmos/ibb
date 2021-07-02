@@ -36,12 +36,28 @@ func loadUserHandler(clientCtx client.Context) http.HandlerFunc {
 			initialDvpnBorrow := types.Borrow{Asset: "dvpn", Denom: "udvpn"}
 			initialIrisBorrow := types.Borrow{Asset: "iris", Denom: "uiris"}
 			initialXprtBorrow := types.Borrow{Asset: "xprt", Denom: "uxprt"}
+			initialAktDepositEarned := types.DepositEarned{Amount: 0, BlockHeight: 0}
+			initialAtomDepositEarned := types.DepositEarned{Amount: 0, BlockHeight: 0}
+			initialCroDepositEarned := types.DepositEarned{Amount: 0, BlockHeight: 0}
+			initialDvpnDepositEarned := types.DepositEarned{Amount: 0, BlockHeight: 0}
+			initialIrisDepositEarned := types.DepositEarned{Amount: 0, BlockHeight: 0}
+			initialXprtDepositEarned := types.DepositEarned{Amount: 0, BlockHeight: 0}
+			initialAktBorrowEarned := types.BorrowAccrued{Amount: 0, BlockHeight: 0}
+			initialAtomBorrowEarned := types.BorrowAccrued{Amount: 0, BlockHeight: 0}
+			initialCroBorrowEarned := types.BorrowAccrued{Amount: 0, BlockHeight: 0}
+			initialDvpnBorrowEarned := types.BorrowAccrued{Amount: 0, BlockHeight: 0}
+			initialIrisBorrowEarned := types.BorrowAccrued{Amount: 0, BlockHeight: 0}
+			initialXprtBorrowEarned := types.BorrowAccrued{Amount: 0, BlockHeight: 0}
+
 			initialCollateral := []bool{false, false, false, false, false, false}
 			initialDepositList := []*types.Deposit{&initialAktDeposit, &initialAtomDeposit, &initialCroDeposit, &initialDvpnDeposit, &initialIrisDeposit, &initialXprtDeposit}
 			initialBorrowList := []*types.Borrow{&initialAktBorrow, &initialAtomBorrow, &initialCroBorrow, &initialDvpnBorrow, &initialIrisBorrow, &initialXprtBorrow}
 			initialAssetBalances := []int32{0, 0, 0, 0, 0, 0}
+			initialDepositEarneds := []*types.DepositEarned{&initialAktDepositEarned, &initialAtomDepositEarned, &initialCroDepositEarned, &initialDvpnDepositEarned, &initialIrisDepositEarned, &initialXprtDepositEarned}
+			initialBorrowAccrueds := []*types.BorrowAccrued{&initialAktBorrowEarned, &initialAtomBorrowEarned, &initialCroBorrowEarned, &initialDvpnBorrowEarned, &initialIrisBorrowEarned, &initialXprtBorrowEarned}
+			initialTxHistories := []*types.TxHistory{}
 
-			msg := types.NewMsgCreateUser(walletAddress, initialCollateral, initialDepositList, initialBorrowList, initialAssetBalances)
+			msg := types.NewMsgCreateUser(walletAddress, initialCollateral, initialDepositList, initialBorrowList, initialAssetBalances, initialDepositEarneds, initialBorrowAccrueds, initialTxHistories)
 			tx.WriteGeneratedTxResponse(clientCtx, w, req.BaseReq, msg)
 		}
 
