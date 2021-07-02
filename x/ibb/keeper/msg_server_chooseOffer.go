@@ -11,7 +11,16 @@ func (k msgServer) ChooseOffer(goCtx context.Context, msg *types.MsgChooseOffer)
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// TODO: Handling the message
-	_ = ctx
+
+	nftList := k.GetAllNft(ctx)
+	var queryNft types.Nft
+	for _, nft := range nftList {
+		if nft.Id == uint64(msg.NftId) {
+			queryNft = nft
+		}
+	}
+	queryNft.OwnerAddress = "in escrow"
+	k.SetNft(ctx, queryNft)
 
 	return &types.MsgChooseOfferResponse{}, nil
 }
