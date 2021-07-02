@@ -152,7 +152,8 @@ export default {
 			this.isClaimLoading = true
 			const value = {
 				creator: this.$store.getters['common/wallet/address'],
-				asset: pool.Asset
+				asset: pool.Asset,
+				denom: `u${pool.Asset.toLocaleLowerCase()}`
 			}
 			await this.$store.dispatch(`sapienscosmos.ibb.ibb/sendMsgCreateClaim`, {
 				value,
