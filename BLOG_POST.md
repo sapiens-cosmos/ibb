@@ -44,6 +44,8 @@ For non-fungible tokens the current implementation supports:
 - Repaying the loan (plus interest) and thus receiving the NFT back from escrow
 - Liquidation of the NFT by transferring it from the escrow to the loaner in case the original NFT owner has not payed back the loan
 
+<img width="1264" alt="Screenshot 2021-07-03 at 06 39 19" src="https://user-images.githubusercontent.com/631758/124331909-304b0900-dbcb-11eb-8953-c1ddd32c5ef0.png">
+
 ## Outlook & Next Steps
 
 The next major steps for Interstellar are:
